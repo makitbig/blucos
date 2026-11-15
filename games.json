@@ -3,7 +3,7 @@
   "games": [
     {
       "id": "hatchbingo",
-      "name": { "en": "Hatch Bingo", "ko": "해치 빙고" },
+      "name": { "en": "Hatch Bingo" },
       "icon": "icons/hatchbingo.png",
       "ios": "",
       "android": "",
