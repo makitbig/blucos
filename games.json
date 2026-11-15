@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "games": [
+    {
+      "id": "hatchbingo",
+      "name": { "en": "Hatch Bingo", "ko": "해치 빙고" },
+      "icon": "icons/hatchbingo.png",
+      "ios": "",
+      "android": "",
+      "tagline": {
+        "en": "Hatch chicks in three lines and fill your bird book",
+        "ko": "알을 부화시켜 병아리 빙고 세 줄! 새 도감을 채워요",
+        "ja": "卵をかえしてヒナを3列そろえ、鳥図鑑を集めよう",
+        "zh-Hans": "孵出小鸡连成三条线，集满鸟类图鉴",
+        "zh-Hant": "孵出小雞連成三條線，集滿鳥類圖鑑",
+        "es": "Incuba huevos, haz tres líneas de pollitos y llena tu libro de aves",
+        "pt": "Choque ovos, forme três linhas de pintinhos e complete seu livro de aves",
+        "fr": "Fais éclore des œufs, aligne trois rangées de poussins et remplis ton livre d’oiseaux",
+        "de": "Brüte Eier aus, bilde drei Reihen Küken und fülle dein Vogelbuch",
+        "it": "Fai schiudere le uova, allinea tre file di pulcini e riempi il tuo libro degli uccelli"
+      }
+    },
+    {
+      "id": "evolution2048",
+      "name": { "en": "Evolution 2048: Merge Puzzle" },
+      "icon": "icons/evolution2048.png",
+      "ios": "",
+      "android": "",
+      "tagline": {
+        "en": "Merge matching tiles and follow the story of evolution",
+        "ko": "같은 것끼리 합쳐 생명의 진화를 따라가요",
+        "ja": "同じタイルを合わせて、生き物の進化をたどろう",
+        "zh-Hans": "合并相同的方块，追溯生命的进化",
+        "zh-Hant": "合併相同的方塊，追溯生命的演化",
+        "es": "Une fichas iguales y sigue la historia de la evolución",
+        "pt": "Junte peças iguais e acompanhe a história da evolução",
+        "fr": "Fusionne les tuiles identiques et suis l'histoire de l'évolution",
+        "de": "Verbinde gleiche Kacheln und folge der Geschichte der Evolution",
+        "it": "Unisci le tessere uguali e segui la storia dell'evoluzione"
+      }
+    },
+    {
+      "id": "fossildig",
+      "name": { "en": "Fossil Dig: Dino Museum", "ko": "화석 발굴: 공룡 박물관" },
+      "icon": "icons/fossildig.png",
+      "ios": "",
+      "android": "",
+      "tagline": {
+        "en": "Dig up fossils and fill your own dinosaur museum",
+        "ko": "화석을 캐서 나만의 공룡 박물관을 채워요",
+        "ja": "化石を掘って自分だけの恐竜博物館を作ろう",
+        "zh-Hans": "挖出化石，建一座自己的恐龙博物馆",
+        "zh-Hant": "挖出化石，打造自己的恐龍博物館",
+        "es": "Desentierra fósiles y llena tu propio museo de dinosaurios",
+        "pt": "Desenterre fósseis e monte seu próprio museu de dinossauros",
+        "fr": "Déterre des fossiles et remplis ton propre musée des dinosaures",
+        "de": "Grabe Fossilien aus und fülle dein eigenes Dinosauriermuseum",
+        "it": "Scava fossili e riempi il tuo museo dei dinosauri"
+      }
+    },
+    {
+      "id": "starfall",
+      "name": { "en": "Starfall: Star Match Puzzle", "ko": "별빛 낙하: 별자리 퍼즐" },
+      "icon": "icons/starfall.png",
+      "ios": "",
+      "android": "",
+      "tagline": {
+        "en": "Match falling stars and light up real constellations",
+        "ko": "떨어지는 별을 맞춰 진짜 별자리를 밝혀요",
+        "ja": "落ちてくる星をそろえて、本物の星座を灯そう",
+        "zh-Hans": "消除落下的星星，点亮真实的星座",
+        "zh-Hant": "消除落下的星星，點亮真實的星座",
+        "es": "Une estrellas que caen y enciende constelaciones reales",
+        "pt": "Combine estrelas cadentes e acenda constelações reais",
+        "fr": "Assemble les étoiles filantes et allume de vraies constellations",
+        "de": "Kombiniere fallende Sterne und lass echte Sternbilder leuchten",
+        "it": "Abbina le stelle cadenti e accendi costellazioni vere"
+      }
+    }
+  ]
+}
