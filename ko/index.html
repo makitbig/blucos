@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blucos Games</title>
+  <meta name="description" content="Blucos는 새, 별, 화석, 진화처럼 진짜 세상을 담은 작은 퍼즐 게임을 만들어요. 쉽게 시작하고 편안하게 즐기는, 가족 모두를 위한 게임이에요.">
+  <meta property="og:title" content="Blucos Games">
+  <meta property="og:description" content="Blucos는 새, 별, 화석, 진화처럼 진짜 세상을 담은 작은 퍼즐 게임을 만들어요. 쉽게 시작하고 편안하게 즐기는, 가족 모두를 위한 게임이에요.">
+  <meta property="og:image" content="../assets/og-icon.png">
+  <meta name="theme-color" content="#12285c">
+  <link rel="alternate" hreflang="en" href=".././"><link rel="alternate" hreflang="ko" href="../ko/./">
+  <link rel="icon" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href="../ko/"><img src="../assets/logo.png" alt="Blucos Games" width="192" height="30"></a>
+    <nav><a href="../ko/#games">게임</a><a href="../ko/contact.html">문의</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>진짜 세상을 담은 작은 퍼즐 게임</h1>
+      <p>새, 별, 화석, 진화를 하나씩 게임에 담았어요. 쉽게 시작하고 편안하게 즐기는, 가족 모두를 위한 게임이에요.</p>
+    </section>
+    <section id="games">
+      <h2>게임</h2>
+      <div class="games">
+      <article class="game" style="--c1:#ffd35c;--c2:#f0a91e">
+        <div class="panel">
+          <img class="icon" src="../icons/hatchbingo.png" alt="" width="88" height="88" loading="lazy">
+          <div class="text">
+            <h3>Hatch Bingo</h3>
+            <p>알을 부화시켜 병아리 빙고 세 줄! 새 도감을 채워요</p>
+          </div>
+          <div class="actions"><span class="soon">곧 출시</span><a class="more" href="https://makitbig.github.io/hatchbingo/ko.html">도움말·개인정보 ›</a></div>
+        </div>
+      </article>
+      <article class="game" style="--c1:#8fd46a;--c2:#2e8f6a">
+        <div class="panel">
+          <img class="icon" src="../icons/evolution2048.png" alt="" width="88" height="88" loading="lazy">
+          <div class="text">
+            <h3>Evolution 2048: Merge Puzzle</h3>
+            <p>같은 것끼리 합쳐 생명의 진화를 따라가요</p>
+          </div>
+          <div class="actions"><span class="soon">곧 출시</span><a class="more" href="https://makitbig.github.io/evolution2048/">도움말·개인정보 ›</a></div>
+        </div>
+      </article>
+      <article class="game" style="--c1:#d9b26a;--c2:#6b4a24">
+        <div class="panel">
+          <img class="icon" src="../icons/fossildig.png" alt="" width="88" height="88" loading="lazy">
+          <div class="text">
+            <h3>화석 발굴: 공룡 박물관</h3>
+            <p>화석을 캐서 나만의 공룡 박물관을 채워요</p>
+          </div>
+          <div class="actions"><span class="soon">곧 출시</span><a class="more" href="https://makitbig.github.io/fossildig/ko.html">도움말·개인정보 ›</a></div>
+        </div>
+      </article>
+      <article class="game" style="--c1:#8a6cf0;--c2:#2a1c78">
+        <div class="panel">
+          <img class="icon" src="../icons/starfall.png" alt="" width="88" height="88" loading="lazy">
+          <div class="text">
+            <h3>별빛 낙하: 별자리 퍼즐</h3>
+            <p>떨어지는 별을 맞춰 진짜 별자리를 밝혀요</p>
+          </div>
+          <div class="actions"><span class="soon">곧 출시</span><a class="more" href="https://makitbig.github.io/starfall/ko.html">도움말·개인정보 ›</a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section id="shorts">
+      <h2>영상</h2>
+      <p class="muted">게임 속 짧은 영상이에요.</p>
+      <div class="shorts">
+      <button class="short" type="button" data-yt="AHp4JLHZoV4" aria-label="영상 재생: 양서류 다음은 무엇으로 진화할까요?">
+        <img src="../assets/shorts/AHp4JLHZoV4.jpg" alt="" width="360" height="640" loading="lazy">
+        <span class="play" aria-hidden="true"></span>
+        <span class="cap">양서류 다음은 무엇으로 진화할까요?</span>
+      </button>
+      <button class="short" type="button" data-yt="3fmtqGzj3oI" aria-label="영상 재생: 해파리는 뇌가 없어요">
+        <img src="../assets/shorts/3fmtqGzj3oI.jpg" alt="" width="360" height="640" loading="lazy">
+        <span class="play" aria-hidden="true"></span>
+        <span class="cap">해파리는 뇌가 없어요</span>
+      </button>
+      </div>
+      <p class="note">영상은 누를 때 YouTube에서 불러와요.</p>
+    </section>
+  <script>
+    // Videos load from YouTube only when tapped (no requests to Google before that).
+    document.querySelectorAll('.short').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + b.dataset.yt + '?autoplay=1&playsinline=1&rel=0';
+        f.title = b.getAttribute('aria-label');
+        f.allow = 'autoplay; encrypted-media; picture-in-picture';
+        f.allowFullscreen = true;
+        f.className = 'short-frame';
+        b.replaceWith(f);
+      });
+    });
+  </script>
+  </main>
+  <footer>
+    <nav><a href="../ko/contact.html">문의</a><a href="../ko/privacy.html">개인정보</a></nav>
+    <p class="lang"><a href=".././" hreflang="en">English</a> · <b>한국어</b></p>
+    <p>© 2026 Blucos · <a href="mailto:blucos.games@gmail.com">blucos.games@gmail.com</a></p>
+  </footer>
+</body>
+</html>

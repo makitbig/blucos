@@ -3,6 +3,7 @@
   "games": [
     {
       "id": "hatchbingo",
+      "frame": ["#ffd35c", "#f0a91e"],
       "name": {
         "en": "Hatch Bingo"
       },
@@ -25,6 +26,7 @@
     },
     {
       "id": "evolution2048",
+      "frame": ["#8fd46a", "#2e8f6a"],
       "name": {
         "en": "Evolution 2048: Merge Puzzle"
       },
@@ -47,6 +49,7 @@
     },
     {
       "id": "fossildig",
+      "frame": ["#d9b26a", "#6b4a24"],
       "name": {
         "en": "Fossil Dig: Dino Museum",
         "ko": "화석 발굴: 공룡 박물관"
@@ -70,6 +73,7 @@
     },
     {
       "id": "starfall",
+      "frame": ["#8a6cf0", "#2a1c78"],
       "name": {
         "en": "Starfall: Star Match Puzzle",
         "ko": "별빛 낙하: 별자리 퍼즐"

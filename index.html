@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blucos Games</title>
+  <meta name="description" content="Blucos makes small puzzle games about real things: birds, stars, fossils and evolution. Easy to start, calm to play, made for the whole family.">
+  <meta property="og:title" content="Blucos Games">
+  <meta property="og:description" content="Blucos makes small puzzle games about real things: birds, stars, fossils and evolution. Easy to start, calm to play, made for the whole family.">
+  <meta property="og:image" content="assets/og-icon.png">
+  <meta name="theme-color" content="#12285c">
+  <link rel="alternate" hreflang="en" href="./"><link rel="alternate" hreflang="ko" href="ko/./">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href=""><img src="assets/logo.png" alt="Blucos Games" width="192" height="30"></a>
+    <nav><a href="#games">Games</a><a href="contact.html">Contact</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Small puzzle games about real things</h1>
+      <p>Birds, stars, fossils and evolution, each in a game that is easy to start and calm to play, for the whole family.</p>
+    </section>
+    <section id="games">
+      <h2>Our games</h2>
+      <div class="games">
+      <article class="game" style="--c1:#ffd35c;--c2:#f0a91e">
+        <div class="panel">
+          <img class="icon" src="icons/hatchbingo.png" alt="" width="88" height="88" loading="lazy">
+          <div class="text">
+            <h3>Hatch Bingo</h3>
+            <p>Hatch chicks in three lines and fill your bird book</p>
+          </div>
+          <div class="actions"><span class="soon">Coming soon</span><a class="more" href="https://makitbig.github.io/hatchbingo/">Help &amp; privacy ›</a></div>
+        </div>
+      </article>
+      <article class="game" style="--c1:#8fd46a;--c2:#2e8f6a">
+        <div class="panel">
+          <img class="icon" src="icons/evolution2048.png" alt="" width="88" height="88" loading="lazy">
+          <div class="text">
+            <h3>Evolution 2048: Merge Puzzle</h3>
+            <p>Merge matching tiles and follow the story of evolution</p>
+          </div>
+          <div class="actions"><span class="soon">Coming soon</span><a class="more" href="https://makitbig.github.io/evolution2048/">Help &amp; privacy ›</a></div>
+        </div>
+      </article>
+      <article class="game" style="--c1:#d9b26a;--c2:#6b4a24">
+        <div class="panel">
+          <img class="icon" src="icons/fossildig.png" alt="" width="88" height="88" loading="lazy">
+          <div class="text">
+            <h3>Fossil Dig: Dino Museum</h3>
+            <p>Dig up fossils and fill your own dinosaur museum</p>
+          </div>
+          <div class="actions"><span class="soon">Coming soon</span><a class="more" href="https://makitbig.github.io/fossildig/">Help &amp; privacy ›</a></div>
+        </div>
+      </article>
+      <article class="game" style="--c1:#8a6cf0;--c2:#2a1c78">
+        <div class="panel">
+          <img class="icon" src="icons/starfall.png" alt="" width="88" height="88" loading="lazy">
+          <div class="text">
+            <h3>Starfall: Star Match Puzzle</h3>
+            <p>Match falling stars and light up real constellations</p>
+          </div>
+          <div class="actions"><span class="soon">Coming soon</span><a class="more" href="https://makitbig.github.io/starfall/">Help &amp; privacy ›</a></div>
+        </div>
+      </article>
+      </div>
+    </section>
+    <section id="shorts">
+      <h2>Watch</h2>
+      <p class="muted">Short videos from our games.</p>
+      <div class="shorts">
+      <button class="short" type="button" data-yt="AHp4JLHZoV4" aria-label="Play video: What evolves after the amphibian?">
+        <img src="assets/shorts/AHp4JLHZoV4.jpg" alt="" width="360" height="640" loading="lazy">
+        <span class="play" aria-hidden="true"></span>
+        <span class="cap">What evolves after the amphibian?</span>
+      </button>
+      <button class="short" type="button" data-yt="3fmtqGzj3oI" aria-label="Play video: Jellyfish have no brain">
+        <img src="assets/shorts/3fmtqGzj3oI.jpg" alt="" width="360" height="640" loading="lazy">
+        <span class="play" aria-hidden="true"></span>
+        <span class="cap">Jellyfish have no brain</span>
+      </button>
+      </div>
+      <p class="note">The video loads from YouTube when you tap it.</p>
+    </section>
+  <script>
+    // Videos load from YouTube only when tapped (no requests to Google before that).
+    document.querySelectorAll('.short').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + b.dataset.yt + '?autoplay=1&playsinline=1&rel=0';
+        f.title = b.getAttribute('aria-label');
+        f.allow = 'autoplay; encrypted-media; picture-in-picture';
+        f.allowFullscreen = true;
+        f.className = 'short-frame';
+        b.replaceWith(f);
+      });
+    });
+  </script>
+  </main>
+  <footer>
+    <nav><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></nav>
+    <p class="lang"><b>English</b> · <a href="ko/./" hreflang="ko">한국어</a></p>
+    <p>© 2026 Blucos · <a href="mailto:blucos.games@gmail.com">blucos.games@gmail.com</a></p>
+  </footer>
+</body>
+</html>

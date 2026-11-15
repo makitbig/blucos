@@ -1,0 +1,14 @@
+{
+  "email": "blucos.games@gmail.com",
+  "langs": ["en", "ko"],
+  "shorts": [
+    { "id": "AHp4JLHZoV4", "poster": "assets/shorts/AHp4JLHZoV4.jpg", "title": { "en": "What evolves after the amphibian?", "ko": "양서류 다음은 무엇으로 진화할까요?" }, "game": "evolution2048" },
+    { "id": "3fmtqGzj3oI", "poster": "assets/shorts/3fmtqGzj3oI.jpg", "title": { "en": "Jellyfish have no brain", "ko": "해파리는 뇌가 없어요" }, "game": "evolution2048" }
+  ],
+  "localPages": {
+    "_comment": "Pages each game's own site has per language; anything missing falls back to English.",
+    "hatchbingo": { "ko": { "help": "ko.html", "privacy": "privacy-ko.html" } },
+    "fossildig": { "ko": { "help": "ko.html", "privacy": "privacy-ko.html" } },
+    "starfall": { "ko": { "help": "ko.html", "privacy": "privacy-ko.html" } }
+  }
+}

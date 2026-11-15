@@ -24,3 +24,22 @@ takes the store link from games.json, so cards shared after release point at the
 `sync.py` copies it into each game. First written in Fossil Dig (9b661f6); Starfall uses the same file. Native
 sharing needs `@capacitor/share` and `@capacitor/filesystem`, and iOS needs `NSPhotoLibraryAddUsageDescription`
 so "Save Image" in the share sheet does not crash the app.
+
+## Website
+
+The same repo is the Blucos website: https://makitbig.github.io/blucos/ (English at the root, Korean
+under `ko/`). Every page is static HTML written by `python3 tools/build-site.py` from `games.json`
+(game cards: icon, name, intro, store buttons or "Coming soon", `frame` colours, `site` link),
+`site/strings.json` (the site's words per language) and `site/site.json` (email, videos, per-language
+pages of each game's own site). Edit those, run the script, commit the generated pages.
+
+- New language: add it to `langs` in `site/site.json` and its words to `site/strings.json`.
+  Game names and intros already come from `games.json` (10 languages).
+- Custom domain later: add a `CNAME` file with the domain and set it in the repo's Pages settings.
+  Links are relative, so nothing else changes. Old `makitbig.github.io/blucos/...` addresses redirect
+  to the domain with the same path, so the games keep finding `games.json` and `icons/`.
+- `app-ads.txt` is for AdMob. AdMob only reads it at the root of the developer website's domain
+  (e.g. `blucos.games/app-ads.txt`), so it works once the custom domain is set and that domain is the
+  developer website in App Store Connect and Play Console.
+- Videos: `assets/shorts/<id>.jpg` posters (a frame from the source video); the YouTube player loads
+  only when tapped (youtube-nocookie.com).
