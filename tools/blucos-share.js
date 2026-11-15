@@ -20,6 +20,9 @@
 // would use blucos-logo-stacked-transparent-white.png; the symbol alone is blucos-symbol-transparent.png.
 //
 // No names, photos or anything else about the player goes on a card.
+//
+// Shared file: the master copy is blucos/tools/blucos-share.js (rules in blucos/CARDS.md). tools/sync.py
+// copies it and the logo (www/assets/share/blucos-logo.png) into every game; edit it there, not in a game.
 'use strict';
 window.BlucosShare = (() => {
   const SIZES = { story: [1080, 1920], square: [1080, 1080] };
@@ -123,9 +126,11 @@ window.BlucosShare = (() => {
     return cv.toDataURL('image/png');
   }
 
-  // Store link for this game from the shared list; before launch (no link yet) the fallback (its site).
+  // Store link for this game from the shared list (this platform's store once out), else its site from the
+  // list, else the fallback.
   function link(gameId, lang, fallback) {
     try {
+      if (window.BlucosGames && BlucosGames.shareLink) return BlucosGames.shareLink(gameId) || fallback;
       const g = window.BlucosGames && BlucosGames.list('', lang).find(x => x.id === gameId);
       if (g && g.link) return g.link;
     } catch (e) { /* list not loaded */ }

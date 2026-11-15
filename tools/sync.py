@@ -42,8 +42,6 @@ def main():
         share = www / 'assets' / 'share'
         share.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / 'brand' / 'blucos-logo.png', share / 'blucos-logo.png')
-        # Share-card frame (same look in every game; the Blucos mark is drawn in code).
-        shutil.copyfile(ROOT / 'tools' / 'blucos-share.js', www / 'blucos-share.js')
         more = www / 'assets' / 'more'
         more.mkdir(parents=True, exist_ok=True)
         for other in data['games']:
