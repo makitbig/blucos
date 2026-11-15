@@ -20,3 +20,12 @@ without an app update. Each game also ships a copy (www/blucos-games.js) for off
 `CARDS.md` is the shared share-card frame (story 9:16 and square, footer band with the Blucos logo,
 share link from `games.json`). `games.json` gives each game a `site` used as the share link until its
 store links are filled in; `BlucosGames.shareLink(id)` picks the right one.
+
+## Share cards
+
+`tools/blucos-share.js` is the frame every game puts around a card picture shared to social media (tier-colored
+border, sheen on rare tiers, footer with the game icon and name, "App Store · Google Play" and the Blucos logo from
+`share/blucos-logo.png`). The game draws only what goes inside. `BlucosShare.link(id, site)` takes the store link
+from games.json, so cards shared after release point at the store with no app update. `sync.py` copies both files
+into each game; native sharing needs `@capacitor/share` and `@capacitor/filesystem` in the game. First used by
+Starfall (www/cards.js).

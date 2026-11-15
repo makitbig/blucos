@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Copy the shared Blucos game list into every game.
 
-Writes www/blucos-games.js (loader + games.json bundled as the offline fallback) and the other games'
-icons (www/assets/more/<id>.png) into each game repo. The game repos are expected next to this repo
+Writes www/blucos-games.js (loader + games.json bundled as the offline fallback), the other games'
+icons (www/assets/more/<id>.png), and the share-card frame (www/blucos-share.js + www/assets/share/blucos-logo.png)
+into each game repo. The game repos are expected next to this repo
 (../hatch-bingo, ../evolution-2048, ...). Run it after changing games.json, then commit in each game.
 
 Adding a game: put its 120px icon in icons/, add it to games.json and GAMES below, push this repo
@@ -38,6 +39,10 @@ def main():
             print(f'skip {gid}: {www} not found', file=sys.stderr)
             continue
         (www / 'blucos-games.js').write_text(js)
+        # Share-card frame (same look in every game) and the Blucos logo it puts in the footer.
+        shutil.copyfile(ROOT / 'tools' / 'blucos-share.js', www / 'blucos-share.js')
+        (www / 'assets' / 'share').mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / 'share' / 'blucos-logo.png', www / 'assets' / 'share' / 'blucos-logo.png')
         more = www / 'assets' / 'more'
         more.mkdir(parents=True, exist_ok=True)
         for other in data['games']:
