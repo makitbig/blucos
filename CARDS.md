@@ -1,57 +1,57 @@
 # Blucos share cards
 
-Every Blucos game draws its share pictures in the same frame, so a shared card is recognisably Blucos
-and the three games look like a family. The reference implementation is Hatch Bingo, `www/cards.js`
-(`SHARE_FMT`, `shareFrame`, `drawCardShare`, `drawBookShare`, `openShareSheet`, `shareImage`).
+Every Blucos game draws its share pictures in one shared frame, so the three games look like one family.
 
-## Two pictures
+- Code: `tools/blucos-share.js` (`BlucosShare.render / link / share`). First made in Fossil Dig (9b661f6);
+  this is now the master copy. `tools/sync.py` copies it to `www/blucos-share.js` in every game, with the
+  logo at `www/assets/share/blucos-logo.png`. Edit it here, never in a game.
+- Examples: Fossil Dig `www/cards.js` (animal card, museum card), Hatch Bingo `www/cards.js`
+  (`drawCardShare`, `drawBookShare`, `openShareSheet`).
 
-1. **Single card**: the one thing just collected (a bird, a fossil, a constellation). Keep the game's own
-   card design; the frame only places it.
-2. **Collection card**: the whole collection on one picture. Name of the collection, a big count
-   (`24` large, `/60` smaller), a progress bar, then a grid of every item: collected ones in colour,
-   missing ones as flat shadows (silhouettes), so the gaps make you want to fill them. No locked
-   names or spoilers beyond the shape.
+## Two pictures per game
 
-## Sizes (canvas, px)
+1. **Single card**: the item just collected (bird, fossil, constellation), in the game's own card style.
+2. **Collection card**: the collection on one picture. A name, a big count (`24` large, `/60` smaller), a
+   progress bar, and a tile for every item: collected ones in colour, missing ones as flat shadows, so the
+   gaps make you want to fill them.
 
-| Format | Size | Content area (y) | Footer band (y, height) |
-|---|---|---|---|
-| Story 9:16 | 1080 x 1920 | 200 to 1524 | 1560, 160 |
-| Square 1:1 | 1080 x 1080 | 54 to 850 | 886, 140 |
+## Frame (drawn by `BlucosShare.render`; games only paint the content box)
 
-- Side margin 54 on both. The story keeps the top 200 and bottom 200 clear of Instagram's buttons.
-- Background: a two-colour diagonal gradient that fills the whole canvas (the game's or the rarity's
-  colours). Content is centred in the content area; the single card keeps its own aspect ratio.
+| Format | Canvas | Footer height |
+|---|---|---|
+| Story 9:16 | 1080 x 1920 | 200 |
+| Square 1:1 | 1080 x 1080 | 150 |
 
-## Footer band (same in every game)
-
-- White rounded rectangle, x 54, width 972, radius 36, soft shadow (`rgba(40,20,0,0.18)`, blur 24, y 6).
-- Left: the game icon, square, side = band height - 44, inset 26 from the left and 22 from the top,
-  corner radius 22% of its side.
-- Next to it (24 gap): the game name on line 1 (bold, 30% of band height, dark), and on line 2
-  `App Store · Google Play` (18% of band height, muted). Same text in every language.
-- Right: the Blucos logo (`brand/blucos-logo.png`, horizontal, transparent), height 40% of band
-  height, 30 from the right edge, centred vertically.
+- Outer frame: a two-colour diagonal gradient, full bleed (`theme.frame`, or `tier.frame` for a rarer
+  card, with `tier.shine` for a sheen). Frame width 36.
+- Inner panel: `theme.paper`, radius 40. The content box is the panel inset by 36, above the footer.
+- Footer, inside the panel: a hairline, then the game icon (104 story / 84 square, radius 22%), the game
+  name and `App Store · Google Play` on the left; the Blucos logo on the right (52 / 44 high).
+- On stories, keep the top 100 px of the content box free of important text (Instagram's own bar).
 
 ## Share text and link
 
-- Text: one short line in the player's language, then a space and the link.
-- Link: `BlucosGames.shareLink(<game id>)`. It gives this platform's store link from `games.json`
-  once the game is out, and the game's `site` before that, so shares switch to the store without an
-  app update. Keep the game's own site URL as a fallback in code too.
-- Nothing personal in the picture or the text: no names, no account, no device info.
+- One short line in the player's language, a space, then `BlucosShare.link(<game id>, lang, <site>)`.
+  It returns this platform's store link from `games.json` once the game is out, and the game's `site` from
+  `games.json` (or the fallback) before that, so shares switch to the store without an app update.
+- Nothing about the player in the picture or the text: no names, no account, no device info.
 
 ## When to share
 
-- From the moment a new item arrives (a small "Share" button), from the single card viewer, and from
-  the collection screen ("Show off my book" style button). Only when the player taps it.
-- Never a pop-up that asks to share, never a reward for sharing.
-- The button opens a small sheet: the preview, a Story / Square choice, Share and Close. Closing it
-  returns to where the player was.
+- When a new item arrives (a small Share button), in the single-card viewer, and on the collection
+  screen. Only when the player taps it: no share pop-ups, no rewards for sharing.
+- The button opens a small sheet: preview, Story / Square, Share, Close. Closing returns to where the
+  player was.
 
-## Files
+## iOS
 
-- `brand/blucos-logo.png` (dark text, for the white band) and `brand/blucos-logo-white.png` (for dark
-  backgrounds). `tools/sync.py` copies both into each game's `www/assets/more/`.
-- `tools/sync.py <id> ...` syncs only the named games.
+- `NSPhotoLibraryAddUsageDescription` must be in Info.plist (and in each `<lang>.lproj/InfoPlist.strings`),
+  or the app can crash when the player taps "Save Image" in the share sheet.
+- Capacitor `@capacitor/share` and `@capacitor/filesystem` plugins.
+
+## Files here
+
+- `tools/blucos-share.js`: the frame. `brand/blucos-logo.png`: the logo for the light panel (navy, cropped,
+  480 px wide), from `blucos-tools/marketing/logo/final/blucos-logo-horizontal-transparent.png`.
+  `brand/blucos-logo-white.png`: for dark backgrounds.
+- `python3 tools/sync.py <id> ...` syncs only the named games (no ids: all of them).

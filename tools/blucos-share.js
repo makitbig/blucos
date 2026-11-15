@@ -1,107 +1,153 @@
-// Blucos share cards: the frame every Blucos game puts around a card picture shared to social media, so a card from
-// Hatch Bingo, Fossil Dig or Starfall looks like it comes from the same family. Same in every game; the game draws
-// only what goes inside the frame.
+// Blucos share cards (2026-11-16): the frame every Blucos game puts around a picture players share.
+// Game-agnostic on purpose, so Hatch Bingo, Fossil Dig and Starfall look like one family: same outer
+// frame, same inner panel, same footer (game icon + name + "App Store · Google Play" on the left, the
+// Blucos mark on the right) in the same place. Each game only paints the content box.
 //
-//   frame (tier colors, rounded, a sheen on rare tiers) · game content · footer band:
-//   [game icon] Game name / App Store · Google Play ............................................ [Blucos logo]
+//   BlucosShare.render({ format, theme, game, tier, draw }) -> Promise<dataURL (PNG)>
+//     format: 'story' (1080x1920, 9:16) | 'square' (1080x1080)
+//     theme:  { frame: [c1, c2], paper, ink, muted, font }   the game's own colours and font stack
+//     game:   { name, icon }                                  icon: a square image path
+//     tier:   optional { frame: [c1, c2], shine: true }       a rarer card: other frame colours, a sheen
+//     logo:   optional path of the Blucos logo in the app (default assets/share/blucos-logo.png)
+//     draw:   async (ctx, box, kit) => {}                     paints inside box {x, y, w, h}
+//   BlucosShare.link(gameId, lang, fallback) -> the store link from the shared games list
+//     (blucos-games.js, refreshed from makitbig.github.io/blucos/games.json), or fallback before launch
+//   BlucosShare.share({ dataUrl, fileName, title, text }) -> share sheet (Capacitor Share + Filesystem),
+//     the Web Share API, or a download in a desktop browser
 //
-// No names, photos or anything personal goes on a card. The link in the share text comes from the shared Blucos
-// game list (blucos-games.js), so once a game is in the stores the cards point there with no app update; before
-// that, the game's web page.
+// The Blucos logo: ~/blucos-tools/marketing/logo/final/blucos-logo-horizontal-transparent.png (navy on
+// transparent, for the light panel), cropped to its edges and shrunk to 480px wide for the app. Dark cards
+// would use blucos-logo-stacked-transparent-white.png; the symbol alone is blucos-symbol-transparent.png.
 //
-//   BlucosShare.SIZES                -> { story: [1080, 1920], square: [1080, 1080] }
-//   BlucosShare.draw(opts)           -> Promise<canvas>
-//     opts: { size: 'story'|'square', colors: [light, dark], sheen: bool, game: { name, icon },
-//             logo: 'assets/share/blucos-logo.png', content: async (ctx, box) => {} }  box = { x, y, w, h }
-//   BlucosShare.link(gameId, site)   -> the store link for this platform, or `site` before release
-//   BlucosShare.share(canvas, { file, title, text }) -> share sheet (Capacitor Share + Filesystem), Web Share,
-//                                       or a download; resolves quietly when the sheet is dismissed
+// No names, photos or anything else about the player goes on a card.
 'use strict';
 window.BlucosShare = (() => {
   const SIZES = { story: [1080, 1920], square: [1080, 1080] };
-  const FRAME = 34, RADIUS = 64, INNER_R = 40;
-  const FONT = (w, s) => `${w} ${s}px Fredoka, Jua, "Apple SD Gothic Neo", "Hiragino Maru Gothic ProN", "PingFang SC", system-ui, sans-serif`;
+  const FRAME = 36, RADIUS = 40;
+  const FOOT = { story: 200, square: 150 };
 
-  const img = src => new Promise(ok => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => ok(null); im.src = src; });
   const rr = (ctx, x, y, w, h, r) => { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); };
+  const image = src => new Promise(ok => {
+    if (!src) return ok(null);
+    const im = new Image(); im.onload = () => ok(im); im.onerror = () => ok(null); im.src = src;
+  });
+  // Fill the box with the picture, cropping what does not fit (focus: 0..1 where to keep, x and y).
+  function cover(ctx, im, x, y, w, h, fx = 0.5, fy = 0.5) {
+    const s = Math.max(w / im.width, h / im.height), dw = im.width * s, dh = im.height * s;
+    ctx.drawImage(im, x + (w - dw) * fx, y + (h - dh) * fy, dw, dh);
+  }
+  // Fit the whole picture inside the box, centred on x and resting on the bottom.
+  function contain(ctx, im, x, y, w, h) {
+    const s = Math.min(w / im.width, h / im.height), dw = im.width * s, dh = im.height * s;
+    ctx.drawImage(im, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh);
+  }
+  // Wrap text into at most maxLines lines; spaced languages break at spaces, ja/zh at any character.
+  // Returns the y after the last line.
+  function wrap(ctx, text, x, y, maxW, lh, maxLines = 3) {
+    const parts = /\s/.test(text) ? text.split(/(\s+)/) : [...text];
+    const lines = []; let line = '';
+    for (const p of parts) {
+      if (ctx.measureText(line + p).width > maxW && line.trim()) { lines.push(line.trim()); line = p.trimStart(); }
+      else line += p;
+    }
+    if (line.trim()) lines.push(line.trim());
+    if (lines.length > maxLines) {
+      lines.length = maxLines;
+      let last = lines[maxLines - 1];
+      while (last && ctx.measureText(last + '…').width > maxW) last = last.slice(0, -1);
+      lines[maxLines - 1] = last.trimEnd() + '…';
+    }
+    for (const l of lines) { ctx.fillText(l, x, y); y += lh; }
+    return y;
+  }
+  // Shrink a one-line text until it fits maxW.
+  function fit(ctx, text, maxW, size, weight, family, min = 24) {
+    let s = size;
+    do { ctx.font = `${weight} ${s}px ${family}`; s -= 2; } while (ctx.measureText(text).width > maxW && s > min);
+  }
 
-  async function draw(o) {
-    if (document.fonts) await document.fonts.ready;
-    const [W, H] = SIZES[o.size] || SIZES.story;
+  // Fallback only, when the logo image cannot load: a blue disc with a white "b", then the word.
+  // Right-aligned at (x, y = text baseline).
+  function mark(ctx, x, y, size, color) {
+    ctx.save();
+    ctx.font = `700 ${size}px "Avenir Next", "Helvetica Neue", Arial, sans-serif`;
+    ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = color;
+    ctx.fillText('Blucos', x, y);
+    const w = ctx.measureText('Blucos').width, r = size * 0.62, cx = x - w - r - size * 0.3, cy = y - size * 0.36;
+    ctx.fillStyle = '#2f7de1'; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = `800 ${size * 1.05}px "Avenir Next", "Helvetica Neue", Arial, sans-serif`;
+    ctx.fillText('b', cx, cy + size * 0.37);
+    ctx.restore();
+  }
+
+  async function render({ format = 'story', theme, game, tier, draw, logo = 'assets/share/blucos-logo.png' }) {
+    const [W, H] = SIZES[format] || SIZES.story;
     const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
     const ctx = cv.getContext('2d');
-    const [c1, c2] = o.colors || ['#e8ecff', '#8a94c8'];
-    // Frame
+    try { await document.fonts.ready; } catch (e) { /* draw with what is there */ }
+    // Outer frame: the game's colours (or the rarer tier's), full bleed so stories have no white corners.
+    const [c1, c2] = (tier && tier.frame) || theme.frame;
     const g = ctx.createLinearGradient(0, 0, W, H); g.addColorStop(0, c1); g.addColorStop(1, c2);
-    ctx.fillStyle = g; rr(ctx, 0, 0, W, H, RADIUS); ctx.fill();
-    // Footer band (inside the frame, at the bottom)
-    const footH = o.size === 'square' ? 132 : 168;
-    const ix = FRAME, iy = FRAME, iw = W - FRAME * 2, ih = H - FRAME * 2;
-    ctx.save(); rr(ctx, ix, iy, iw, ih, INNER_R); ctx.clip();
-    ctx.fillStyle = '#fffdf6'; ctx.fillRect(ix, iy + ih - footH, iw, footH);
-    // Content
-    const box = { x: ix, y: iy, w: iw, h: ih - footH };
-    ctx.save(); ctx.beginPath(); ctx.rect(box.x, box.y, box.w, box.h); ctx.clip();
-    if (o.content) await o.content(ctx, box);
-    ctx.restore();
-    ctx.restore();
-    // Footer: game icon and name, store names, Blucos logo
-    const fy = iy + ih - footH, mid = fy + footH / 2, pad = 36;
-    const icon = o.game && o.game.icon ? await img(o.game.icon) : null;
-    const isz = footH - 44;
-    let tx = ix + pad;
-    if (icon) {
-      ctx.save(); rr(ctx, tx, mid - isz / 2, isz, isz, isz * 0.22); ctx.clip();
-      ctx.drawImage(icon, tx, mid - isz / 2, isz, isz); ctx.restore();
-      tx += isz + 22;
-    }
-    ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
-    ctx.fillStyle = '#1b2350'; ctx.font = FONT(700, o.size === 'square' ? 40 : 46);
-    ctx.fillText((o.game && o.game.name) || '', tx, mid - 4);
-    ctx.fillStyle = '#6b7096'; ctx.font = FONT(600, o.size === 'square' ? 26 : 30);
-    ctx.fillText('App Store · Google Play', tx, mid + (o.size === 'square' ? 34 : 40));
-    const logo = await img(o.logo || 'assets/share/blucos-logo.png');
-    if (logo) {
-      const lw = o.size === 'square' ? 250 : 290, lh = logo.height * lw / logo.width;
-      ctx.drawImage(logo, ix + iw - pad - lw, mid - lh / 2, lw, lh);
-    }
-    // Sheen across rare cards
-    if (o.sheen) {
-      ctx.save(); rr(ctx, 0, 0, W, H, RADIUS); ctx.clip();
-      ctx.globalCompositeOperation = 'screen';
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    if (tier && tier.shine) {
       const s = ctx.createLinearGradient(0, H * 0.15, W, H * 0.55);
-      s.addColorStop(0, 'rgba(255,255,255,0)'); s.addColorStop(0.38, 'rgba(255,255,255,0)');
-      s.addColorStop(0.5, 'rgba(255,255,255,0.13)'); s.addColorStop(0.62, 'rgba(255,255,255,0)'); s.addColorStop(1, 'rgba(255,255,255,0)');
+      s.addColorStop(0, 'rgba(255,255,255,0)'); s.addColorStop(0.5, 'rgba(255,255,255,0.45)'); s.addColorStop(1, 'rgba(255,255,255,0)');
       ctx.fillStyle = s; ctx.fillRect(0, 0, W, H);
-      ctx.restore();
     }
-    return cv;
+    // Inner panel
+    const px = FRAME, py = FRAME, pw = W - FRAME * 2, ph = H - FRAME * 2;
+    ctx.fillStyle = theme.paper; rr(ctx, px, py, pw, ph, RADIUS); ctx.fill();
+    // Content, clipped to the panel above the footer
+    const foot = FOOT[format] || FOOT.story;
+    const box = { x: px + 36, y: py + 36, w: pw - 72, h: ph - foot - 36 };
+    const kit = { rr, image, cover, contain, wrap, fit, format, W, H };
+    ctx.save(); rr(ctx, px, py, pw, ph - foot, RADIUS); ctx.clip();
+    await draw(ctx, box, kit);
+    ctx.restore();
+    // Footer: a hairline, the game on the left, Blucos on the right
+    const fy = py + ph - foot;
+    ctx.fillStyle = theme.muted; ctx.globalAlpha = 0.35; ctx.fillRect(px + 36, fy, pw - 72, 2); ctx.globalAlpha = 1;
+    const icon = await image(game.icon), is = format === 'square' ? 84 : 104, ix = px + 36, iy = fy + (foot - is) / 2;
+    if (icon) { ctx.save(); rr(ctx, ix, iy, is, is, is * 0.22); ctx.clip(); ctx.drawImage(icon, ix, iy, is, is); ctx.restore(); }
+    const tx = ix + is + 24, mid = fy + foot / 2;
+    ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = theme.ink; fit(ctx, game.name, pw - 72 - is - 24 - 300, format === 'square' ? 40 : 46, 700, theme.font);
+    ctx.fillText(game.name, tx, mid - 4);
+    ctx.fillStyle = theme.muted; ctx.font = `500 ${format === 'square' ? 28 : 32}px "Avenir Next", "Helvetica Neue", Arial, sans-serif`;
+    ctx.fillText('App Store · Google Play', tx, mid + (format === 'square' ? 36 : 42));
+    const lg = await image(logo);
+    if (lg) {   // the real logo, right-aligned and centred on the footer
+      const lh = format === 'square' ? 44 : 52, lw = lg.width * lh / lg.height;
+      ctx.drawImage(lg, px + pw - 36 - lw, mid - lh / 2, lw, lh);
+    } else mark(ctx, px + pw - 36, mid + 14, format === 'square' ? 38 : 44, theme.ink);
+    return cv.toDataURL('image/png');
   }
 
-  function link(gameId, site) {
+  // Store link for this game from the shared list; before launch (no link yet) the fallback (its site).
+  function link(gameId, lang, fallback) {
     try {
-      const g = window.BlucosGames && BlucosGames.list('', 'en').find(x => x.id === gameId);
+      const g = window.BlucosGames && BlucosGames.list('', lang).find(x => x.id === gameId);
       if (g && g.link) return g.link;
-    } catch (e) { /* no list: the site */ }
-    return site;
+    } catch (e) { /* list not loaded */ }
+    return fallback;
   }
 
-  async function share(cv, { file = 'blucos-card.png', title = '', text = '' } = {}) {
-    const url = cv.toDataURL('image/png');
-    const P = n => (window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform() && Capacitor.Plugins && Capacitor.Plugins[n]) || null;
+  async function share({ dataUrl, fileName, title, text }) {
+    const P = n => (window.Capacitor && Capacitor.isNativePlatform && Capacitor.isNativePlatform() && Capacitor.Plugins[n]) || null;
     try {
       const S = P('Share'), F = P('Filesystem');
       if (S && F) {
-        const { uri } = await F.writeFile({ path: file, data: url.split(',')[1], directory: 'CACHE' });
+        const { uri } = await F.writeFile({ path: fileName, data: dataUrl.split(',')[1], directory: 'CACHE' });
         await S.share({ title, text, files: [uri] });
-        return;
+        return true;
       }
-      const blob = await (await fetch(url)).blob();
-      const f = new File([blob], file, { type: 'image/png' });
-      if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], text, title }); return; }
-      const a = document.createElement('a'); a.href = url; a.download = file; a.click();
-    } catch (e) { /* share sheet dismissed */ }
+      const blob = await (await fetch(dataUrl)).blob();
+      const file = new File([blob], fileName, { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text, title }); return true; }
+      const a = document.createElement('a'); a.href = dataUrl; a.download = fileName; a.click();
+      return true;
+    } catch (e) { return false; /* share sheet dismissed */ }
   }
 
-  return { SIZES, FONT, draw, link, share, img };
+  return { render, link, share, SIZES };
 })();

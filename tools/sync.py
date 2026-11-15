@@ -2,8 +2,7 @@
 """Copy the shared Blucos game list into every game.
 
 Writes www/blucos-games.js (loader + games.json bundled as the offline fallback), the other games'
-icons (www/assets/more/<id>.png), and the share-card frame (www/blucos-share.js + www/assets/share/blucos-logo.png)
-into each game repo. The game repos are expected next to this repo
+icons (www/assets/more/<id>.png), and the share-card frame (www/blucos-share.js) into each game repo. The game repos are expected next to this repo
 (../hatch-bingo, ../evolution-2048, ...). Run it after changing games.json, then commit in each game.
 
 Adding a game: put its 120px icon in icons/, add it to games.json and GAMES below, push this repo
@@ -39,18 +38,18 @@ def main():
             print(f'skip {gid}: {www} not found', file=sys.stderr)
             continue
         (www / 'blucos-games.js').write_text(js)
-        # Share-card frame (same look in every game) and the Blucos logo it puts in the footer.
+        shutil.copyfile(ROOT / 'tools' / 'blucos-share.js', www / 'blucos-share.js')  # share-card frame (CARDS.md)
+        share = www / 'assets' / 'share'
+        share.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / 'brand' / 'blucos-logo.png', share / 'blucos-logo.png')
+        # Share-card frame (same look in every game; the Blucos mark is drawn in code).
         shutil.copyfile(ROOT / 'tools' / 'blucos-share.js', www / 'blucos-share.js')
-        (www / 'assets' / 'share').mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / 'share' / 'blucos-logo.png', www / 'assets' / 'share' / 'blucos-logo.png')
         more = www / 'assets' / 'more'
         more.mkdir(parents=True, exist_ok=True)
         for other in data['games']:
             if other['id'] != gid:
                 shutil.copyfile(ROOT / other['icon'], more / f"{other['id']}.png")
-        for logo in ('blucos-logo.png', 'blucos-logo-white.png'):  # share-card footer (CARDS.md)
-            shutil.copyfile(ROOT / 'brand' / logo, more / logo)
-        print(f'{gid}: www/blucos-games.js + {len(ids) - 1} icons + logos')
+        print(f'{gid}: www/blucos-games.js + blucos-share.js + logo + {len(ids) - 1} icons')
 
 
 if __name__ == '__main__':
