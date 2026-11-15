@@ -14,3 +14,9 @@ without an app update. Each game also ships a copy (www/blucos-games.js) for off
 3. Push. Games already installed pick it up on their next launch.
 4. Run `python3 tools/sync.py` (game repos next to this one) and commit in each game, so the next
    app updates ship the new list and icons.
+
+## Share cards
+
+`CARDS.md` is the shared share-card frame (story 9:16 and square, footer band with the Blucos logo,
+share link from `games.json`). `games.json` gives each game a `site` used as the share link until its
+store links are filled in; `BlucosGames.shareLink(id)` picks the right one.

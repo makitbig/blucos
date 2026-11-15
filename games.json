@@ -3,10 +3,13 @@
   "games": [
     {
       "id": "hatchbingo",
-      "name": { "en": "Hatch Bingo" },
+      "name": {
+        "en": "Hatch Bingo"
+      },
       "icon": "icons/hatchbingo.png",
       "ios": "",
       "android": "",
+      "site": "https://makitbig.github.io/hatchbingo/",
       "tagline": {
         "en": "Hatch chicks in three lines and fill your bird book",
         "ko": "알을 부화시켜 병아리 빙고 세 줄! 새 도감을 채워요",
@@ -22,10 +25,13 @@
     },
     {
       "id": "evolution2048",
-      "name": { "en": "Evolution 2048: Merge Puzzle" },
+      "name": {
+        "en": "Evolution 2048: Merge Puzzle"
+      },
       "icon": "icons/evolution2048.png",
       "ios": "",
       "android": "",
+      "site": "https://makitbig.github.io/evolution2048/",
       "tagline": {
         "en": "Merge matching tiles and follow the story of evolution",
         "ko": "같은 것끼리 합쳐 생명의 진화를 따라가요",
@@ -41,10 +47,14 @@
     },
     {
       "id": "fossildig",
-      "name": { "en": "Fossil Dig: Dino Museum", "ko": "화석 발굴: 공룡 박물관" },
+      "name": {
+        "en": "Fossil Dig: Dino Museum",
+        "ko": "화석 발굴: 공룡 박물관"
+      },
       "icon": "icons/fossildig.png",
       "ios": "",
       "android": "",
+      "site": "https://makitbig.github.io/fossildig/",
       "tagline": {
         "en": "Dig up fossils and fill your own dinosaur museum",
         "ko": "화석을 캐서 나만의 공룡 박물관을 채워요",
@@ -60,10 +70,14 @@
     },
     {
       "id": "starfall",
-      "name": { "en": "Starfall: Star Match Puzzle", "ko": "별빛 낙하: 별자리 퍼즐" },
+      "name": {
+        "en": "Starfall: Star Match Puzzle",
+        "ko": "별빛 낙하: 별자리 퍼즐"
+      },
       "icon": "icons/starfall.png",
       "ios": "",
       "android": "",
+      "site": "https://makitbig.github.io/starfall/",
       "tagline": {
         "en": "Match falling stars and light up real constellations",
         "ko": "떨어지는 별을 맞춰 진짜 별자리를 밝혀요",

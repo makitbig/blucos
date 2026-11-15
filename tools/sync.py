@@ -29,7 +29,10 @@ def main():
         assert (ROOT / g['icon']).is_file(), f"missing icon {g['icon']}"
     template = (ROOT / 'tools' / 'blucos-games.template.js').read_text()
     js = template.replace('/*BUNDLED*/null', json.dumps(data, ensure_ascii=False, separators=(',', ':')))
+    only = set(sys.argv[1:])  # optional game ids: sync just those (e.g. `sync.py hatchbingo`)
     for gid, folder in GAMES.items():
+        if only and gid not in only:
+            continue
         www = ROOT.parent / folder / 'www'
         if not www.is_dir():
             print(f'skip {gid}: {www} not found', file=sys.stderr)
@@ -40,7 +43,9 @@ def main():
         for other in data['games']:
             if other['id'] != gid:
                 shutil.copyfile(ROOT / other['icon'], more / f"{other['id']}.png")
-        print(f'{gid}: www/blucos-games.js + {len(ids) - 1} icons')
+        for logo in ('blucos-logo.png', 'blucos-logo-white.png'):  # share-card footer (CARDS.md)
+            shutil.copyfile(ROOT / 'brand' / logo, more / logo)
+        print(f'{gid}: www/blucos-games.js + {len(ids) - 1} icons + logos')
 
 
 if __name__ == '__main__':

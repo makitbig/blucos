@@ -8,6 +8,8 @@
 //
 //   BlucosGames.list(selfId, lang) -> [{ id, name, tagline, icon, link }]  (every game but selfId; link '' = coming soon)
 //   BlucosGames.refresh(onChange)  -> fetches the list; calls onChange() if it changed
+//   BlucosGames.shareLink(id)      -> the link for share text: this platform's store link once the game is out,
+//                                     its site before that (so shares point to the store with no app update)
 'use strict';
 window.BlucosGames = (() => {
   const BASE = 'https://makitbig.github.io/blucos/';
@@ -54,5 +56,10 @@ window.BlucosGames = (() => {
     } catch (e) { /* offline or blocked: keep what we have */ }
   }
 
-  return { list, refresh };
+  function shareLink(id) {
+    const g = data.games.find((x) => x.id === id), b = BUNDLED.games.find((x) => x.id === id);
+    return (g && link(g)) || (g && g.site) || (b && (link(b) || b.site)) || '';
+  }
+
+  return { list, refresh, shareLink };
 })();
