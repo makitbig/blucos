@@ -1,0 +1,108 @@
+{
+  "_comment": "Name, intro line, icon, colours and store links come from games.json; this file has the page's own words. Screenshots: assets/games/<id>/<lang>-<n>.jpg (540px wide). Text from the game's store listing (evolution-2048/store).",
+  "shots": 4,
+  "en": {
+    "lead": "The 2048 you love, where every tile is alive. Swipe to slide the board. When two of the same tiles meet, they merge and evolve: bacteria become jellyfish, fish crawl onto land, dinosaurs rule, and finally a human appears on the 2048 tile. Every new stage comes with a quick fun fact.",
+    "shotsAlt": [
+      "Merge tiles and watch life evolve",
+      "A fun fact at every stage",
+      "The free Gems theme",
+      "Make your own theme with emoji or photos"
+    ],
+    "sections": [
+      {
+        "title": "Three free themes",
+        "items": [
+          "Evolution: from bacteria to humans",
+          "Gems: from plain quartz to a dazzling diamond",
+          "Classic: pure numbers for 2048 purists"
+        ]
+      },
+      {
+        "title": "Make it yours",
+        "items": [
+          "Create your own themes with your photos, emoji and names",
+          "Turn your family, your pets or your favorite snacks into an evolution chain",
+          "Photos are cropped right in the app and never leave your phone"
+        ]
+      },
+      {
+        "title": "Play your way",
+        "items": [
+          "Board sizes from a tough 3x3 to a relaxing 6x6 marathon",
+          "A new Daily Challenge every day: the same board for everyone, with a streak to keep",
+          "Evolution items: Mutate a tile, wipe one out with a Meteor, or mix up the board with a Twister"
+        ]
+      },
+      {
+        "title": "Fair and friendly",
+        "items": [
+          "No ads between games, ever: just a small banner in the free version",
+          "Optional videos only when you choose them, to refill undos or items",
+          "Plays completely offline",
+          "17 badges and lifetime stats"
+        ]
+      },
+      {
+        "title": "Evolution 2048 Pro (one-time purchase)",
+        "items": [
+          "Pro Packs: Space, Fruits, Animals, Vehicles, City and To the Moon, with more on the way",
+          "Customize every stage of your themes",
+          "Unlimited undo and no banner ad"
+        ]
+      }
+    ]
+  },
+  "ko": {
+    "lead": "익숙한 2048, 이제 모든 타일이 살아 움직여요. 화면을 밀어 타일을 움직이세요. 같은 타일 두 개가 만나면 합쳐지며 진화해요. 박테리아는 해파리가 되고, 물고기는 땅으로 올라오고, 공룡이 지구를 지배하다가, 마침내 2048 타일에서 인간이 등장해요. 새로운 단계마다 짧고 재미있는 과학 이야기를 만나요.",
+    "shotsAlt": [
+      "타일을 합치면 생명이 진화해요",
+      "단계마다 재미있는 과학 이야기",
+      "무료 보석 테마",
+      "이모지나 사진으로 만드는 나만의 테마"
+    ],
+    "sections": [
+      {
+        "title": "무료 테마 3가지",
+        "items": [
+          "진화: 박테리아에서 인간까지",
+          "보석: 평범한 석영에서 빛나는 다이아몬드까지",
+          "클래식: 원조 2048을 좋아하는 분을 위한 숫자 모드"
+        ]
+      },
+      {
+        "title": "나만의 게임으로",
+        "items": [
+          "내 사진, 이모지, 이름으로 나만의 테마 만들기",
+          "우리 가족, 반려동물, 좋아하는 간식으로 진화 단계를 꾸며 보세요",
+          "사진은 앱 안에서 바로 자르고, 휴대폰 밖으로 나가지 않아요"
+        ]
+      },
+      {
+        "title": "원하는 방식으로",
+        "items": [
+          "어려운 3x3부터 느긋한 6x6 마라톤까지 판 크기 선택",
+          "매일 새로 열리는 오늘의 도전: 모두에게 같은 판, 연속 기록에 도전하세요",
+          "진화 아이템: 돌연변이로 타일을 진화시키고, 운석으로 없애고, 소용돌이로 판을 섞어요"
+        ]
+      },
+      {
+        "title": "공정하고 편안하게",
+        "items": [
+          "판 사이에 뜨는 광고는 절대 없어요. 무료 버전에는 작은 배너만 있어요",
+          "영상 광고는 되돌리기나 아이템을 원할 때만 직접 선택해서 봐요",
+          "인터넷 없이도 완벽하게 플레이",
+          "배지 17개와 누적 통계"
+        ]
+      },
+      {
+        "title": "Evolution 2048 Pro (한 번만 결제)",
+        "items": [
+          "Pro 팩: 우주, 과일, 동물, 탈것, 도시, 투 더 문, 그리고 계속 추가될 팩들",
+          "나만의 테마 모든 단계 꾸미기",
+          "되돌리기 무제한, 배너 광고 없음"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "_comment": "Name, intro line, icon, colours and store links come from games.json; this file has the page's own words. Screenshots: assets/games/<id>/<lang>-<n>.jpg (540px wide). Hatch Bingo has no store listing yet: text from its help pages (hatch-bingo/site) and game data; screenshots taken from the game.",
+  "shots": 4,
+  "en": {
+    "lead": "Tap a tile to grow it and the tiles above, below, left and right by one stage: egg, cracking egg, chick, and egg again. Fill three lines (rows, columns or diagonals) with chicks and the big egg hatches into a real bird.",
+    "shotsAlt": [
+      "Hatch Bingo home",
+      "A board: fill three lines with chicks",
+      "A bird card from the Bird Book",
+      "Birds growing up in the Aviary"
+    ],
+    "sections": [
+      {
+        "title": "What you collect",
+        "items": [
+          "20 real birds across five habitats: City & Garden, Forest, Waterside, Grassland and Polar",
+          "Every bird you hatch goes into the Bird Book, with a card and a real fact",
+          "From level 25 a cuckoo hides among the eggs: its tile stops changing, and a line through it can't be completed"
+        ]
+      },
+      {
+        "title": "The Aviary",
+        "items": [
+          "The birds you hatch grow up in the Aviary in real time",
+          "Come back the next day to see how they have grown"
+        ]
+      },
+      {
+        "title": "Play every day",
+        "items": [
+          "100 boards, from easy to tricky",
+          "The Daily Egg brings coins every day",
+          "Hint, Undo and +3 taps, bought with coins earned in the game or with an optional video"
+        ]
+      },
+      {
+        "title": "Fair and friendly",
+        "items": [
+          "Coins and items can't be bought with money; nothing you buy depends on luck",
+          "No ads between boards: only a small banner in the free version, and videos only when you choose them",
+          "Plays offline, in 10 languages"
+        ]
+      },
+      {
+        "title": "Hatch Bingo Pro (one-time purchase)",
+        "items": [
+          "Tropics, Rare birds, Lost birds and Dinosaur kin packs: 16 more birds and 80 new boards",
+          "No banner ad; Hint, Undo and +3 taps without videos",
+          "Double coins and one of each item every day"
+        ]
+      },
+      {
+        "title": "Who made it",
+        "items": [
+          "Designed by Eugene Kim, who also drew the eggs and chicks, and built by Blucos. The bird pictures were made with AI (Gemini) and checked one by one against the real birds' colors and markings"
+        ]
+      }
+    ]
+  },
+  "ko": {
+    "lead": "타일을 누르면 그 칸과 상하좌우 칸이 한 단계씩 자라요. 달걀, 금 간 달걀, 병아리, 다시 달걀 순서예요. 가로·세로·대각선 3줄을 병아리로 채우면 큰 알이 진짜 새로 부화해요.",
+    "shotsAlt": [
+      "Hatch Bingo 첫 화면",
+      "판: 3줄을 병아리로 채워요",
+      "새 도감의 새 카드",
+      "새장에서 자라는 새들"
+    ],
+    "sections": [
+      {
+        "title": "모으는 것",
+        "items": [
+          "다섯 서식지의 진짜 새 20종: 도시와 정원, 숲, 물가, 초원, 극지방",
+          "부화한 새는 카드와 진짜 이야기와 함께 새 도감에 들어가요",
+          "레벨 25부터는 알 사이에 뻐꾸기가 숨어 있어요. 뻐꾸기가 깨어난 칸은 더 이상 바뀌지 않고, 그 칸이 있는 줄은 완성할 수 없어요"
+        ]
+      },
+      {
+        "title": "새장",
+        "items": [
+          "부화한 새는 새장에서 진짜 시간에 맞춰 자라요",
+          "다음 날 다시 와서 얼마나 컸는지 보세요"
+        ]
+      },
+      {
+        "title": "날마다 즐겁게",
+        "items": [
+          "쉬운 판부터 어려운 판까지 100판",
+          "오늘의 알에서 날마다 코인을 받아요",
+          "힌트, 되돌리기, 탭 +3은 게임에서 번 코인이나 원할 때 보는 동영상으로 써요"
+        ]
+      },
+      {
+        "title": "공정하고 친절하게",
+        "items": [
+          "코인과 아이템은 돈으로 살 수 없어요. 확률에 돈을 쓰는 상품은 없어요",
+          "판 사이에 광고가 나오지 않아요. 무료 버전에는 작은 배너만 있고, 동영상은 원할 때만 봐요",
+          "오프라인 플레이, 10개 언어"
+        ]
+      },
+      {
+        "title": "Hatch Bingo 프로 (한 번 결제)",
+        "items": [
+          "열대, 희귀한 새, 사라진 새, 공룡의 후손 팩: 새 16종, 새 판 80개",
+          "배너 광고 없음, 힌트·되돌리기·탭 +3을 동영상 없이",
+          "코인 2배와 날마다 아이템 선물"
+        ]
+      },
+      {
+        "title": "만든 사람",
+        "items": [
+          "Eugene Kim이 디자인하고 알과 병아리를 그렸고, Blucos가 개발했어요. 새 그림은 AI(Gemini)로 그린 뒤 진짜 새의 색과 무늬와 맞는지 하나하나 확인했어요"
+        ]
+      }
+    ]
+  }
+}

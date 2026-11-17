@@ -143,9 +143,18 @@ def game_detail(g, lang, t):
     c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
     shot_lang = lang if (ROOT / 'assets' / 'games' / g['id'] / f'{lang}-1.jpg').is_file() else 'en'
     alts = w.get('shotsAlt', [])
-    shots = ''.join(
-        f'<img src="{up}assets/games/{g["id"]}/{shot_lang}-{n}.jpg" alt="{e(alts[n - 1] if n <= len(alts) else "")}" width="540" height="1173" loading="lazy">'
-        for n in range(1, d.get('shots', 0) + 1))
+    def size(path):  # real width and height for the img tag (PNG/JPEG header read by Pillow if present)
+        try:
+            from PIL import Image
+            return Image.open(path).size
+        except Exception:
+            return (540, 1170)
+    shot_tags = []
+    for n in range(1, d.get('shots', 0) + 1):
+        rel = f'assets/games/{g["id"]}/{shot_lang}-{n}.jpg'
+        w_, h_ = size(ROOT / rel)
+        shot_tags.append(f'<img src="{up}{rel}" alt="{e(alts[n - 1] if n <= len(alts) else "")}" width="{w_}" height="{h_}" loading="lazy">')
+    shots = ''.join(shot_tags)
     sections = ''.join(
         f'<section class="doc-part"><h2>{e(sec["title"])}</h2><ul>{"".join(f"<li>{e(i)}</li>" for i in sec["items"])}</ul></section>'
         for sec in w.get('sections', []))
