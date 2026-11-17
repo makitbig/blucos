@@ -24,7 +24,14 @@
     "privacy.games": "Privacy policy for each game",
     "privacy.contact": "Questions about privacy: {email}",
     "footer.privacy": "Privacy",
-    "footer.contact": "Contact"
+    "footer.contact": "Contact",
+    "game.page": "About the game",
+    "gamepage.back": "All games",
+    "gamepage.shots": "Screenshots",
+    "gamepage.support": "Help and privacy",
+    "gamepage.help": "Help & FAQ",
+    "gamepage.privacy": "Privacy policy",
+    "game.soonStore": "{store} coming soon"
   },
   "ko": {
     "label": "한국어",
@@ -51,6 +58,13 @@
     "privacy.games": "게임별 개인정보 처리방침",
     "privacy.contact": "개인정보 문의: {email}",
     "footer.privacy": "개인정보",
-    "footer.contact": "문의"
+    "footer.contact": "문의",
+    "game.page": "게임 소개",
+    "gamepage.back": "모든 게임",
+    "gamepage.shots": "게임 화면",
+    "gamepage.support": "도움말과 개인정보",
+    "gamepage.help": "도움말·자주 묻는 질문",
+    "gamepage.privacy": "개인정보 처리방침",
+    "game.soonStore": "{store} 곧 출시"
   }
 }

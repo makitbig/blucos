@@ -37,24 +37,37 @@ def game_page(g, lang, kind):
 
 
 def stores(g, t):
-    out = []
-    for key, label in (('ios', 'App Store'), ('android', 'Google Play')):
-        if g.get(key):
-            out.append(f'<a class="store" href="{e(g[key])}" rel="noopener">{label}</a>')
-    return ''.join(out) or f'<span class="soon">{e(t["game.soon"])}</span>'
+    """Store buttons; nothing live yet = one "Coming soon", one live = the other says "<store> coming soon"."""
+    pairs = (('ios', 'App Store'), ('android', 'Google Play'))
+    if not any(g.get(k) for k, _ in pairs):
+        return f'<span class="soon">{e(t["game.soon"])}</span>'
+    return ''.join(
+        f'<a class="store" href="{e(g[k])}" rel="noopener">{label}</a>' if g.get(k)
+        else f'<span class="soon">{e(t["game.soonStore"].format(store=label))}</span>'
+        for k, label in pairs)
+
+
+def has_page(g):
+    return (ROOT / 'site' / 'games' / f"{g['id']}.json").is_file()
 
 
 def card(g, lang, t, up):
     c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
+    name = e(pick(g['name'], lang))
+    if has_page(g):
+        name = f'<a href="games/{g["id"]}.html">{name}</a>'
+        more = f'<a class="more" href="games/{g["id"]}.html">{e(t["game.page"])} ›</a>'
+    else:
+        more = f'<a class="more" href="{e(game_page(g, lang, "help"))}">{e(t["game.more"])} ›</a>'
     return f'''
       <article class="game" style="--c1:{c1};--c2:{c2}">
         <div class="panel">
           <img class="icon" src="{up}{e(g['icon'])}" alt="" width="88" height="88" loading="lazy">
           <div class="text">
-            <h3>{e(pick(g['name'], lang))}</h3>
+            <h3>{name}</h3>
             <p>{e(pick(g['tagline'], lang))}</p>
           </div>
-          <div class="actions">{stores(g, t)}<a class="more" href="{e(game_page(g, lang, 'help'))}">{e(t['game.more'])} ›</a></div>
+          <div class="actions">{stores(g, t)}{more}</div>
         </div>
       </article>'''
 
@@ -69,8 +82,9 @@ def short(s, lang, t, up):
       </button>'''
 
 
-def page(lang, name, title, body, t):
-    up = '' if lang == 'en' else '../'
+def page(lang, name, title, body, t, desc=None, image=None):
+    """name: path inside the language folder without .html ('index', 'contact', 'games/fossildig')."""
+    up = ('' if lang == 'en' else '../') + '../' * name.count('/')
     here = '' if name == 'index' else f'{name}.html'
     alt = ''.join(f'<link rel="alternate" hreflang="{l}" href="{up}{"" if l == "en" else l + "/"}{here or "./"}">' for l in LANGS)
     switch = ' · '.join(
@@ -84,10 +98,10 @@ def page(lang, name, title, body, t):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{e(full)}</title>
-  <meta name="description" content="{e(t['description'])}">
+  <meta name="description" content="{e(desc or t['description'])}">
   <meta property="og:title" content="{e(full)}">
-  <meta property="og:description" content="{e(t['description'])}">
-  <meta property="og:image" content="{up}assets/og-icon.png">
+  <meta property="og:description" content="{e(desc or t['description'])}">
+  <meta property="og:image" content="{up}{image or 'assets/og-icon.png'}">
   <meta name="theme-color" content="#12285c">
   {alt}
   <link rel="icon" href="{up}assets/favicon.png">
@@ -109,6 +123,46 @@ def page(lang, name, title, body, t):
 </body>
 </html>
 '''
+
+
+def game_detail(g, lang, t):
+    """games/<id>.html: one page per game, filled from site/games/<id>.json (words) and games.json (the rest)."""
+    d = json.loads((ROOT / 'site' / 'games' / f"{g['id']}.json").read_text())
+    w = d.get(lang) or d['en']
+    up = ('' if lang == 'en' else '../') + '../'
+    c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
+    shot_lang = lang if (ROOT / 'assets' / 'games' / g['id'] / f'{lang}-1.jpg').is_file() else 'en'
+    alts = w.get('shotsAlt', [])
+    shots = ''.join(
+        f'<img src="{up}assets/games/{g["id"]}/{shot_lang}-{n}.jpg" alt="{e(alts[n - 1] if n <= len(alts) else "")}" width="540" height="1173" loading="lazy">'
+        for n in range(1, d.get('shots', 0) + 1))
+    sections = ''.join(
+        f'<section class="doc-part"><h2>{e(sec["title"])}</h2><ul>{"".join(f"<li>{e(i)}</li>" for i in sec["items"])}</ul></section>'
+        for sec in w.get('sections', []))
+    body = f'''
+    <p class="crumb"><a href="../#games">‹ {e(t['gamepage.back'])}</a></p>
+    <section class="game-hero" style="--c1:{c1};--c2:{c2}">
+      <div class="panel">
+        <img class="icon" src="{up}{e(g['icon'])}" alt="" width="104" height="104">
+        <div>
+          <h1>{e(pick(g['name'], lang))}</h1>
+          <p class="tag">{e(pick(g['tagline'], lang))}</p>
+          <div class="actions">{stores(g, t)}</div>
+        </div>
+      </div>
+    </section>
+    <p class="lead">{e(w['lead'])}</p>
+    <div class="shots" aria-label="{e(t['gamepage.shots'])}">{shots}</div>
+    <div class="parts">{sections}</div>
+    <section class="doc-part links">
+      <h2>{e(t['gamepage.support'])}</h2>
+      <ul>
+        <li><a href="{e(game_page(g, lang, 'help'))}">{e(t['gamepage.help'])}</a></li>
+        <li><a href="{e(game_page(g, lang, 'privacy'))}">{e(t['gamepage.privacy'])}</a></li>
+        <li><a href="../contact.html">{e(t['nav.contact'])}</a></li>
+      </ul>
+    </section>'''
+    return page(lang, f"games/{g['id']}", pick(g['name'], lang), body, t, desc=pick(g['tagline'], lang), image=g['icon'])
 
 
 SHORTS_JS = '''
@@ -180,7 +234,14 @@ def build(lang):
       <p>{t['privacy.contact'].format(email=f'<a href="mailto:{EMAIL}">{EMAIL}</a>')}</p>
     </section>'''
     (out / 'privacy.html').write_text(page(lang, 'privacy', t['privacy.title'], privacy, t))
-    print(f'{lang}: {out.relative_to(ROOT) if out != ROOT else "."}/index.html, contact.html, privacy.html ({len(visible)} games)')
+
+    pages = [g for g in visible if has_page(g)]
+    if pages:
+        (out / 'games').mkdir(exist_ok=True)
+    for g in pages:
+        (out / 'games' / f"{g['id']}.html").write_text(game_detail(g, lang, t))
+    pages_list = ', '.join(g['id'] for g in pages) or 'none'
+    print(f'{lang}: {out.relative_to(ROOT) if out != ROOT else "."}/index.html, contact.html, privacy.html ({len(visible)} games, pages: {pages_list})')
 
 
 if __name__ == '__main__':
