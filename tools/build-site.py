@@ -47,6 +47,16 @@ def stores(g, t):
         for k, label in pairs)
 
 
+WORDS = {'en': ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']}
+
+
+def hero_text(text, n, lang):
+    """{count} / {Count}: the number of games, spelled out where the language does that (English up to twelve)."""
+    words = WORDS.get(lang)
+    word = words[n] if words and n < len(words) else str(n)
+    return text.replace('{Count}', word[:1].upper() + word[1:]).replace('{count}', word)
+
+
 def has_page(g):
     return (ROOT / 'site' / 'games' / f"{g['id']}.json").is_file()
 
@@ -192,7 +202,7 @@ def build(lang):
     home = f'''
     <section class="hero">
       <h1>{e(t['hero.title'])}</h1>
-      <p>{e(t['hero.text'])}</p>
+      <p>{e(hero_text(t['hero.text'], len(visible), lang))}</p>
     </section>
     <section id="games">
       <h2>{e(t['games.title'])}</h2>
