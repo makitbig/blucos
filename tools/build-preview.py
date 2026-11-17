@@ -6,12 +6,11 @@
 Same data as the real site (games.json, site/strings.json, site/site.json, site/games/<id>.json), with
 two different looks so the user can pick one. Not linked from the real pages and marked noindex.
 Art for the previews: assets/preview/ (cutouts and banners from the games, small WebP files).
-Headings use Jua (Korean) and Fredoka (Latin), both SIL OFL, subset to the characters these pages use.
+Type: the device's own sans (Roboto / San Francisco / Segoe UI, Apple SD Gothic Neo / Noto Sans KR / Malgun Gothic),
+no web fonts; headings stand out by weight and size.
 """
 import importlib.util
-import os
 import json
-import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,15 +22,13 @@ LANG = 'ko'
 T = B.STR[LANG]
 GAMES = [g for g in B.GAMES if not g.get('hidden')]
 GAME_PAGE = 'fossildig'
-# Jua-Regular.ttf and Fredoka.ttf (SIL OFL): Starfall keeps the source fonts; set BLUCOS_FONTS to another folder if needed.
-FONT_SRC = Path(os.environ.get('BLUCOS_FONTS', ROOT.parent / 'starfall' / 'tools' / 'fonts-src'))
 
 # Per-game art for the previews: a banner for the card and a cutout that peeks out of it.
 ART = {
-    'hatchbingo': {'banner': 'banner-hatchbingo.webp', 'peek': 'hatch.webp'},
-    'evolution2048': {'banner': 'banner-evolution2048.webp', 'peek': 'evo-dino.webp'},
-    'fossildig': {'banner': 'banner-fossildig.webp', 'peek': 'fd-pickaxe.webp'},
-    'starfall': {'banner': 'banner-starfall.webp', 'peek': 'star.webp'},
+    'hatchbingo': {'banner': 'banner-hatchbingo.webp', 'peek': 'hatch.webp', 'hero': 'hatch.webp'},
+    'evolution2048': {'banner': 'banner-evolution2048.webp', 'peek': 'evo-dino.webp', 'hero': 'evo-dino.webp'},
+    'fossildig': {'banner': 'banner-fossildig.webp', 'peek': 'fd-pickaxe.webp', 'hero': 'fd-bone.webp'},
+    'starfall': {'banner': 'banner-starfall.webp', 'peek': 'star.webp', 'hero': 'star.webp'},
 }
 VARIANTS = {
     'a': {'name': '시안 A · 밤하늘', 'other': 'b'},
@@ -51,7 +48,6 @@ def head(title, up, v, desc):
   <meta name="description" content="{e(desc)}">
   <meta name="theme-color" content="{'#0b1240' if v == 'a' else '#fff6e6'}">
   <link rel="icon" href="{up}assets/favicon.png">
-  <link rel="preload" href="{up}assets/fonts/jua-site.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{up}preview/{v}/style.css">
 </head>'''
 
@@ -76,11 +72,11 @@ def footer(up):
   </footer>'''
 
 
-def card(g, up, i):
+def card(g, up, i, v='a'):
     a = ART.get(g['id'], {})
     c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
     link = f'games/{g["id"]}.html' if g['id'] == GAME_PAGE else f'{up}ko/games/{g["id"]}.html'
-    peek = f'<img class="peek" src="{up}assets/preview/{a["peek"]}" alt="" loading="lazy">' if a.get('peek') else ''
+    peek = f'<img class="peek" src="{up}assets/preview/{a["peek"]}" alt="" loading="lazy">' if a.get('peek') and v == 'a' else ''
     return f'''
         <article class="card" style="--c1:{c1};--c2:{c2};--i:{i}">
           <a class="card-link" href="{link}" aria-label="{e(pick(g['name'], LANG))}"></a>
@@ -106,16 +102,12 @@ def hero(up, v):
           <img class="planet" src="{up}assets/preview/planet.webp" alt="" width="240" height="240">
           <div class="orbit">{orbit}</div>
         </div>
-        <img class="float f1" src="{up}assets/preview/star.webp" alt="">
-        <img class="float f2" src="{up}assets/preview/magpie.webp" alt="">
-        <img class="float f3" src="{up}assets/preview/evo-jelly.webp" alt="">
-        <img class="float f4" src="{up}assets/preview/fd-bone.webp" alt="">
       </div>'''
         title = t.replace('작은 퍼즐 게임', '<em>작은 퍼즐 게임</em>')
     else:
-        stickers = [('star-wave', 'Starfall'), ('hatch', ''), ('evo-frog', ''), ('magpie', ''), ('evo-astro', ''), ('fd-bone', '')]
+        # one large piece of art per game, still (no wobble)
         deco = f'''
-      <div class="stickers" aria-hidden="true">{''.join(f'<img class="st s{k}" src="{up}assets/preview/{s}.webp" alt="">' for k, (s, _) in enumerate(stickers))}
+      <div class="stickers" aria-hidden="true">{''.join(f'<img class="st s{k}" src="{up}assets/preview/{ART[g["id"]]["hero"]}" alt="">' for k, g in enumerate(GAMES) if g['id'] in ART)}
       </div>'''
         title = t.replace('진짜 세상', '<mark class="m1">진짜 세상</mark>').replace('퍼즐 게임', '<mark class="m2">퍼즐 게임</mark>')
     return f'''
@@ -142,7 +134,7 @@ def shorts(up):
 
 def home(v):
     up = '../../'
-    cards = ''.join(card(g, up, i) for i, g in enumerate(GAMES))
+    cards = ''.join(card(g, up, i, v) for i, g in enumerate(GAMES))
     wave = '<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 C 240 0 480 60 720 30 S 1200 0 1440 30 V60 H0 Z"/></svg>' if v == 'b' else ''
     body = f'''{hero(up, v)}{wave}
     <section id="games" class="band games-band">
@@ -184,7 +176,7 @@ def game(v, gid):
         <p class="tag">{e(pick(g['tagline'], LANG))}</p>
         <div class="actions">{B.stores(g, T)}</div>
       </div>
-      {f'<img class="gpeek" src="{up}assets/preview/{a["peek"]}" alt="">' if a.get('peek') else ''}
+      {f'<img class="gpeek" src="{up}assets/preview/{a["peek"]}" alt="">' if a.get('peek') and v == 'a' else ''}
     </section>
     <p class="lead">{e(w['lead'])}</p>
     <h2 class="shots-title">{e(EXTRA['shots'])}</h2>
@@ -206,25 +198,6 @@ def game(v, gid):
 '''
 
 
-def subset_fonts(texts):
-    """Jua + Fredoka cut down to the characters on these pages (plus ASCII), as small WOFF2 files."""
-    from fontTools import subset
-    chars = set(chr(c) for c in range(0x20, 0x7f)) | set('‘’“”…·•–—›‹')
-    for t in texts:
-        chars |= set(re.sub(r'<[^>]+>', '', t))
-    out = ROOT / 'assets' / 'fonts'
-    out.mkdir(exist_ok=True)
-    for src, name in (('Jua-Regular.ttf', 'jua-site'), ('Fredoka.ttf', 'fredoka-site')):
-        opts = subset.Options(); opts.flavor = 'woff2'; opts.layout_features = ['*']
-        f = subset.load_font(str(FONT_SRC / src), opts)
-        s = subset.Subsetter(opts); s.populate(text=''.join(sorted(chars))); s.subset(f)
-        subset.save_font(f, str(out / f'{name}.woff2'), opts)
-    for lic in ('Jua-OFL.txt', 'Fredoka-OFL.txt'):
-        p = FONT_SRC.parent.parent / 'www' / 'fonts' / lic
-        if p.is_file():
-            (out / lic).write_text(p.read_text())
-
-
 if __name__ == '__main__':
     pages = []
     for v in VARIANTS:
@@ -235,5 +208,3 @@ if __name__ == '__main__':
         (d / 'games' / f'{GAME_PAGE}.html').write_text(gp)
         pages += [h, gp]
         print(f'preview/{v}/index.html, preview/{v}/games/{GAME_PAGE}.html')
-    subset_fonts(pages)
-    print('fonts:', ', '.join(f'{p.name} {p.stat().st_size // 1024} KB' for p in sorted((ROOT / 'assets' / 'fonts').glob('*.woff2'))))
