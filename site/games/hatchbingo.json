@@ -4,10 +4,10 @@
   "en": {
     "lead": "Tap a tile to grow it and the tiles above, below, left and right by one stage: egg, cracking egg, chick, and egg again. Fill three lines (rows, columns or diagonals) with chicks and the big egg hatches into a real bird.",
     "shotsAlt": [
-      "Hatch Bingo home",
       "A board: fill three lines with chicks",
       "A bird card from the Bird Book",
-      "Birds growing up in the Aviary"
+      "Birds growing up in the Aviary",
+      "The Bird Book"
     ],
     "sections": [
       {
@@ -48,22 +48,16 @@
           "No banner ad; Hint, Undo and +3 taps without videos",
           "Double coins and one of each item every day"
         ]
-      },
-      {
-        "title": "Who made it",
-        "items": [
-          "Designed by Eugene Kim, who also drew the eggs and chicks, and built by Blucos. The bird pictures were made with AI (Gemini) and checked one by one against the real birds' colors and markings"
-        ]
       }
     ]
   },
   "ko": {
     "lead": "타일을 누르면 그 칸과 상하좌우 칸이 한 단계씩 자라요. 달걀, 금 간 달걀, 병아리, 다시 달걀 순서예요. 가로·세로·대각선 3줄을 병아리로 채우면 큰 알이 진짜 새로 부화해요.",
     "shotsAlt": [
-      "Hatch Bingo 첫 화면",
       "판: 3줄을 병아리로 채워요",
       "새 도감의 새 카드",
-      "새장에서 자라는 새들"
+      "새장에서 자라는 새들",
+      "새 도감"
     ],
     "sections": [
       {
@@ -103,12 +97,6 @@
           "열대, 희귀한 새, 사라진 새, 공룡의 후손 팩: 새 16종, 새 판 80개",
           "배너 광고 없음, 힌트·되돌리기·탭 +3을 동영상 없이",
           "코인 2배와 날마다 아이템 선물"
-        ]
-      },
-      {
-        "title": "만든 사람",
-        "items": [
-          "Eugene Kim이 디자인하고 알과 병아리를 그렸고, Blucos가 개발했어요. 새 그림은 AI(Gemini)로 그린 뒤 진짜 새의 색과 무늬와 맞는지 하나하나 확인했어요"
         ]
       }
     ]
