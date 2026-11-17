@@ -8,6 +8,10 @@ buttons or "Coming soon", link to the game's own help site) comes from it, so a 
 there. Words for the site itself are in site/strings.json, videos and per-language game pages in
 site/site.json. English is written at the root, every other language under /<lang>/.
 
+Look ("blue cosmos", chosen 2026-11-18 from the previews in preview/): a full-width blue space picture
+behind the opening words (assets/art/cosmos-*.webp, drawn by tools/make-cosmos.py), game cards like
+glowing collectible cards (banner + cutout from site.json "art"), the device's own sans fonts.
+
 All links are relative, so the site works at makitbig.github.io/blucos/ today and at a custom domain
 later (add a CNAME file). games.json, icons/ and app-ads.txt stay at the root: the games read
 games.json and icons/ from there, and AdMob looks for app-ads.txt at the root of the domain.
@@ -61,25 +65,32 @@ def has_page(g):
     return (ROOT / 'site' / 'games' / f"{g['id']}.json").is_file()
 
 
-def card(g, lang, t, up):
+def art(g):
+    return SITE.get('art', {}).get(g['id'], {})
+
+
+def card(g, lang, t, up, i=0):
+    """A game card: frame in the game's colours, art banner with a cutout peeking out, icon, name, intro, stores."""
     c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
+    a = art(g)
     name = e(pick(g['name'], lang))
     if has_page(g):
-        name = f'<a href="games/{g["id"]}.html">{name}</a>'
-        more = f'<a class="more" href="games/{g["id"]}.html">{e(t["game.page"])} ›</a>'
+        href, more = f'games/{g["id"]}.html', t['game.page']
     else:
-        more = f'<a class="more" href="{e(game_page(g, lang, "help"))}">{e(t["game.more"])} ›</a>'
+        href, more = game_page(g, lang, 'help'), t['game.more']
+    banner = f'<img src="{up}assets/art/{e(a["banner"])}" alt="" loading="lazy" width="640" height="320">' if a.get('banner') else ''
+    peek = f'<img class="peek" src="{up}assets/art/{e(a["peek"])}" alt="" loading="lazy">' if a.get('peek') else ''
     return f'''
-      <article class="game" style="--c1:{c1};--c2:{c2}">
-        <div class="panel">
-          <img class="icon" src="{up}{e(g['icon'])}" alt="" width="88" height="88" loading="lazy">
-          <div class="text">
+        <article class="card" style="--c1:{c1};--c2:{c2};--i:{i}">
+          <a class="card-link" href="{e(href)}" aria-label="{name}"></a>
+          <div class="art">{banner}{peek}</div>
+          <div class="body">
+            <img class="icon" src="{up}{e(g['icon'])}" alt="" width="72" height="72" loading="lazy">
             <h3>{name}</h3>
             <p>{e(pick(g['tagline'], lang))}</p>
+            <div class="actions">{stores(g, t)}<span class="more">{e(more)} ›</span></div>
           </div>
-          <div class="actions">{stores(g, t)}{more}</div>
-        </div>
-      </article>'''
+        </article>'''
 
 
 def short(s, lang, t, up):
@@ -112,7 +123,7 @@ def page(lang, name, title, body, t, desc=None, image=None):
   <meta property="og:title" content="{e(full)}">
   <meta property="og:description" content="{e(desc or t['description'])}">
   <meta property="og:image" content="{up}{image or 'assets/og-icon.png'}">
-  <meta name="theme-color" content="#12285c">
+  <meta name="theme-color" content="#0b1240">
   {alt}
   <link rel="icon" href="{up}assets/favicon.png">
   <link rel="apple-touch-icon" href="{up}assets/apple-touch-icon.png">
@@ -120,12 +131,13 @@ def page(lang, name, title, body, t, desc=None, image=None):
 </head>
 <body>
   <header class="top">
-    <a class="logo" href="{home}"><img src="{up}assets/logo.png" alt="Blucos Games" width="192" height="30"></a>
+    <a class="logo" href="{home}"><img src="{up}assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
     <nav><a href="{home}#games">{e(t['nav.games'])}</a><a href="{home}contact.html">{e(t['nav.contact'])}</a></nav>
   </header>
   <main>{body}
   </main>
   <footer>
+    <img class="foot-planet" src="{up}assets/art/planet.webp" alt="" width="64" height="64" loading="lazy">
     <nav><a href="{home}contact.html">{e(t['footer.contact'])}</a><a href="{home}privacy.html">{e(t['footer.privacy'])}</a></nav>
     <p class="lang">{switch}</p>
     <p>© 2026 Blucos · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
@@ -154,26 +166,30 @@ def game_detail(g, lang, t):
         rel = f'assets/games/{g["id"]}/{shot_lang}-{n}.jpg'
         w_, h_ = size(ROOT / rel)
         shot_tags.append(f'<img src="{up}{rel}" alt="{e(alts[n - 1] if n <= len(alts) else "")}" width="{w_}" height="{h_}" loading="lazy">')
-    shots = ''.join(shot_tags)
-    sections = ''.join(
-        f'<section class="doc-part"><h2>{e(sec["title"])}</h2><ul>{"".join(f"<li>{e(i)}</li>" for i in sec["items"])}</ul></section>'
+    a = art(g)
+    banner = f'<img class="gbanner" src="{up}assets/art/{e(a["banner"])}" alt="" width="640" height="320">' if a.get('banner') else '<div class="gbanner"></div>'
+    peek = f'<img class="gpeek" src="{up}assets/art/{e(a["peek"])}" alt="">' if a.get('peek') else ''
+    phones = ''.join(f'<figure class="phone" style="--r:{(-2, 1.5, -1, 2)[k % 4]}deg">{tag}</figure>' for k, tag in enumerate(shot_tags))
+    parts = ''.join(
+        f'<section class="part"><h2>{e(sec["title"])}</h2><ul>{"".join(f"<li>{e(i)}</li>" for i in sec["items"])}</ul></section>'
         for sec in w.get('sections', []))
     body = f'''
-    <p class="crumb"><a href="../#games">‹ {e(t['gamepage.back'])}</a></p>
-    <section class="game-hero" style="--c1:{c1};--c2:{c2}">
-      <div class="panel">
-        <img class="icon" src="{up}{e(g['icon'])}" alt="" width="104" height="104">
-        <div>
-          <h1>{e(pick(g['name'], lang))}</h1>
-          <p class="tag">{e(pick(g['tagline'], lang))}</p>
-          <div class="actions">{stores(g, t)}</div>
-        </div>
+    <section class="ghero" style="--c1:{c1};--c2:{c2}">
+      <a class="back" href="../#games">‹ {e(t['gamepage.back'])}</a>
+      {banner}
+      <div class="ginfo">
+        <img class="gicon" src="{up}{e(g['icon'])}" alt="" width="112" height="112">
+        <h1>{e(pick(g['name'], lang))}</h1>
+        <p class="tag">{e(pick(g['tagline'], lang))}</p>
+        <div class="actions">{stores(g, t)}</div>
       </div>
+      {peek}
     </section>
     <p class="lead">{e(w['lead'])}</p>
-    <div class="shots" aria-label="{e(t['gamepage.shots'])}">{shots}</div>
-    <div class="parts">{sections}</div>
-    <section class="doc-part links">
+    <h2 class="shots-title">{e(t['gamepage.shots'])}</h2>
+    <div class="phones">{phones}</div>
+    <div class="parts">{parts}</div>
+    <section class="part links">
       <h2>{e(t['gamepage.support'])}</h2>
       <ul>
         <li><a href="{e(game_page(g, lang, 'help'))}">{e(t['gamepage.help'])}</a></li>
@@ -208,22 +224,30 @@ def build(lang):
     out.mkdir(exist_ok=True)
     visible = [g for g in GAMES if not g.get('hidden')]
 
+    title = e(t['hero.title'])
+    hl = e(t.get('hero.highlight', ''))
+    if hl and hl in title:
+        title = title.replace(hl, f'<em>{hl}</em>', 1)
     home = f'''
     <section class="hero">
-      <h1>{e(t['hero.title'])}</h1>
-      <p>{e(hero_text(t['hero.text'], len(visible), lang))}</p>
-      <p class="studio">{e(t['hero.studio'])}</p>
+      <div class="copy">
+        <h1>{title}</h1>
+        <p>{e(hero_text(t['hero.text'], len(visible), lang))}</p>
+        <p class="studio">{e(t['hero.studio'])}</p>
+        <a class="cta" href="#games">{e(t['hero.cta'])}</a>
+      </div>
     </section>
-    <section id="games">
+    <section id="games" class="band">
       <h2>{e(t['games.title'])}</h2>
-      <div class="games">{''.join(card(g, lang, t, up) for g in visible)}
+      <p class="sub">{e(t['games.sub'])}</p>
+      <div class="cards">{''.join(card(g, lang, t, up, i) for i, g in enumerate(visible))}
       </div>
     </section>'''
     if SITE.get('shorts'):
         home += f'''
-    <section id="shorts">
+    <section id="shorts" class="band">
       <h2>{e(t['shorts.title'])}</h2>
-      <p class="muted">{e(t['shorts.text'])}</p>
+      <p class="sub">{e(t['shorts.text'])}</p>
       <div class="shorts">{''.join(short(s, lang, t, up) for s in SITE['shorts'][:2])}
       </div>
       <p class="note">{e(t['shorts.note'])}</p>

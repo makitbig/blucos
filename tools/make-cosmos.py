@@ -1,6 +1,6 @@
 """Blue cosmos background for the Blucos website: nebula clouds in the brand blues, a star field, and the
 curve of a blue planet glowing at the bottom. Procedural (numpy + Pillow), no outside images.
-Usage: python3 tools/make-cosmos.py assets/preview   (writes cosmos-wide.webp and cosmos-tall.webp)"""
+Usage: python3 tools/make-cosmos.py assets/art   (writes cosmos-wide.webp and cosmos-tall.webp)"""
 import sys
 import numpy as np
 from PIL import Image, ImageFilter

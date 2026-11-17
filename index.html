@@ -8,7 +8,7 @@
   <meta property="og:title" content="Blucos Games">
   <meta property="og:description" content="Blucos makes small puzzle games about real things: birds, stars, fossils and evolution. A small family studio on Jeju Island, Korea.">
   <meta property="og:image" content="assets/og-icon.png">
-  <meta name="theme-color" content="#12285c">
+  <meta name="theme-color" content="#0b1240">
   <link rel="alternate" hreflang="en" href="./"><link rel="alternate" hreflang="ko" href="ko/./">
   <link rel="icon" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -16,63 +16,67 @@
 </head>
 <body>
   <header class="top">
-    <a class="logo" href=""><img src="assets/logo.png" alt="Blucos Games" width="192" height="30"></a>
+    <a class="logo" href=""><img src="assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
     <nav><a href="#games">Games</a><a href="contact.html">Contact</a></nav>
   </header>
   <main>
     <section class="hero">
-      <h1>Small puzzle games about real things</h1>
-      <p>We put stories from the real world, like birds, stars, fossils and evolution, into puzzle games one at a time. Four so far, with more on the way.</p>
-      <p class="studio">Made by a small family studio on Jeju Island, Korea.</p>
-    </section>
-    <section id="games">
-      <h2>Our games</h2>
-      <div class="games">
-      <article class="game" style="--c1:#ffd35c;--c2:#f0a91e">
-        <div class="panel">
-          <img class="icon" src="icons/hatchbingo.png" alt="" width="88" height="88" loading="lazy">
-          <div class="text">
-            <h3><a href="games/hatchbingo.html">Hatch Bingo</a></h3>
-            <p>Hatch chicks in three lines and fill your bird book</p>
-          </div>
-          <div class="actions"><span class="soon">Coming soon</span><a class="more" href="games/hatchbingo.html">About the game ›</a></div>
-        </div>
-      </article>
-      <article class="game" style="--c1:#8fd46a;--c2:#2e8f6a">
-        <div class="panel">
-          <img class="icon" src="icons/evolution2048.png" alt="" width="88" height="88" loading="lazy">
-          <div class="text">
-            <h3><a href="games/evolution2048.html">Evolution 2048: Merge Puzzle</a></h3>
-            <p>Merge matching tiles and follow the story of evolution</p>
-          </div>
-          <div class="actions"><span class="soon">Coming soon</span><a class="more" href="games/evolution2048.html">About the game ›</a></div>
-        </div>
-      </article>
-      <article class="game" style="--c1:#d9b26a;--c2:#6b4a24">
-        <div class="panel">
-          <img class="icon" src="icons/fossildig.png" alt="" width="88" height="88" loading="lazy">
-          <div class="text">
-            <h3><a href="games/fossildig.html">Fossil Dig: Dino Museum</a></h3>
-            <p>Dig up fossils and fill your own dinosaur museum</p>
-          </div>
-          <div class="actions"><span class="soon">Coming soon</span><a class="more" href="games/fossildig.html">About the game ›</a></div>
-        </div>
-      </article>
-      <article class="game" style="--c1:#8a6cf0;--c2:#2a1c78">
-        <div class="panel">
-          <img class="icon" src="icons/starfall.png" alt="" width="88" height="88" loading="lazy">
-          <div class="text">
-            <h3><a href="games/starfall.html">Starfall: Star Match Puzzle</a></h3>
-            <p>Match falling stars and light up real constellations</p>
-          </div>
-          <div class="actions"><span class="soon">Coming soon</span><a class="more" href="games/starfall.html">About the game ›</a></div>
-        </div>
-      </article>
+      <div class="copy">
+        <h1>Small <em>puzzle games</em> about real things</h1>
+        <p>We put stories from the real world, like birds, stars, fossils and evolution, into puzzle games one at a time. Four so far, with more on the way.</p>
+        <p class="studio">Made by a small family studio on Jeju Island, Korea.</p>
+        <a class="cta" href="#games">See our games</a>
       </div>
     </section>
-    <section id="shorts">
+    <section id="games" class="band">
+      <h2>Our games</h2>
+      <p class="sub">One at a time, made with care.</p>
+      <div class="cards">
+        <article class="card" style="--c1:#ffd35c;--c2:#f0a91e;--i:0">
+          <a class="card-link" href="games/hatchbingo.html" aria-label="Hatch Bingo"></a>
+          <div class="art"><img src="assets/art/banner-hatchbingo.webp" alt="" loading="lazy" width="640" height="320"><img class="peek" src="assets/art/hatch.webp" alt="" loading="lazy"></div>
+          <div class="body">
+            <img class="icon" src="icons/hatchbingo.png" alt="" width="72" height="72" loading="lazy">
+            <h3>Hatch Bingo</h3>
+            <p>Hatch chicks in three lines and fill your bird book</p>
+            <div class="actions"><span class="soon">Coming soon</span><span class="more">About the game ›</span></div>
+          </div>
+        </article>
+        <article class="card" style="--c1:#8fd46a;--c2:#2e8f6a;--i:1">
+          <a class="card-link" href="games/evolution2048.html" aria-label="Evolution 2048: Merge Puzzle"></a>
+          <div class="art"><img src="assets/art/banner-evolution2048.webp" alt="" loading="lazy" width="640" height="320"><img class="peek" src="assets/art/evo-dino.webp" alt="" loading="lazy"></div>
+          <div class="body">
+            <img class="icon" src="icons/evolution2048.png" alt="" width="72" height="72" loading="lazy">
+            <h3>Evolution 2048: Merge Puzzle</h3>
+            <p>Merge matching tiles and follow the story of evolution</p>
+            <div class="actions"><span class="soon">Coming soon</span><span class="more">About the game ›</span></div>
+          </div>
+        </article>
+        <article class="card" style="--c1:#d9b26a;--c2:#6b4a24;--i:2">
+          <a class="card-link" href="games/fossildig.html" aria-label="Fossil Dig: Dino Museum"></a>
+          <div class="art"><img src="assets/art/banner-fossildig.webp" alt="" loading="lazy" width="640" height="320"><img class="peek" src="assets/art/fd-pickaxe.webp" alt="" loading="lazy"></div>
+          <div class="body">
+            <img class="icon" src="icons/fossildig.png" alt="" width="72" height="72" loading="lazy">
+            <h3>Fossil Dig: Dino Museum</h3>
+            <p>Dig up fossils and fill your own dinosaur museum</p>
+            <div class="actions"><span class="soon">Coming soon</span><span class="more">About the game ›</span></div>
+          </div>
+        </article>
+        <article class="card" style="--c1:#8a6cf0;--c2:#2a1c78;--i:3">
+          <a class="card-link" href="games/starfall.html" aria-label="Starfall: Star Match Puzzle"></a>
+          <div class="art"><img src="assets/art/banner-starfall.webp" alt="" loading="lazy" width="640" height="320"><img class="peek" src="assets/art/star.webp" alt="" loading="lazy"></div>
+          <div class="body">
+            <img class="icon" src="icons/starfall.png" alt="" width="72" height="72" loading="lazy">
+            <h3>Starfall: Star Match Puzzle</h3>
+            <p>Match falling stars and light up real constellations</p>
+            <div class="actions"><span class="soon">Coming soon</span><span class="more">About the game ›</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+    <section id="shorts" class="band">
       <h2>Watch</h2>
-      <p class="muted">Short videos from our games.</p>
+      <p class="sub">Short videos from our games.</p>
       <div class="shorts">
       <button class="short" type="button" data-yt="AHp4JLHZoV4" aria-label="Play video: What evolves after the amphibian?">
         <img src="assets/shorts/AHp4JLHZoV4.jpg" alt="" width="360" height="640" loading="lazy">
@@ -103,6 +107,7 @@
   </script>
   </main>
   <footer>
+    <img class="foot-planet" src="assets/art/planet.webp" alt="" width="64" height="64" loading="lazy">
     <nav><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></nav>
     <p class="lang"><b>English</b> · <a href="ko/./" hreflang="ko">한국어</a></p>
     <p>© 2026 Blucos · <a href="mailto:blucos.games@gmail.com">blucos.games@gmail.com</a></p>

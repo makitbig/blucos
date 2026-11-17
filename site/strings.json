@@ -32,7 +32,10 @@
     "gamepage.help": "Help & FAQ",
     "gamepage.privacy": "Privacy policy",
     "game.soonStore": "{store} coming soon",
-    "hero.studio": "Made by a small family studio on Jeju Island, Korea."
+    "hero.studio": "Made by a small family studio on Jeju Island, Korea.",
+    "hero.highlight": "puzzle games",
+    "hero.cta": "See our games",
+    "games.sub": "One at a time, made with care."
   },
   "ko": {
     "label": "한국어",
@@ -67,6 +70,9 @@
     "gamepage.help": "도움말·자주 묻는 질문",
     "gamepage.privacy": "개인정보 처리방침",
     "game.soonStore": "{store} 곧 출시",
-    "hero.studio": "제주의 작은 가족 스튜디오에서 만들어요."
+    "hero.studio": "제주의 작은 가족 스튜디오에서 만들어요.",
+    "hero.highlight": "작은 퍼즐 게임",
+    "hero.cta": "게임 보러 가기",
+    "games.sub": "하나씩 정성껏 만들고 있어요."
   }
 }

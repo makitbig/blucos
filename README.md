@@ -43,3 +43,6 @@ pages of each game's own site). Edit those, run the script, commit the generated
   developer website in App Store Connect and Play Console.
 - Videos: `assets/shorts/<id>.jpg` posters (a frame from the source video); the YouTube player loads
   only when tapped (youtube-nocookie.com).
+- Look: "blue cosmos" (chosen 2026-11-18 from the previews in `preview/`). Card and game-page art per
+  game: `site/site.json` "art" (files in `assets/art/`; a game without art gets its frame colours).
+  The opening picture is drawn by `tools/make-cosmos.py`. Fonts: the device's own sans, no web fonts.

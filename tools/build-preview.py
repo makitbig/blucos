@@ -5,7 +5,7 @@
 
 Same data as the real site (games.json, site/strings.json, site/site.json, site/games/<id>.json), with
 two different looks so the user can pick one. Not linked from the real pages and marked noindex.
-Art for the previews: assets/preview/ (cutouts and banners from the games, small WebP files).
+Art for the previews: assets/art/ (cutouts and banners from the games, small WebP files).
 Type: the device's own sans (Roboto / San Francisco / Segoe UI, Apple SD Gothic Neo / Noto Sans KR / Malgun Gothic),
 no web fonts; headings stand out by weight and size.
 """
@@ -54,7 +54,7 @@ def head(title, up, v, desc):
 
 def topbar(up, v, home):
     o = VARIANTS[v]['other']
-    logo = 'assets/preview/logo-white.png' if v == 'a' else 'assets/logo.png'
+    logo = 'assets/art/logo-white.png' if v == 'a' else 'assets/logo.png'
     return f'''
   <div class="pv-note">디자인 {e(VARIANTS[v]['name'])} · 실제 사이트 아님 · <a href="{up}preview/{o}/">다른 시안 보기</a></div>
   <header class="top">
@@ -66,7 +66,7 @@ def topbar(up, v, home):
 def footer(up):
     return f'''
   <footer>
-    <img class="foot-planet" src="{up}assets/preview/planet.webp" alt="" width="72" height="72" loading="lazy">
+    <img class="foot-planet" src="{up}assets/art/planet.webp" alt="" width="72" height="72" loading="lazy">
     <nav><a href="{up}ko/contact.html">{e(T['footer.contact'])}</a><a href="{up}ko/privacy.html">{e(T['footer.privacy'])}</a></nav>
     <p>© 2026 Blucos · <a href="mailto:{B.EMAIL}">{B.EMAIL}</a></p>
   </footer>'''
@@ -76,11 +76,11 @@ def card(g, up, i, v='a'):
     a = ART.get(g['id'], {})
     c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
     link = f'games/{g["id"]}.html' if g['id'] == GAME_PAGE else f'{up}ko/games/{g["id"]}.html'
-    peek = f'<img class="peek" src="{up}assets/preview/{a["peek"]}" alt="" loading="lazy">' if a.get('peek') and v == 'a' else ''
+    peek = f'<img class="peek" src="{up}assets/art/{a["peek"]}" alt="" loading="lazy">' if a.get('peek') and v == 'a' else ''
     return f'''
         <article class="card" style="--c1:{c1};--c2:{c2};--i:{i}">
           <a class="card-link" href="{link}" aria-label="{e(pick(g['name'], LANG))}"></a>
-          <div class="art"><img src="{up}assets/preview/{a.get('banner', '')}" alt="" loading="lazy" width="640" height="320">{peek}</div>
+          <div class="art"><img src="{up}assets/art/{a.get('banner', '')}" alt="" loading="lazy" width="640" height="320">{peek}</div>
           <div class="body">
             <img class="icon" src="{up}{e(g['icon'])}" alt="" width="72" height="72" loading="lazy">
             <h3>{e(pick(g['name'], LANG))}</h3>
@@ -100,7 +100,7 @@ def hero(up, v):
     else:
         # one large piece of art per game, still (no wobble)
         deco = f'''
-      <div class="stickers" aria-hidden="true">{''.join(f'<img class="st s{k}" src="{up}assets/preview/{ART[g["id"]]["hero"]}" alt="">' for k, g in enumerate(GAMES) if g['id'] in ART)}
+      <div class="stickers" aria-hidden="true">{''.join(f'<img class="st s{k}" src="{up}assets/art/{ART[g["id"]]["hero"]}" alt="">' for k, g in enumerate(GAMES) if g['id'] in ART)}
       </div>'''
         title = t.replace('진짜 세상', '<mark class="m1">진짜 세상</mark>').replace('퍼즐 게임', '<mark class="m2">퍼즐 게임</mark>')
     return f'''
@@ -162,14 +162,14 @@ def game(v, gid):
     body = f'''
     <section class="ghero" style="--c1:{c1};--c2:{c2}">
       <a class="back" href="../#games">‹ {e(T['gamepage.back'])}</a>
-      <img class="gbanner" src="{up}assets/preview/{a.get('banner', '')}" alt="" width="640" height="320">
+      <img class="gbanner" src="{up}assets/art/{a.get('banner', '')}" alt="" width="640" height="320">
       <div class="ginfo">
         <img class="gicon" src="{up}{e(g['icon'])}" alt="" width="112" height="112">
         <h1>{e(pick(g['name'], LANG))}</h1>
         <p class="tag">{e(pick(g['tagline'], LANG))}</p>
         <div class="actions">{B.stores(g, T)}</div>
       </div>
-      {f'<img class="gpeek" src="{up}assets/preview/{a["peek"]}" alt="">' if a.get('peek') and v == 'a' else ''}
+      {f'<img class="gpeek" src="{up}assets/art/{a["peek"]}" alt="">' if a.get('peek') and v == 'a' else ''}
     </section>
     <p class="lead">{e(w['lead'])}</p>
     <h2 class="shots-title">{e(EXTRA['shots'])}</h2>
