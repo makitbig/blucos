@@ -40,6 +40,7 @@ h2 { margin: 0 0 14px; font-size: 22px; }
 }
 .hero h1 { margin: 0 auto 10px; max-width: 18em; font-size: 28px; }
 .hero p { margin: 0 auto; max-width: 34em; color: rgba(255, 255, 255, 0.86); font-size: 16px; }
+.hero .studio { margin-top: 14px; color: rgba(255, 255, 255, 0.62); font-size: 13.5px; }
 
 /* Game cards: the same frame as the share cards (CARDS.md), a two-colour diagonal border around a paper panel. */
 .games { display: grid; gap: 16px; grid-template-columns: 1fr; }

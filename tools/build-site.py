@@ -203,6 +203,7 @@ def build(lang):
     <section class="hero">
       <h1>{e(t['hero.title'])}</h1>
       <p>{e(hero_text(t['hero.text'], len(visible), lang))}</p>
+      <p class="studio">{e(t['hero.studio'])}</p>
     </section>
     <section id="games">
       <h2>{e(t['games.title'])}</h2>
