@@ -31,7 +31,7 @@ ART = {
     'starfall': {'banner': 'banner-starfall.webp', 'peek': 'star.webp', 'hero': 'star.webp'},
 }
 VARIANTS = {
-    'a': {'name': '시안 A · 밤하늘', 'other': 'b'},
+    'a': {'name': '시안 A · 파란 우주', 'other': 'b'},
     'b': {'name': '시안 B · 스티커북', 'other': 'a'},
 }
 EXTRA = {'cta': '게임 보러 가기', 'games.sub': '하나씩 정성껏 만들고 있어요. 모두 스토어에 곧 나와요.', 'shots': '게임 화면'}
@@ -94,15 +94,8 @@ def hero(up, v):
     t, n = T['hero.title'], len(GAMES)
     text = B.hero_text(T['hero.text'], n, LANG)
     if v == 'a':
-        orbit = ''.join(f'<img class="orb o{k}" src="{up}{e(g["icon"])}" alt="" width="64" height="64">' for k, g in enumerate(GAMES))
-        deco = f'''
-      <div class="sky" aria-hidden="true">
-        <div class="system">
-          <div class="ring"></div>
-          <img class="planet" src="{up}assets/preview/planet.webp" alt="" width="240" height="240">
-          <div class="orbit">{orbit}</div>
-        </div>
-      </div>'''
+        # just the blue cosmos picture behind the words (tools/make-cosmos.py); the games come further down
+        deco = ''
         title = t.replace('작은 퍼즐 게임', '<em>작은 퍼즐 게임</em>')
     else:
         # one large piece of art per game, still (no wobble)
