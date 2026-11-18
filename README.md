@@ -1,7 +1,7 @@
 # Blucos
 
 The shared list of Blucos games, served by GitHub Pages at
-https://makitbig.github.io/blucos/games.json. Each Blucos game reads it once per launch for its
+https://blucos.studio/games.json (formerly makitbig.github.io/blucos/, which now redirects). Each Blucos game reads it once per launch for its
 "More games from Blucos" menu section, so a new game or a new store link reaches every game
 without an app update. Each game also ships a copy (www/blucos-games.js) for offline use.
 
@@ -27,7 +27,7 @@ so "Save Image" in the share sheet does not crash the app.
 
 ## Website
 
-The same repo is the Blucos website: https://makitbig.github.io/blucos/ (English at the root, Korean
+The same repo is the Blucos website: https://blucos.studio/ (English at the root, Korean
 under `ko/`). Every page is static HTML written by `python3 tools/build-site.py` from `games.json`
 (game cards: icon, name, intro, store buttons or "Coming soon", `frame` colours, `site` link),
 `site/strings.json` (the site's words per language) and `site/site.json` (email, videos, per-language
@@ -46,3 +46,7 @@ pages of each game's own site). Edit those, run the script, commit the generated
 - Look: "blue cosmos" (chosen 2026-11-18 from the previews in `preview/`). Card and game-page art per
   game: `site/site.json` "art" (files in `assets/art/`; a game without art gets its frame colours).
   The opening picture is drawn by `tools/make-cosmos.py`. Fonts: the device's own sans, no web fonts.
+
+## Custom domain (2026-11-18)
+- blucos.studio (Cloudflare Registrar, DNS only: 4 GitHub A records, www CNAME makitbig.github.io, TXT for GitHub domain verification). `CNAME` file in this repo; HTTPS enforced.
+- GitHub redirects old makitbig.github.io/blucos/... addresses to **http**://blucos.studio/..., which app WebViews block as mixed content. Apps already shipped fall back to their cached/bundled list; new releases fetch https://blucos.studio/ directly (template BASE), so run tools/sync.py before each game's next release.

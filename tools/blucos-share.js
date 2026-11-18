@@ -11,7 +11,7 @@
 //     logo:   optional path of the Blucos logo in the app (default assets/share/blucos-logo.png)
 //     draw:   async (ctx, box, kit) => {}                     paints inside box {x, y, w, h}
 //   BlucosShare.link(gameId, lang, fallback) -> the store link from the shared games list
-//     (blucos-games.js, refreshed from makitbig.github.io/blucos/games.json), or fallback before launch
+//     (blucos-games.js, refreshed from blucos.studio/games.json), or fallback before launch
 //   BlucosShare.share({ dataUrl, fileName, title, text }) -> share sheet (Capacitor Share + Filesystem),
 //     the Web Share API, or a download in a desktop browser
 //
