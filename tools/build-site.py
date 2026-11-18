@@ -12,8 +12,8 @@ Look ("blue cosmos", chosen 2026-11-18 from the previews in preview/): a full-wi
 behind the opening words (assets/art/cosmos-*.webp, drawn by tools/make-cosmos.py), game cards like
 glowing collectible cards (banner + cutout from site.json "art"), the device's own sans fonts.
 
-All links are relative, so the site works at makitbig.github.io/blucos/ today and at a custom domain
-later (add a CNAME file). games.json, icons/ and app-ads.txt stay at the root: the games read
+All links are relative. The site is served at https://blucos.studio/ (CNAME file); old
+makitbig.github.io/blucos/ addresses redirect there. games.json, icons/ and app-ads.txt stay at the root: the games read
 games.json and icons/ from there, and AdMob looks for app-ads.txt at the root of the domain.
 """
 import html
