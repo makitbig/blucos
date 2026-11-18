@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evolution 2048: Merge Puzzle · Blucos Games</title>
+  <meta name="description" content="Merge matching tiles and follow the story of evolution">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blucos.studio/go/evolution2048/">
+  <meta property="og:title" content="Evolution 2048: Merge Puzzle">
+  <meta property="og:description" content="Merge matching tiles and follow the story of evolution">
+  <meta property="og:image" content="https://blucos.studio/assets/og/evolution2048.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1240">
+  <link rel="icon" href="../../assets/favicon.png">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <script>
+    (function () {
+      // Straight to this phone's store when the game is there; iPadOS reports itself as a Mac with touch.
+      var l = {"ios": "", "android": ""}, ua = navigator.userAgent;
+      var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var to = ios ? l.ios : /Android/.test(ua) ? l.android : '';
+      if (to) location.replace(to);
+    })();
+  </script>
+</head>
+<body>
+  <main class="go">
+    <a class="logo go-logo" href="../../"><img src="../../assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
+    <section class="ghero" style="--c1:#8fd46a;--c2:#2e8f6a">
+      <img class="gbanner" src="../../assets/art/banner-evolution2048.webp" alt="" width="640" height="320">
+      <div class="ginfo">
+        <img class="gicon" src="../../icons/evolution2048.png" alt="" width="112" height="112">
+        <h1 data-ko="Evolution 2048: Merge Puzzle">Evolution 2048: Merge Puzzle</h1>
+        <p class="tag" data-ko="같은 것끼리 합쳐 생명의 진화를 따라가요">Merge matching tiles and follow the story of evolution</p>
+        <div class="actions" data-en="&lt;span class=&quot;soon&quot;&gt;Coming soon&lt;/span&gt;" data-ko-html="&lt;span class=&quot;soon&quot;&gt;곧 출시&lt;/span&gt;"><span class="soon">Coming soon</span></div>
+        <p><a class="more-link" href="../../games/evolution2048.html" data-ko-href="../../ko/games/evolution2048.html" data-ko="게임 소개">About the game ›</a></p>
+      </div>
+    </section>
+  </main>
+  <script>
+    if (/^ko/i.test(navigator.language || '')) {
+      document.documentElement.lang = 'ko';
+      document.querySelectorAll('[data-ko]').forEach(function (el) { el.textContent = el.dataset.ko + (el.classList.contains('more-link') ? ' ›' : ''); });
+      document.querySelectorAll('[data-ko-html]').forEach(function (el) { el.innerHTML = el.dataset.koHtml; });
+      document.querySelectorAll('[data-ko-href]').forEach(function (el) { el.href = el.dataset.koHref; });
+      document.title = document.querySelector('h1').textContent + ' · Blucos Games';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hatch Bingo · Blucos Games</title>
+  <meta name="description" content="Hatch chicks in three lines and fill your bird book">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blucos.studio/go/hatchbingo/">
+  <meta property="og:title" content="Hatch Bingo">
+  <meta property="og:description" content="Hatch chicks in three lines and fill your bird book">
+  <meta property="og:image" content="https://blucos.studio/assets/og/hatchbingo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1240">
+  <link rel="icon" href="../../assets/favicon.png">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <script>
+    (function () {
+      // Straight to this phone's store when the game is there; iPadOS reports itself as a Mac with touch.
+      var l = {"ios": "", "android": ""}, ua = navigator.userAgent;
+      var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var to = ios ? l.ios : /Android/.test(ua) ? l.android : '';
+      if (to) location.replace(to);
+    })();
+  </script>
+</head>
+<body>
+  <main class="go">
+    <a class="logo go-logo" href="../../"><img src="../../assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
+    <section class="ghero" style="--c1:#ffd35c;--c2:#f0a91e">
+      <img class="gbanner" src="../../assets/art/banner-hatchbingo.webp" alt="" width="640" height="320">
+      <div class="ginfo">
+        <img class="gicon" src="../../icons/hatchbingo.png" alt="" width="112" height="112">
+        <h1 data-ko="Hatch Bingo">Hatch Bingo</h1>
+        <p class="tag" data-ko="알을 부화시켜 병아리 빙고 세 줄! 새 도감을 채워요">Hatch chicks in three lines and fill your bird book</p>
+        <div class="actions" data-en="&lt;span class=&quot;soon&quot;&gt;Coming soon&lt;/span&gt;" data-ko-html="&lt;span class=&quot;soon&quot;&gt;곧 출시&lt;/span&gt;"><span class="soon">Coming soon</span></div>
+        <p><a class="more-link" href="../../games/hatchbingo.html" data-ko-href="../../ko/games/hatchbingo.html" data-ko="게임 소개">About the game ›</a></p>
+      </div>
+    </section>
+  </main>
+  <script>
+    if (/^ko/i.test(navigator.language || '')) {
+      document.documentElement.lang = 'ko';
+      document.querySelectorAll('[data-ko]').forEach(function (el) { el.textContent = el.dataset.ko + (el.classList.contains('more-link') ? ' ›' : ''); });
+      document.querySelectorAll('[data-ko-html]').forEach(function (el) { el.innerHTML = el.dataset.koHtml; });
+      document.querySelectorAll('[data-ko-href]').forEach(function (el) { el.href = el.dataset.koHref; });
+      document.title = document.querySelector('h1').textContent + ' · Blucos Games';
+    }
+  </script>
+</body>
+</html>

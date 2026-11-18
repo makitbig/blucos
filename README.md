@@ -33,6 +33,13 @@ under `ko/`). Every page is static HTML written by `python3 tools/build-site.py`
 `site/strings.json` (the site's words per language) and `site/site.json` (email, videos, per-language
 pages of each game's own site). Edit those, run the script, commit the generated pages.
 
+- Story and For parents pages: `site/pages/story.json` and `site/pages/parents.json` (headline, sections of
+  paragraphs, per language). The story stays general on purpose: a child who loves to draw and their dad,
+  no name, age, school or photo. News: `site/news.json`, newest first; the home page shows the latest.
+- Share links: `go/<id>/` (one per game in `games.json`) opens the store of the phone that opens it, or
+  shows the game with its store buttons when that store has no link yet. `BlucosGames.shareLink(id)` returns
+  it, so apps built from now on share `https://blucos.studio/go/<id>/`. Link previews use
+  `assets/og/<id>.png` (made from the card banner).
 - New language: add it to `langs` in `site/site.json` and its words to `site/strings.json`.
   Game names and intros already come from `games.json` (10 languages).
 - Custom domain later: add a `CNAME` file with the domain and set it in the repo's Pages settings.

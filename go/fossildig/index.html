@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fossil Dig: Dino Museum · Blucos Games</title>
+  <meta name="description" content="Dig up fossils and fill your own dinosaur museum">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blucos.studio/go/fossildig/">
+  <meta property="og:title" content="Fossil Dig: Dino Museum">
+  <meta property="og:description" content="Dig up fossils and fill your own dinosaur museum">
+  <meta property="og:image" content="https://blucos.studio/assets/og/fossildig.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1240">
+  <link rel="icon" href="../../assets/favicon.png">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <script>
+    (function () {
+      // Straight to this phone's store when the game is there; iPadOS reports itself as a Mac with touch.
+      var l = {"ios": "https://apps.apple.com/app/id6832145836", "android": ""}, ua = navigator.userAgent;
+      var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var to = ios ? l.ios : /Android/.test(ua) ? l.android : '';
+      if (to) location.replace(to);
+    })();
+  </script>
+</head>
+<body>
+  <main class="go">
+    <a class="logo go-logo" href="../../"><img src="../../assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
+    <section class="ghero" style="--c1:#d9b26a;--c2:#6b4a24">
+      <img class="gbanner" src="../../assets/art/banner-fossildig.webp" alt="" width="640" height="320">
+      <div class="ginfo">
+        <img class="gicon" src="../../icons/fossildig.png" alt="" width="112" height="112">
+        <h1 data-ko="화석 발굴: 공룡 박물관">Fossil Dig: Dino Museum</h1>
+        <p class="tag" data-ko="화석을 캐서 나만의 공룡 박물관을 채워요">Dig up fossils and fill your own dinosaur museum</p>
+        <div class="actions" data-en="&lt;a class=&quot;store&quot; href=&quot;https://apps.apple.com/app/id6832145836&quot; rel=&quot;noopener&quot;&gt;App Store&lt;/a&gt;&lt;span class=&quot;soon&quot;&gt;Google Play coming soon&lt;/span&gt;" data-ko-html="&lt;a class=&quot;store&quot; href=&quot;https://apps.apple.com/app/id6832145836&quot; rel=&quot;noopener&quot;&gt;App Store&lt;/a&gt;&lt;span class=&quot;soon&quot;&gt;Google Play 곧 출시&lt;/span&gt;"><a class="store" href="https://apps.apple.com/app/id6832145836" rel="noopener">App Store</a><span class="soon">Google Play coming soon</span></div>
+        <p><a class="more-link" href="../../games/fossildig.html" data-ko-href="../../ko/games/fossildig.html" data-ko="게임 소개">About the game ›</a></p>
+      </div>
+    </section>
+  </main>
+  <script>
+    if (/^ko/i.test(navigator.language || '')) {
+      document.documentElement.lang = 'ko';
+      document.querySelectorAll('[data-ko]').forEach(function (el) { el.textContent = el.dataset.ko + (el.classList.contains('more-link') ? ' ›' : ''); });
+      document.querySelectorAll('[data-ko-html]').forEach(function (el) { el.innerHTML = el.dataset.koHtml; });
+      document.querySelectorAll('[data-ko-href]').forEach(function (el) { el.href = el.dataset.koHref; });
+      document.title = document.querySelector('h1').textContent + ' · Blucos Games';
+    }
+  </script>
+</body>
+</html>

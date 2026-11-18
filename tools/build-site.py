@@ -24,6 +24,10 @@ ROOT = Path(__file__).resolve().parent.parent
 GAMES = json.loads((ROOT / 'games.json').read_text())['games']
 STR = json.loads((ROOT / 'site' / 'strings.json').read_text())
 SITE = json.loads((ROOT / 'site' / 'site.json').read_text())
+PAGES = {k: json.loads((ROOT / 'site' / 'pages' / f'{k}.json').read_text()) for k in ('story', 'parents')}
+NEWS = json.loads((ROOT / 'site' / 'news.json').read_text())['posts']
+BASE_URL = 'https://blucos.studio/'  # absolute address for link previews (og:image needs one); keep in step with CNAME
+MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 LANGS = SITE['langs']
 EMAIL = SITE['email']
 e = html.escape
@@ -122,7 +126,7 @@ def page(lang, name, title, body, t, desc=None, image=None):
   <meta name="description" content="{e(desc or t['description'])}">
   <meta property="og:title" content="{e(full)}">
   <meta property="og:description" content="{e(desc or t['description'])}">
-  <meta property="og:image" content="{up}{image or 'assets/og-icon.png'}">
+  <meta property="og:image" content="{BASE_URL}{image or 'assets/og-icon.png'}">
   <meta name="theme-color" content="#0b1240">
   {alt}
   <link rel="icon" href="{up}assets/favicon.png">
@@ -132,13 +136,13 @@ def page(lang, name, title, body, t, desc=None, image=None):
 <body>
   <header class="top">
     <a class="logo" href="{home}"><img src="{up}assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
-    <nav><a href="{home}#games">{e(t['nav.games'])}</a><a href="{home}contact.html">{e(t['nav.contact'])}</a></nav>
+    <nav><a href="{home}#games">{e(t['nav.games'])}</a><a href="{home}story.html">{e(t['nav.story'])}</a><a href="{home}contact.html">{e(t['nav.contact'])}</a></nav>
   </header>
   <main>{body}
   </main>
   <footer>
     <img class="foot-planet" src="{up}assets/art/planet.webp" alt="" width="64" height="64" loading="lazy">
-    <nav><a href="{home}contact.html">{e(t['footer.contact'])}</a><a href="{home}privacy.html">{e(t['footer.privacy'])}</a></nav>
+    <nav>{''.join(f'<a href="{home}{k}.html">{e(t["footer." + k])}</a>' for k in ('story', 'parents', 'news', 'contact', 'privacy'))}</nav>
     <p class="lang">{switch}</p>
     <p>© 2026 Blucos · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
   </footer>
@@ -200,6 +204,142 @@ def game_detail(g, lang, t):
     return page(lang, f"games/{g['id']}", pick(g['name'], lang), body, t, desc=pick(g['tagline'], lang), image=g['icon'])
 
 
+def date_text(d, lang):
+    y, m, day = (int(x) for x in d.split('-'))
+    return f'{y}년 {m}월 {day}일' if lang == 'ko' else f'{MONTHS[m - 1]} {day}, {y}'
+
+
+def prose_page(key, lang, t):
+    """story.html / parents.html: a cosmos header with the headline, then sections of plain paragraphs."""
+    w = PAGES[key].get(lang) or PAGES[key]['en']
+    up = '' if lang == 'en' else '../'
+    secs = []
+    for sec in w['sections']:
+        h = f'<h2>{e(sec["title"])}</h2>' if sec.get('title') else ''
+        ps = ''.join(f'<p>{e(x)}</p>' for x in sec['paras'])
+        if sec.get('email'):
+            ps += f'<p><a class="btn" href="mailto:{EMAIL}">{EMAIL}</a></p>'
+        secs.append(f'<section>{h}{ps}</section>')
+    extra = ''
+    if w.get('privacyLinks'):
+        links = ''.join(f'<li><a href="{e(game_page(g, lang, "privacy"))}">{e(pick(g["name"], lang))}</a></li>' for g in GAMES if not g.get('hidden'))
+        extra = f'<section><h2>{e(w["privacyLinks"])}</h2><ul>{links}</ul></section>'
+    lead = f'<p class="plead">{e(w["lead"])}</p>' if w.get('lead') else ''
+    closing = f'<p class="closing">{e(w["closing"])}</p>' if w.get('closing') else ''
+    body = f'''
+    <section class="phero phero-{key}">
+      <p class="kicker">{e(w['kicker'])}</p>
+      <h1>{e(w['headline'])}</h1>
+    </section>
+    <article class="prose">{lead}{''.join(secs)}{extra}{closing}</article>'''
+    return page(lang, key, w['title'], body, t, desc=w['desc'])
+
+
+def news_page(lang, t):
+    up = '' if lang == 'en' else '../'
+    posts = []
+    for p in NEWS:
+        g = next((x for x in GAMES if x['id'] == p.get('game')), None)
+        foot = ''
+        if g:
+            more = f'<a class="more-link" href="games/{g["id"]}.html">{e(t["news.page"])} ›</a>' if has_page(g) else ''
+            foot = f'<div class="post-game"><img src="{up}{e(g["icon"])}" alt="" width="48" height="48"><b>{e(pick(g["name"], lang))}</b><div class="actions">{stores(g, t)}{more}</div></div>'
+        paras = ''.join(f'<p>{e(x)}</p>' for x in pick(p['paras'], lang))
+        posts.append(f'''
+      <article class="post" id="{e(p['id'])}">
+        <time datetime="{p['date']}">{date_text(p['date'], lang)}</time>
+        <h2>{e(pick(p['title'], lang))}</h2>{paras}{foot}
+      </article>''')
+    body = f'''
+    <section class="phero phero-news">
+      <p class="kicker">{e(t['news.title'])}</p>
+      <h1>{e(t['news.lead'])}</h1>
+    </section>
+    <div class="prose posts">{''.join(posts)}
+    </div>'''
+    return page(lang, 'news', t['news.title'], body, t, desc=t['news.desc'])
+
+
+def go_pages():
+    """go/<id>/: the link the games put in share text. Opens this phone's store when the game is there,
+    otherwise shows the game with its store buttons. One page for every language (English, Korean if the
+    phone is set to Korean), with link-preview tags so the shared link shows the game."""
+    try:
+        from PIL import Image
+    except ImportError:
+        Image = None
+    t_en, t_ko = STR['en'], STR['ko']
+    for g in GAMES:
+        d = ROOT / 'go' / g['id']
+        d.mkdir(parents=True, exist_ok=True)
+        a = art(g)
+        og = g['icon']
+        if Image and a.get('banner'):
+            (ROOT / 'assets' / 'og').mkdir(exist_ok=True)
+            Image.open(ROOT / 'assets' / 'art' / a['banner']).convert('RGB').save(ROOT / 'assets' / 'og' / f"{g['id']}.png", optimize=True)
+            og = f"assets/og/{g['id']}.png"
+        c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
+        name_en, name_ko = pick(g['name'], 'en'), pick(g['name'], 'ko')
+        tag_en, tag_ko = pick(g['tagline'], 'en'), pick(g['tagline'], 'ko')
+        banner = f'<img class="gbanner" src="../../assets/art/{e(a["banner"])}" alt="" width="640" height="320">' if a.get('banner') else '<div class="gbanner"></div>'
+        about_en = f"../../games/{g['id']}.html" if has_page(g) else game_page(g, 'en', 'help')
+        about_ko = f"../../ko/games/{g['id']}.html" if has_page(g) else game_page(g, 'ko', 'help')
+        links = json.dumps({'ios': g.get('ios') or '', 'android': g.get('android') or ''})
+        (d / 'index.html').write_text(f'''<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{e(name_en)} · Blucos Games</title>
+  <meta name="description" content="{e(tag_en)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{BASE_URL}go/{g['id']}/">
+  <meta property="og:title" content="{e(name_en)}">
+  <meta property="og:description" content="{e(tag_en)}">
+  <meta property="og:image" content="{BASE_URL}{og}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1240">
+  <link rel="icon" href="../../assets/favicon.png">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <script>
+    (function () {{
+      // Straight to this phone's store when the game is there; iPadOS reports itself as a Mac with touch.
+      var l = {links}, ua = navigator.userAgent;
+      var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var to = ios ? l.ios : /Android/.test(ua) ? l.android : '';
+      if (to) location.replace(to);
+    }})();
+  </script>
+</head>
+<body>
+  <main class="go">
+    <a class="logo go-logo" href="../../"><img src="../../assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
+    <section class="ghero" style="--c1:{c1};--c2:{c2}">
+      {banner}
+      <div class="ginfo">
+        <img class="gicon" src="../../{e(g['icon'])}" alt="" width="112" height="112">
+        <h1 data-ko="{e(name_ko)}">{e(name_en)}</h1>
+        <p class="tag" data-ko="{e(tag_ko)}">{e(tag_en)}</p>
+        <div class="actions" data-en="{e(stores(g, t_en))}" data-ko-html="{e(stores(g, t_ko))}">{stores(g, t_en)}</div>
+        <p><a class="more-link" href="{e(about_en)}" data-ko-href="{e(about_ko)}" data-ko="{e(t_ko['go.about'])}">{e(t_en['go.about'])} ›</a></p>
+      </div>
+    </section>
+  </main>
+  <script>
+    if (/^ko/i.test(navigator.language || '')) {{
+      document.documentElement.lang = 'ko';
+      document.querySelectorAll('[data-ko]').forEach(function (el) {{ el.textContent = el.dataset.ko + (el.classList.contains('more-link') ? ' ›' : ''); }});
+      document.querySelectorAll('[data-ko-html]').forEach(function (el) {{ el.innerHTML = el.dataset.koHtml; }});
+      document.querySelectorAll('[data-ko-href]').forEach(function (el) {{ el.href = el.dataset.koHref; }});
+      document.title = document.querySelector('h1').textContent + ' · Blucos Games';
+    }}
+  </script>
+</body>
+</html>
+''')
+    print(f'go/: {", ".join(g["id"] for g in GAMES)}')
+
+
 SHORTS_JS = '''
   <script>
     // Videos load from YouTube only when tapped (no requests to Google before that).
@@ -252,7 +392,25 @@ def build(lang):
       </div>
       <p class="note">{e(t['shorts.note'])}</p>
     </section>{SHORTS_JS}'''
-    # Later (step 3): the Blucos story, a note for parents, news and a press kit go here as sections.
+    latest = NEWS[0] if NEWS else None
+    news_tile = f'''
+        <a class="tile" href="news.html#{e(latest['id'])}"><b>{e(t['about.news'])}</b><span>{e(pick(latest['title'], lang))}</span><time>{date_text(latest['date'], lang)}</time></a>''' if latest else ''
+    about = f'''
+    <section id="about" class="band about">
+      <a class="story-card" href="story.html">
+        <p class="kicker">{e(t['about.kicker'])}</p>
+        <h2>{e(t['about.title'])}</h2>
+        <p>{e(t['about.text'])}</p>
+        <span class="more">{e(t['about.read'])} ›</span>
+      </a>
+      <div class="tiles">
+        <a class="tile" href="parents.html"><b>{e(t['about.parents'])}</b><span>{e(t['about.parentsText'])}</span></a>{news_tile}
+      </div>
+    </section>'''
+    if '<section id="shorts"' in home:
+        home = home.replace('\n    <section id="shorts"', about + '\n    <section id="shorts"', 1)
+    else:
+        home += about
     (out / 'index.html').write_text(page(lang, 'index', '', home, t))
 
     help_links = ''.join(f'<li><a href="{e(game_page(g, lang, "help"))}">{e(pick(g["name"], lang))}</a></li>' for g in visible)
@@ -279,15 +437,20 @@ def build(lang):
     </section>'''
     (out / 'privacy.html').write_text(page(lang, 'privacy', t['privacy.title'], privacy, t))
 
+    for key in PAGES:
+        (out / f'{key}.html').write_text(prose_page(key, lang, t))
+    (out / 'news.html').write_text(news_page(lang, t))
+
     pages = [g for g in visible if has_page(g)]
     if pages:
         (out / 'games').mkdir(exist_ok=True)
     for g in pages:
         (out / 'games' / f"{g['id']}.html").write_text(game_detail(g, lang, t))
     pages_list = ', '.join(g['id'] for g in pages) or 'none'
-    print(f'{lang}: {out.relative_to(ROOT) if out != ROOT else "."}/index.html, contact.html, privacy.html ({len(visible)} games, pages: {pages_list})')
+    print(f'{lang}: {out.relative_to(ROOT) if out != ROOT else "."}/index.html, story, parents, news, contact, privacy ({len(visible)} games, pages: {pages_list})')
 
 
 if __name__ == '__main__':
     for l in LANGS:
         build(l)
+    go_pages()

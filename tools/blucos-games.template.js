@@ -8,8 +8,9 @@
 //
 //   BlucosGames.list(selfId, lang) -> [{ id, name, tagline, icon, link }]  (every game but selfId; link '' = coming soon)
 //   BlucosGames.refresh(onChange)  -> fetches the list; calls onChange() if it changed
-//   BlucosGames.shareLink(id)      -> the link for share text: this platform's store link once the game is out,
-//                                     its site before that (so shares point to the store with no app update)
+//   BlucosGames.shareLink(id)      -> the link for share text: https://blucos.studio/go/<id>/, which opens the
+//                                     store of the phone that opens it (the friend's, not the sharer's) once the
+//                                     game is there, and shows the game with its store buttons before that
 'use strict';
 window.BlucosGames = (() => {
   const BASE = 'https://blucos.studio/';
@@ -57,8 +58,8 @@ window.BlucosGames = (() => {
   }
 
   function shareLink(id) {
-    const g = data.games.find((x) => x.id === id), b = BUNDLED.games.find((x) => x.id === id);
-    return (g && link(g)) || (g && g.site) || (b && (link(b) || b.site)) || '';
+    const known = data.games.some((x) => x.id === id) || BUNDLED.games.some((x) => x.id === id);
+    return known ? `${BASE}go/${id}/` : '';
   }
 
   return { list, refresh, shareLink };
