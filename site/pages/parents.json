@@ -1,66 +1,102 @@
 {
-  "_comment": "For parents: ads, payments, data, offline play. Facts must match the games (site/games/*.json and each game's privacy policy).",
+  "_comment": "For parents: ads, payments, data, offline play, in a plain tone (the user's wish, 2026-11-18). Facts must match the games (site/games/*.json and each game's privacy policy).",
   "en": {
     "title": "For parents",
     "kicker": "For parents",
-    "headline": "What's inside, before you hand over the phone",
+    "headline": "Good to know before you hand it over",
     "desc": "Ads, purchases and privacy in Blucos games, explained plainly for parents.",
-    "lead": "Before you hand a phone to your child, you want to know what is inside. We are a family raising a child too, so we understand. Here it is, plainly.",
+    "lead": "Ads, purchases, privacy: the things parents usually ask about. All four games follow the same rules.",
     "sections": [
-      {"title": "Ads stay quiet, and stay at the edge", "paras": [
-        "The free versions have one small banner at the bottom of the screen. We don't show ads that cover the screen when a level ends; we never want to break a child's concentration just as it gets going.",
-        "Video ads play only when your child wants a hint, an undo or another try, and taps to watch one themselves. Skip them all, and the whole game is still there to finish."
-      ]},
-      {"title": "No paying for a chance", "paras": [
-        "No loot boxes, no gacha, no mystery chests. Coins and items in our games are earned by playing and are never sold for money.",
-        "Each game has exactly one thing to buy: Pro, paid once. It removes the banner and opens new packs. No subscriptions, nothing that renews every month. Apple and Google handle the payment, so any purchase limits you have set with Screen Time or Family Link still apply."
-      ]},
-      {"title": "Your child's world stays on your child's device", "paras": [
-        "No accounts, no sign-in, no servers of our own. We never ask for a name or an age, and progress is saved only on the device. Photos used in a custom theme never leave the phone.",
-        "The ads come from Google AdMob, which may use information about the device to show them. Each game's privacy policy explains this in full."
-      ]},
-      {"title": "No Wi-Fi needed", "paras": [
-        "Every game plays to the very end offline: on long car rides, on planes, at grandma's house in the countryside."
-      ]},
-      {"title": "The conversation after the game", "paras": [
-        "The 20 birds, 17 prehistoric animals and 18 constellations in our games are all real, and each one your child completes opens a short, true story.",
-        "So when the game is over, ask: which bird hatched today? Which constellation lit up? If your child starts telling you and can't stop, our game has done its job."
-      ]},
-      {"title": "Write to us anytime", "paras": [
-        "If anything worries you, or you are simply curious, email us. We read every message as parents, and we answer."
-      ], "email": true}
+      {
+        "title": "Ads: one small banner",
+        "paras": [
+          "The free versions have one small banner at the bottom of the screen. There are no full-screen ads when a level ends.",
+          "Video ads play only when a player chooses one, for a hint, an undo or another try. You can finish every game without watching any."
+        ]
+      },
+      {
+        "title": "No paying for chance, one payment",
+        "paras": [
+          "There are no loot boxes, gacha or other paid chance. Coins and items are earned by playing and never sold for money.",
+          "Each game has one thing to buy: Pro, paid once. It removes the banner and opens extra packs. No subscriptions, no automatic renewals. Apple and Google handle the payment, so Screen Time and Family Link purchase limits still apply."
+        ]
+      },
+      {
+        "title": "We don't collect your child's information",
+        "paras": [
+          "No accounts, no sign-in, no servers of our own. We don't ask for a name or an age, and progress is saved only on the device. Photos used in a custom theme stay on the device.",
+          "Ads are served by Google AdMob, which may use device information to show them. Each game's privacy policy, linked below, has the details."
+        ]
+      },
+      {
+        "title": "No internet needed",
+        "paras": [
+          "Every game can be played to the end without an internet connection."
+        ]
+      },
+      {
+        "title": "Real birds, fossils and stars",
+        "paras": [
+          "The 20 birds, 17 prehistoric animals and 18 constellations in the games are all real. Completing one opens a short note about it, which can be nice to read together."
+        ]
+      },
+      {
+        "title": "Contact",
+        "paras": [
+          "If you have a question or a concern, email us and we will reply."
+        ],
+        "email": true
+      }
     ],
     "privacyLinks": "Privacy policy for each game"
   },
   "ko": {
     "title": "부모님께",
     "kicker": "부모님께",
-    "headline": "아이에게 건네기 전에, 안에 무엇이 들었는지",
+    "headline": "아이에게 건네기 전에 알아 두면 좋은 것들",
     "desc": "Blucos 게임의 광고, 결제, 개인정보를 부모님께 솔직하게 알려 드려요.",
-    "lead": "아이에게 휴대폰을 건네기 전, 그 안에 무엇이 들어 있는지 먼저 알고 싶으시죠. 저희도 아이를 키우는 집이라 그 마음을 잘 알아요. 그래서 숨김없이 적어 두었어요.",
+    "lead": "광고, 결제, 개인정보처럼 부모님이 궁금해하실 만한 것들을 정리했어요. 네 게임 모두 같은 원칙으로 만들어요.",
     "sections": [
-      {"title": "광고는 조용히, 가장자리에만", "paras": [
-        "무료 버전에는 화면 아래 작은 배너 하나만 있어요. 판이 끝날 때마다 화면을 덮는 광고는 넣지 않았어요. 이제 막 집중하기 시작한 아이의 흐름을 끊고 싶지 않아서예요.",
-        "동영상 광고는 힌트나 되돌리기, 한 번 더 하기가 필요할 때 아이가 직접 보기를 눌러야만 나와요. 한 번도 보지 않아도 게임은 끝까지 할 수 있어요."
-      ]},
-      {"title": "확률에 돈을 걸지 않아요", "paras": [
-        "뽑기도, 열어 봐야 아는 상자도 없어요. 게임 속 코인과 아이템은 플레이해서만 모을 수 있고, 돈으로는 팔지 않아요.",
-        "돈을 쓰는 곳은 게임마다 딱 하나, 한 번만 결제하는 프로예요. 배너가 사라지고 새 팩이 열려요. 구독도, 매달 빠져나가는 돈도 없어요. 결제는 Apple과 Google이 처리하니, 스크린 타임이나 패밀리 링크로 걸어 둔 구매 제한도 그대로 지켜져요."
-      ]},
-      {"title": "아이의 세상은 아이의 기기 안에", "paras": [
-        "계정도, 로그인도, 저희 서버도 없어요. 이름이나 나이를 묻지 않고, 진행 기록은 그 기기 안에만 남아요. 나만의 테마에 넣은 사진도 휴대폰 밖으로 나가지 않아요.",
-        "다만 광고는 Google AdMob이 보여 주고, 광고를 위해 기기 정보를 쓸 수 있어요. 자세한 내용은 게임마다 있는 개인정보 처리방침에 모두 적어 두었어요."
-      ]},
-      {"title": "와이파이가 없어도", "paras": [
-        "모든 게임은 인터넷 없이 끝까지 할 수 있어요. 긴 차 안에서도, 비행기 안에서도, 할머니 댁 시골집에서도요."
-      ]},
-      {"title": "게임이 끝난 뒤의 대화", "paras": [
-        "게임에 나오는 새 20종, 고생물 17종, 별자리 18개는 모두 진짜예요. 하나를 완성할 때마다 짧은 진짜 이야기가 함께 열려요.",
-        "그러니 게임을 마친 아이에게 한번 물어봐 주세요. 오늘은 어떤 새가 알에서 나왔는지, 어느 별자리에 불이 켜졌는지. 아이가 신이 나서 이야기를 멈추지 못한다면, 저희 게임은 제 몫을 다한 거예요."
-      ]},
-      {"title": "언제든 편하게", "paras": [
-        "걱정되는 점이 있거나 그냥 궁금한 점이 있어도 메일 주세요. 같은 부모의 마음으로 한 통 한 통 읽고 답할게요."
-      ], "email": true}
+      {
+        "title": "광고는 작은 배너 하나",
+        "paras": [
+          "무료 버전에는 화면 아래 작은 배너 하나만 있어요. 판이 끝날 때 화면을 가리는 전면 광고는 없어요.",
+          "동영상 광고는 힌트, 되돌리기, 이어 하기가 필요할 때 직접 골라야만 나와요. 보지 않아도 게임은 끝까지 할 수 있어요."
+        ]
+      },
+      {
+        "title": "확률형 상품 없이, 결제는 한 번",
+        "paras": [
+          "뽑기나 랜덤 상자 같은 확률형 상품은 없어요. 코인과 아이템은 플레이로만 얻고, 돈으로 팔지 않아요.",
+          "유료 상품은 게임마다 한 번만 결제하는 프로 하나예요. 배너가 없어지고 추가 팩이 열려요. 구독이나 자동 결제는 없어요. 결제는 Apple과 Google이 처리해서, 스크린 타임이나 패밀리 링크의 구매 제한이 그대로 적용돼요."
+        ]
+      },
+      {
+        "title": "아이 정보를 모으지 않아요",
+        "paras": [
+          "계정, 로그인, 자체 서버가 없어요. 이름이나 나이를 묻지 않고, 진행 기록은 기기에만 저장돼요. 나만의 테마에 넣은 사진도 기기 밖으로 나가지 않아요.",
+          "광고는 Google AdMob이 보여 주며, 광고를 위해 기기 정보를 쓸 수 있어요. 자세한 내용은 아래 게임별 개인정보 처리방침에 있어요."
+        ]
+      },
+      {
+        "title": "인터넷 없이도",
+        "paras": [
+          "모든 게임은 인터넷 연결 없이 끝까지 할 수 있어요."
+        ]
+      },
+      {
+        "title": "진짜 새, 화석, 별",
+        "paras": [
+          "게임에 나오는 새 20종, 고생물 17종, 별자리 18개는 모두 실제로 있는 것들이에요. 하나를 완성하면 짧은 설명이 함께 열려요. 아이와 같이 읽어 보셔도 좋아요."
+        ]
+      },
+      {
+        "title": "문의",
+        "paras": [
+          "궁금한 점이나 걱정되는 점이 있으면 메일 주세요. 읽고 답장드릴게요."
+        ],
+        "email": true
+      }
     ],
     "privacyLinks": "게임별 개인정보 처리방침"
   }
