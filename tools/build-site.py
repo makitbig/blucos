@@ -30,6 +30,7 @@ BASE_URL = 'https://blucos.studio/'  # absolute address for link previews (og:im
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 LANGS = SITE['langs']
 EMAIL = SITE['email']
+PRIVACY_EMAIL = SITE.get('privacy_email', EMAIL)
 e = html.escape
 
 
@@ -433,7 +434,7 @@ def build(lang):
       {t['privacy.body']}
       <h2>{e(t['privacy.games'])}</h2>
       <ul>{priv_links}</ul>
-      <p>{t['privacy.contact'].format(email=f'<a href="mailto:{EMAIL}">{EMAIL}</a>')}</p>
+      <p>{t['privacy.contact'].format(email=f'<a href="mailto:{PRIVACY_EMAIL}">{PRIVACY_EMAIL}</a>')}</p>
     </section>'''
     (out / 'privacy.html').write_text(page(lang, 'privacy', t['privacy.title'], privacy, t))
 
