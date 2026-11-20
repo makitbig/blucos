@@ -98,6 +98,12 @@ def card(g, lang, t, up, i=0):
         </article>'''
 
 
+def shorts_for(lang):
+    # Videos marked with a "lang" show only on that language's pages (the first two are shown); others show everywhere.
+    ok = lambda s, l: s.get('lang') in (None, l)
+    return [s for s in SITE['shorts'] if ok(s, lang)] or [s for s in SITE['shorts'] if ok(s, 'en')]
+
+
 def short(s, lang, t, up):
     title = pick(s['title'], lang)
     return f'''
@@ -389,7 +395,7 @@ def build(lang):
     <section id="shorts" class="band">
       <h2>{e(t['shorts.title'])}</h2>
       <p class="sub">{e(t['shorts.text'])}</p>
-      <div class="shorts">{''.join(short(s, lang, t, up) for s in SITE['shorts'][:2])}
+      <div class="shorts">{''.join(short(s, lang, t, up) for s in shorts_for(lang)[:2])}
       </div>
       <p class="note">{e(t['shorts.note'])}</p>
     </section>{SHORTS_JS}'''

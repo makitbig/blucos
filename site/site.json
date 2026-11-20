@@ -7,6 +7,42 @@
   ],
   "shorts": [
     {
+      "id": "Dc3SWfoscVA",
+      "lang": "en",
+      "title": {
+        "en": "Can you dig up a whole T. rex?"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/Dc3SWfoscVA.jpg"
+    },
+    {
+      "id": "e50k-hIUTDk",
+      "lang": "ko",
+      "title": {
+        "ko": "티라노사우루스 한 마리, 다 캘 수 있을까?"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/e50k-hIUTDk.jpg"
+    },
+    {
+      "id": "3gz1kXeVjm0",
+      "lang": "en",
+      "title": {
+        "en": "My dinosaur museum, from one skeleton to 22"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/3gz1kXeVjm0.jpg"
+    },
+    {
+      "id": "qtr6v7kqW7o",
+      "lang": "ko",
+      "title": {
+        "ko": "골격 하나에서 22마리까지, 나만의 공룡 박물관"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/qtr6v7kqW7o.jpg"
+    },
+    {
       "id": "AHp4JLHZoV4",
       "poster": "assets/shorts/AHp4JLHZoV4.jpg",
       "title": {
