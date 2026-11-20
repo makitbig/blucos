@@ -163,6 +163,7 @@ def page(lang, name, title, body, t, desc=None, image=None, doc=None):
     <img class="foot-planet" src="{up}assets/art/planet.webp" alt="" width="64" height="64" loading="lazy">
     <nav>{''.join(f'<a href="{home}{k}.html">{e(t["footer." + k])}</a>' for k in ('story', 'parents', 'news', 'contact', 'privacy'))}</nav>
     {f'<p class="lang">{switch}</p>' if switch else ''}
+    <p class="social">{' · '.join(f'<a href="{e(x["url"])}" rel="me">{e(x["name"])}</a>' for x in SITE.get('social', []))}</p>
     <p>© 2026 Blucos · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
   </footer>
 </body>

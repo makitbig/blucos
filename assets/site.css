@@ -131,6 +131,7 @@ footer nav a { color: var(--ink); font-weight: 600; text-decoration: none; }
 footer p { margin: 6px 0; }
 footer .lang b { color: var(--gold); }
 footer .lang a { color: var(--ink); }
+footer .social a { color: var(--ink); font-weight: 600; }
 .foot-planet { width: 64px; height: 64px; }
 
 /* story, parents, news: a short cosmos header, then calm reading text */

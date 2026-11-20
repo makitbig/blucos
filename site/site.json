@@ -1,11 +1,30 @@
 {
   "email": "hello@blucos.studio",
   "privacy_email": "privacy@blucos.studio",
+  "social": [
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@blucosgames"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/blucos.games/"
+    }
+  ],
   "langs": [
     "en",
     "ko"
   ],
   "shorts": [
+    {
+      "id": "9J_821c1eYk",
+      "lang": "ko",
+      "title": {
+        "ko": "티라노 한 마리, 뼈 하나씩 다 캘 수 있을까?"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/9J_821c1eYk.jpg"
+    },
     {
       "id": "Dc3SWfoscVA",
       "lang": "en",
@@ -14,15 +33,6 @@
       },
       "game": "fossildig",
       "poster": "assets/shorts/Dc3SWfoscVA.jpg"
-    },
-    {
-      "id": "e50k-hIUTDk",
-      "lang": "ko",
-      "title": {
-        "ko": "티라노사우루스 한 마리, 다 캘 수 있을까?"
-      },
-      "game": "fossildig",
-      "poster": "assets/shorts/e50k-hIUTDk.jpg"
     },
     {
       "id": "3gz1kXeVjm0",
