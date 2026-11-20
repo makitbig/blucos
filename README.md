@@ -15,6 +15,20 @@ without an app update. Each game also ships a copy (www/blucos-games.js) for off
 4. Run `python3 tools/sync.py` (game repos next to this one) and commit in each game, so the next
    app updates ship the new list and icons.
 
+## Update notice
+
+`BlucosGames.checkUpdate(selfId, lang)` (in `tools/blucos-games.template.js`) tells a game that its store has a newer
+version, so it can show a small "A new version is out / Update" notice on its title or menu screen (never a pop-up,
+never during play; dismissing hides it until the next version). It compares the running version (`@capacitor/app`
+`App.getInfo()`, else `window.APP_VERSION`) with the game's `latest` in `games.json`:
+
+    "latest": { "ios": "1.2", "android": "1.2" }
+
+Set a platform's version **only once it is live in that store** (App Store: after "Ready for Distribution" and visible
+on the store page; Play: after the rollout reaches production). Push, and every installed copy that has the notice
+sees it on its next launch. No extra request: it rides on the same `games.json` fetch. Check a live iOS version with
+`curl -s "https://itunes.apple.com/lookup?id=<app id>&country=kr"`.
+
 ## Share cards
 
 `tools/blucos-share.js` is the frame every game puts around a card picture shared to social media: outer frame,

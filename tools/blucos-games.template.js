@@ -11,6 +11,14 @@
 //   BlucosGames.shareLink(id)      -> the link for share text: https://blucos.studio/go/<id>/, which opens the
 //                                     store of the phone that opens it (the friend's, not the sharer's) once the
 //                                     game is there, and shows the game with its store buttons before that
+//   BlucosGames.checkUpdate(selfId, lang) -> Promise of null, or { version, link, text, button, dismiss() }
+//                                     when the store has a newer version of this game than the one running.
+//                                     "Newer" comes from games.json: a game's "latest": { "ios": "1.2.0", "android": "1.2.0" },
+//                                     set only once that version is live in that store. The running version is read from
+//                                     @capacitor/app (App.getInfo) if the game has it, else window.APP_VERSION.
+//                                     dismiss() hides the notice until the next version. Show it as a small, quiet
+//                                     notice on the title or menu screen only: never a pop-up, never during play.
+//                                     Nothing extra is sent: it uses the same games.json fetch.
 'use strict';
 window.BlucosGames = (() => {
   const BASE = 'https://blucos.studio/';
@@ -39,22 +47,26 @@ window.BlucosGames = (() => {
     }));
   }
 
-  let fetched = false;
-  async function refresh(onChange) {
-    if (fetched || !window.fetch) return;
-    fetched = true;
+  // one fetch per launch; every caller waits for the same one (checkUpdate needs the fresh list)
+  let pending = null;
+  async function load() {
     try {
       const ctl = window.AbortController ? new AbortController() : null;
       const timer = setTimeout(() => ctl && ctl.abort(), 6000);
       const res = await fetch(BASE + 'games.json', { cache: 'no-cache', signal: ctl && ctl.signal });
       clearTimeout(timer);
-      if (!res.ok) return;
+      if (!res.ok) return false;
       const d = await res.json();
-      if (!valid(d) || JSON.stringify(d) === JSON.stringify(data)) return;
+      if (!valid(d) || JSON.stringify(d) === JSON.stringify(data)) return false;
       data = d;
       try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) { /* keep it for this launch only */ }
-      if (onChange) onChange();
-    } catch (e) { /* offline or blocked: keep what we have */ }
+      return true;
+    } catch (e) { return false; /* offline or blocked: keep what we have */ }
+  }
+  async function refresh(onChange) {
+    if (!window.fetch) return;
+    if (!pending) pending = load();
+    if ((await pending) && onChange) onChange();
   }
 
   function shareLink(id) {
@@ -62,5 +74,40 @@ window.BlucosGames = (() => {
     return known ? `${BASE}go/${id}/` : '';
   }
 
-  return { list, refresh, shareLink };
+  // update notice: short words in every language a Blucos game ships
+  const UPDATE_TEXT = {
+    en: ['A new version is out', 'Update'], ko: ['새 버전이 나왔어요', '업데이트'],
+    ja: ['新しいバージョンが出ました', 'アップデート'], 'zh-Hans': ['新版本已推出', '更新'], 'zh-Hant': ['新版本已推出', '更新'],
+    es: ['Hay una nueva versión', 'Actualizar'], pt: ['Há uma nova versão', 'Atualizar'], fr: ['Une nouvelle version est disponible', 'Mettre à jour'],
+    de: ['Eine neue Version ist da', 'Aktualisieren'], it: ['È uscita una nuova versione', 'Aggiorna'],
+  };
+  const UPDATE_KEY = 'blucos.update.dismissed';
+  const newer = (a, b) => { // is version a newer than b? ("1.10.0" > "1.9.2")
+    const x = String(a).split('.').map((n) => parseInt(n, 10) || 0), y = String(b).split('.').map((n) => parseInt(n, 10) || 0);
+    for (let i = 0; i < Math.max(x.length, y.length); i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); }
+    return false;
+  };
+  async function runningVersion() {
+    try {
+      const App = window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.App;
+      if (App && App.getInfo) { const info = await App.getInfo(); if (info && info.version) return info.version; }
+    } catch (e) { /* no plugin: fall back */ }
+    return window.APP_VERSION || '';
+  }
+  async function checkUpdate(selfId, lang) {
+    const p = platform();
+    if (p !== 'ios' && p !== 'android') return null;
+    await refresh();
+    const g = data.games.find((x) => x.id === selfId);
+    const latest = g && g.latest && g.latest[p];
+    const store = g && link(g);
+    const current = await runningVersion();
+    if (!latest || !store || !current || !newer(latest, current)) return null;
+    try { if (localStorage.getItem(UPDATE_KEY) === latest) return null; } catch (e) { /* show it */ }
+    const [text, button] = pick(UPDATE_TEXT, lang) || UPDATE_TEXT.en;
+    return { version: latest, link: store, text, button,
+      dismiss() { try { localStorage.setItem(UPDATE_KEY, latest); } catch (e) { /* shows again next launch */ } } };
+  }
+
+  return { list, refresh, shareLink, checkUpdate };
 })();
