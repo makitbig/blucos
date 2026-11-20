@@ -42,6 +42,8 @@ def game_page(g, lang, kind):
     """URL of a game's help ('help') or privacy ('privacy') page in this language, English if missing."""
     local = SITE['localPages'].get(g['id'], {}).get(lang, {})
     page = local.get(kind, '' if kind == 'help' else 'privacy.html')
+    if kind == 'privacy':  # copies of each game's policy live on this site (games/<id>/, 2026-11-20 store rule)
+        return f'https://blucos.studio/games/{g["id"]}/{page}'
     return g['site'] + page
 
 
