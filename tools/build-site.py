@@ -30,6 +30,7 @@ BASE_URL = 'https://blucos.studio/'  # absolute address for link previews (og:im
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 LANGS = SITE['langs']
 DOCS = ROOT / 'site' / 'docs'  # each game's help and privacy pages (HTML fragments), written to games/<id>/
+ASTRO = (342, 420)  # assets/art/astronaut.webp: Evolution 2048's astronaut, as on the YouTube banner
 EMAIL = SITE['email']
 PRIVACY_EMAIL = SITE.get('privacy_email', EMAIL)
 e = html.escape
@@ -434,6 +435,7 @@ def build(lang):
         <p class="studio">{e(t['hero.studio'])}</p>
         <a class="cta" href="#games">{e(t['hero.cta'])}</a>
       </div>
+      <img class="astro" src="{up}assets/art/astronaut.webp" alt="" width="{ASTRO[0]}" height="{ASTRO[1]}">
     </section>
     <section id="games" class="band">
       <h2>{e(t['games.title'])}</h2>
