@@ -29,6 +29,7 @@ NEWS = json.loads((ROOT / 'site' / 'news.json').read_text())['posts']
 BASE_URL = 'https://blucos.studio/'  # absolute address for link previews (og:image needs one); keep in step with CNAME
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 LANGS = SITE['langs']
+DOCS = ROOT / 'site' / 'docs'  # each game's help and privacy pages (HTML fragments), written to games/<id>/
 EMAIL = SITE['email']
 PRIVACY_EMAIL = SITE.get('privacy_email', EMAIL)
 e = html.escape
@@ -38,12 +39,14 @@ def pick(o, lang):
     return o.get(lang) or o.get('en') or ''
 
 
-def game_page(g, lang, kind):
-    """URL of a game's help ('help') or privacy ('privacy') page in this language, English if missing."""
+def game_page(g, lang, kind, up=''):
+    """URL of a game's help ('help') or privacy ('privacy') page in this language, English if missing.
+    Games with pages in site/docs/<id>/ have them on this site at games/<id>/ (2026-11-20: store links all on
+    blucos.studio); up is the way back to the site root from the page that links."""
     local = SITE['localPages'].get(g['id'], {}).get(lang, {})
     page = local.get(kind, '' if kind == 'help' else 'privacy.html')
-    if kind == 'privacy':  # copies of each game's policy live on this site (games/<id>/, 2026-11-20 store rule)
-        return f'https://blucos.studio/games/{g["id"]}/{page}'
+    if (DOCS / g['id']).is_dir():
+        return f'{up}games/{g["id"]}/{page}'
     return g['site'] + page
 
 
@@ -84,7 +87,7 @@ def card(g, lang, t, up, i=0):
     if has_page(g):
         href, more = f'games/{g["id"]}.html', t['game.page']
     else:
-        href, more = game_page(g, lang, 'help'), t['game.more']
+        href, more = game_page(g, lang, 'help', up), t['game.more']
     banner = f'<img src="{up}assets/art/{e(a["banner"])}" alt="" loading="lazy" width="640" height="320">' if a.get('banner') else ''
     peek = f'<img class="peek" src="{up}assets/art/{e(a["peek"])}" alt="" loading="lazy">' if a.get('peek') else ''
     return f'''
@@ -116,8 +119,10 @@ def short(s, lang, t, up):
       </button>'''
 
 
-def page(lang, name, title, body, t, desc=None, image=None):
-    """name: path inside the language folder without .html ('index', 'contact', 'games/fossildig')."""
+def page(lang, name, title, body, t, desc=None, image=None, doc=None):
+    """name: path inside the language folder without .html ('index', 'contact', 'games/fossildig').
+    doc: for a game's help or privacy page (games/<id>/<file>), {'up': ..., 'lang': page language}: the
+    site's words come from lang (English or Korean), the page carries its own language links."""
     up = ('' if lang == 'en' else '../') + '../' * name.count('/')
     here = '' if name == 'index' else f'{name}.html'
     alt = ''.join(f'<link rel="alternate" hreflang="{l}" href="{up}{"" if l == "en" else l + "/"}{here or "./"}">' for l in LANGS)
@@ -125,6 +130,10 @@ def page(lang, name, title, body, t, desc=None, image=None):
         f'<b>{e(STR[l]["label"])}</b>' if l == lang else f'<a href="{up}{"" if l == "en" else l + "/"}{here or "./"}" hreflang="{l}">{e(STR[l]["label"])}</a>'
         for l in LANGS)
     home = up + ('' if lang == 'en' else lang + '/')
+    if doc:
+        up, alt, switch = doc['up'], '', ''
+        home = up + ('' if lang == 'en' else lang + '/')
+        lang = doc['lang']
     full = t['title'] if name == 'index' else f'{title} · {t["title"]}'
     return f'''<!doctype html>
 <html lang="{lang}">
@@ -152,7 +161,7 @@ def page(lang, name, title, body, t, desc=None, image=None):
   <footer>
     <img class="foot-planet" src="{up}assets/art/planet.webp" alt="" width="64" height="64" loading="lazy">
     <nav>{''.join(f'<a href="{home}{k}.html">{e(t["footer." + k])}</a>' for k in ('story', 'parents', 'news', 'contact', 'privacy'))}</nav>
-    <p class="lang">{switch}</p>
+    {f'<p class="lang">{switch}</p>' if switch else ''}
     <p>© 2026 Blucos · <a href="mailto:{EMAIL}">{EMAIL}</a></p>
   </footer>
 </body>
@@ -205,8 +214,8 @@ def game_detail(g, lang, t):
     <section class="part links">
       <h2>{e(t['gamepage.support'])}</h2>
       <ul>
-        <li><a href="{e(game_page(g, lang, 'help'))}">{e(t['gamepage.help'])}</a></li>
-        <li><a href="{e(game_page(g, lang, 'privacy'))}">{e(t['gamepage.privacy'])}</a></li>
+        <li><a href="{e(game_page(g, lang, 'help', up))}">{e(t['gamepage.help'])}</a></li>
+        <li><a href="{e(game_page(g, lang, 'privacy', up))}">{e(t['gamepage.privacy'])}</a></li>
         <li><a href="../contact.html">{e(t['nav.contact'])}</a></li>
       </ul>
     </section>'''
@@ -231,7 +240,7 @@ def prose_page(key, lang, t):
         secs.append(f'<section>{h}{ps}</section>')
     extra = ''
     if w.get('privacyLinks'):
-        links = ''.join(f'<li><a href="{e(game_page(g, lang, "privacy"))}">{e(pick(g["name"], lang))}</a></li>' for g in GAMES if not g.get('hidden'))
+        links = ''.join(f'<li><a href="{e(game_page(g, lang, "privacy", up))}">{e(pick(g["name"], lang))}</a></li>' for g in GAMES if not g.get('hidden'))
         extra = f'<section><h2>{e(w["privacyLinks"])}</h2><ul>{links}</ul></section>'
     lead = f'<p class="plead">{e(w["lead"])}</p>' if w.get('lead') else ''
     closing = f'<p class="closing">{e(w["closing"])}</p>' if w.get('closing') else ''
@@ -291,8 +300,8 @@ def go_pages():
         name_en, name_ko = pick(g['name'], 'en'), pick(g['name'], 'ko')
         tag_en, tag_ko = pick(g['tagline'], 'en'), pick(g['tagline'], 'ko')
         banner = f'<img class="gbanner" src="../../assets/art/{e(a["banner"])}" alt="" width="640" height="320">' if a.get('banner') else '<div class="gbanner"></div>'
-        about_en = f"../../games/{g['id']}.html" if has_page(g) else game_page(g, 'en', 'help')
-        about_ko = f"../../ko/games/{g['id']}.html" if has_page(g) else game_page(g, 'ko', 'help')
+        about_en = f"../../games/{g['id']}.html" if has_page(g) else game_page(g, 'en', 'help', '../../')
+        about_ko = f"../../ko/games/{g['id']}.html" if has_page(g) else game_page(g, 'ko', 'help', '../../')
         links = json.dumps({'ios': g.get('ios') or '', 'android': g.get('android') or ''})
         (d / 'index.html').write_text(f'''<!doctype html>
 <html lang="en">
@@ -347,6 +356,46 @@ def go_pages():
 </html>
 ''')
     print(f'go/: {", ".join(g["id"] for g in GAMES)}')
+
+
+def doc_pages():
+    """games/<id>/<file>.html from site/docs/<id>/<file>.html: each game's help (index, ko, ja, ...) and privacy
+    (privacy, privacy-ko, ...) pages in the site's look, at the same file names the games' old sites used, so
+    makitbig.github.io/<game>/<file> can redirect to blucos.studio/games/<game>/<file>."""
+    import re
+    done = []
+    for g in GAMES:
+        src = DOCS / g['id']
+        if not src.is_dir():
+            continue
+        out = ROOT / 'games' / g['id']
+        out.mkdir(parents=True, exist_ok=True)
+        for f in sorted(src.glob('*.html')):
+            s = f.read_text()
+            meta = dict(re.findall(r'<!-- (\w+): (.*?) -->', s))
+            plang = meta.get('lang', 'en')
+            ui = plang if plang in LANGS else 'en'
+            t = STR[ui]
+            head = re.search(r'<header>(.*?)</header>', s, re.S).group(1)
+            main = re.search(r'<main>(.*?)</main>', s, re.S).group(1)
+            back = f'../{g["id"]}.html' if ui == 'en' else f'../../{ui}/games/{g["id"]}.html'
+            body = f"""
+    <section class="doc docpage">
+      <a class="docback" href="{e(back)}">‹ {e(pick(g['name'], ui))}</a>
+      <div class="dochead">
+        <img src="../../{e(g['icon'])}" alt="" width="64" height="64">
+        {head.strip()}
+      </div>
+      {main.strip()}
+    </section>"""
+            title = re.sub(r'\s*[—-]\s*', ' · ', meta.get('title', ''), count=1)
+            html_out = page(ui, 'games/x', title, body, t, desc=meta.get('desc') or None, image=g['icon'],
+                            doc={'up': '../../', 'lang': plang})
+            (out / f.name).write_text(html_out)
+            done.append(f.name)
+        for old in out.glob('*.css'):  # the plain copies from before had their own stylesheet
+            old.unlink()
+    print(f'games/<id>/: {len(done)} help and privacy pages')
 
 
 SHORTS_JS = '''
@@ -422,7 +471,7 @@ def build(lang):
         home += about
     (out / 'index.html').write_text(page(lang, 'index', '', home, t))
 
-    help_links = ''.join(f'<li><a href="{e(game_page(g, lang, "help"))}">{e(pick(g["name"], lang))}</a></li>' for g in visible)
+    help_links = ''.join(f'<li><a href="{e(game_page(g, lang, "help", up))}">{e(pick(g["name"], lang))}</a></li>' for g in visible)
     contact = f'''
     <section class="doc">
       <h1>{e(t['contact.title'])}</h1>
@@ -434,7 +483,7 @@ def build(lang):
     </section>'''
     (out / 'contact.html').write_text(page(lang, 'contact', t['contact.title'], contact, t))
 
-    priv_links = ''.join(f'<li><a href="{e(game_page(g, lang, "privacy"))}">{e(pick(g["name"], lang))}</a></li>' for g in visible)
+    priv_links = ''.join(f'<li><a href="{e(game_page(g, lang, "privacy", up))}">{e(pick(g["name"], lang))}</a></li>' for g in visible)
     privacy = f'''
     <section class="doc">
       <h1>{e(t['privacy.title'])}</h1>
@@ -463,3 +512,4 @@ if __name__ == '__main__':
     for l in LANGS:
         build(l)
     go_pages()
+    doc_pages()

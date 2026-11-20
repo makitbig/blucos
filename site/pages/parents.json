@@ -22,9 +22,10 @@
         ]
       },
       {
-        "title": "We don't collect your child's information",
+        "title": "Personal information kept to a minimum",
         "paras": [
           "No accounts, no sign-in, no servers of our own. We don't ask for a name or an age, and progress is saved only on the device. Photos used in a custom theme stay on the device.",
+          "Some games use Google Firebase to receive anonymous usage statistics and crash reports, so we can see which parts are played and fix problems. They never include names or anything typed.",
           "Ads are served by Google AdMob, which may use device information to show them. Each game's privacy policy, linked below, has the details."
         ]
       },
@@ -72,9 +73,10 @@
         ]
       },
       {
-        "title": "아이 정보를 모으지 않아요",
+        "title": "개인정보는 최소한으로",
         "paras": [
           "계정, 로그인, 자체 서버가 없어요. 이름이나 나이를 묻지 않고, 진행 기록은 기기에만 저장돼요. 나만의 테마에 넣은 사진도 기기 밖으로 나가지 않아요.",
+          "일부 게임은 어떤 기능이 쓰이는지와 오류를 알기 위해 Google Firebase로 익명 사용 통계와 오류 보고를 받아요. 이름이나 입력한 내용은 들어가지 않아요.",
           "광고는 Google AdMob이 보여 주며, 광고를 위해 기기 정보를 쓸 수 있어요. 자세한 내용은 아래 게임별 개인정보 처리방침에 있어요."
         ]
       },

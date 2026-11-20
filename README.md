@@ -33,6 +33,11 @@ under `ko/`). Every page is static HTML written by `python3 tools/build-site.py`
 `site/strings.json` (the site's words per language) and `site/site.json` (email, videos, per-language
 pages of each game's own site). Edit those, run the script, commit the generated pages.
 
+- Each game's help and privacy pages: `site/docs/<id>/<file>.html` (the text, as HTML fragments with
+  `<!-- lang/title/desc -->` lines), written to `games/<id>/<file>.html` in the site's look. Help is
+  `games/<id>/` (index.html, ko.html, ...), privacy `games/<id>/privacy.html` (privacy-ko.html, ...). This is
+  the one source now: the old `makitbig.github.io/<game>/` pages only redirect here (Evolution 2048's
+  `uploader-*.html` stay there for the YouTube uploader). Store support and privacy URLs point here.
 - Story and For parents pages: `site/pages/story.json` and `site/pages/parents.json` (headline, sections of
   paragraphs, per language). The story stays general on purpose: a child who loves to draw and their dad,
   no name, age, school or photo. News: `site/news.json`, newest first; the home page shows the latest.
