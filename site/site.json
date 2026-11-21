@@ -13,6 +13,15 @@
   ],
   "shorts": [
     {
+      "id": "LpfXF9sQklU",
+      "lang": "en",
+      "title": {
+        "en": "Can you dig up a whole T. rex?"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/LpfXF9sQklU.jpg"
+    },
+    {
       "id": "9J_821c1eYk",
       "lang": "ko",
       "title": {
@@ -20,15 +29,6 @@
       },
       "game": "fossildig",
       "poster": "assets/shorts/9J_821c1eYk.jpg"
-    },
-    {
-      "id": "Dc3SWfoscVA",
-      "lang": "en",
-      "title": {
-        "en": "Can you dig up a whole T. rex?"
-      },
-      "game": "fossildig",
-      "poster": "assets/shorts/Dc3SWfoscVA.jpg"
     },
     {
       "id": "3gz1kXeVjm0",
@@ -106,5 +106,15 @@
       "banner": "banner-starfall.webp",
       "peek": "star.webp"
     }
-  }
+  },
+  "shorts_seen": [
+    "e50k-hIUTDk",
+    "LpfXF9sQklU",
+    "Dc3SWfoscVA",
+    "9J_821c1eYk",
+    "3gz1kXeVjm0",
+    "qtr6v7kqW7o",
+    "AHp4JLHZoV4",
+    "3fmtqGzj3oI"
+  ]
 }

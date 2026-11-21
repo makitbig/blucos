@@ -1,0 +1,28 @@
+# Adds new Blucos YouTube Shorts to the homepage (tools/sync-shorts.py), rebuilds, and pushes to main (GitHub Pages).
+name: Sync YouTube Shorts
+on:
+  schedule:
+    - cron: '17 */6 * * *'  # every 6 hours
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: sync-shorts
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - run: python3 tools/sync-shorts.py
+      - run: python3 tools/build-site.py
+      - name: Commit and push
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then echo "nothing new"; exit 0; fi
+          git config user.name "blucos-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Homepage: new YouTube Shorts"
+          git push
