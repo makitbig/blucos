@@ -296,7 +296,10 @@ def go_pages():
         og = g['icon']
         if Image and a.get('banner'):
             (ROOT / 'assets' / 'og').mkdir(exist_ok=True)
-            Image.open(ROOT / 'assets' / 'art' / a['banner']).convert('RGB').save(ROOT / 'assets' / 'og' / f"{g['id']}.png", optimize=True)
+            src, dst = Image.open(ROOT / 'assets' / 'art' / a['banner']).convert('RGB'), ROOT / 'assets' / 'og' / f"{g['id']}.png"
+            # saved only when the picture changed: another Pillow (the daily GitHub Action) writes different bytes for the same pixels
+            if not dst.exists() or Image.open(dst).convert('RGB').tobytes() != src.tobytes():
+                src.save(dst, optimize=True)
             og = f"assets/og/{g['id']}.png"
         c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
         name_en, name_ko = pick(g['name'], 'en'), pick(g['name'], 'ko')
