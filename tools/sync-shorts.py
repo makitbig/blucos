@@ -7,8 +7,10 @@ A video is added only when
   - it is new: its id is not in "shorts" and not in "shorts_seen" (every video handled once is remembered there,
     so a Short taken off the site by hand does not come back), and
   - its description links to a game's page, https://blucos.studio/go/<id>/ (or /games/<id>), so other uploads stay off.
-Language: a Hangul title shows on the Korean pages, anything else on the English pages.
-A new video with the same title and language as one already listed takes its place (a re-cut of the same Short).
+Language: since 2026-11-22 the site and the Shorts are English only (one video per idea, with Korean title and
+description added as YouTube translations). The feed gives the default (English) title; a video whose default
+title is Korean is left off the site and remembered in "shorts_seen".
+A new video with the same title as one already listed takes its place (a re-cut of the same Short).
 The poster is YouTube's vertical thumbnail, scaled to 360x640.
 """
 import io
@@ -78,7 +80,10 @@ def main():
         if not m or m.group(1) not in games or not title:
             print('skip', vid, title)
             continue
-        lang = 'ko' if re.search(r'[가-힣]', title) else 'en'
+        if re.search(r'[가-힣]', title):  # a Korean-only upload: the site is English only
+            print('skip (Korean title)', vid, title)
+            continue
+        lang = 'en'
         entry = {'id': vid, 'lang': lang, 'title': {lang: title}, 'game': m.group(1), 'poster': poster(vid)}
         for old in [s for s in shorts if s.get('lang') == lang and s['title'].get(lang) == title]:
             shorts.remove(old)
