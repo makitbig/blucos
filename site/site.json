@@ -83,6 +83,11 @@
         "privacy": "privacy-ko.html"
       }
     },
+    "evolution2048": {
+      "ko": {
+        "privacy": "privacy-ko.html"
+      }
+    },
     "fossildig": {
       "ko": {
         "help": "ko.html",
