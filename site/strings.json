@@ -2,7 +2,7 @@
   "en": {
     "label": "English",
     "title": "Blucos Games",
-    "description": "Blucos makes small puzzle games about real things: birds, stars, fossils and evolution. A small family studio on Jeju Island, Korea.",
+    "description": "Blucos makes small puzzle games about real things: birds, stars, fossils and evolution. A small family studio on Jeju Island.",
     "nav.games": "Games",
     "nav.contact": "Contact",
     "hero.title": "Small puzzle games about real things",
@@ -32,7 +32,7 @@
     "gamepage.help": "Help & FAQ",
     "gamepage.privacy": "Privacy policy",
     "game.soonStore": "{store} coming soon",
-    "hero.studio": "Made by a small family studio on Jeju Island, Korea.",
+    "hero.studio": "Made by a small family studio on Jeju Island.",
     "hero.highlight": "puzzle games",
     "hero.cta": "See our games",
     "games.sub": "One at a time, made with care.",
