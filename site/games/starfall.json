@@ -3,6 +3,7 @@
   "shots": 4,
   "en": {
     "lead": "Starfall is a calm, colorful puzzle where every stage is a real star. Drop groups of three stars, line up three or more of the same color, and set off chains. Win a stage and that star lights up in its constellation, in its true color, with its real distance from Earth.",
+    "story": {"title": "Why we made it", "paras": ["I made this one because I wanted to play Hexa again, a game I loved as a kid. So, honestly, there's a lot of me in it.", "I also hoped it could give people who love the night sky the simple joy of collecting constellations, one by one. I'd love for that feeling to come through when you play."]},
     "shotsAlt": [
       "Match falling stars",
       "A star lit in its real color",
@@ -53,6 +54,7 @@
   },
   "ko": {
     "lead": "별빛 낙하는 스테이지 하나하나가 진짜 별인 차분하고 예쁜 퍼즐 게임이에요. 세 개씩 떨어지는 별을 내려놓고, 같은 색 별을 셋 이상 맞추고, 콤보를 만들어 보세요. 스테이지를 깨면 그 별이 별자리 안에서 진짜 색깔과 실제 거리와 함께 빛나요.",
+    "story": {"title": "이 게임을 만든 이유", "paras": ["어릴 때 정말 좋아했던 헥사를 다시 해 보고 싶어서 만든 게임이에요. 그래서 솔직히 제 사심이 많이 들어갔어요.", "그리고 별자리를 좋아하는 분들에게는 별자리를 하나씩 모아 가는 순수한 즐거움을 드릴 수 있을 것 같았어요. 그 마음이 게임을 하시는 분들께 전해졌으면 좋겠어요."]},
     "shotsAlt": [
       "떨어지는 별 맞추기",
       "진짜 색으로 빛나는 별",

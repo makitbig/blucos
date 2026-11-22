@@ -3,6 +3,7 @@
   "shots": 4,
   "en": {
     "lead": "A gentle match-three puzzle where every flower bed you finish helps a real flower grow. Swap petals to make lines of three or more, clear the weeds and melt the frost, and watch each flower grow over three beds, from a small plant to full bloom.",
+    "story": {"title": "Why we made it", "paras": ["My mother and my mother-in-law both love flowers. Watching them, I wished there were a game they could simply enjoy.", "One where no ads get in the way between puzzles, and where the fun of the game comes with the joy of growing flowers, one at a time."]},
     "shotsAlt": [
       "The home screen and the cottage garden",
       "A flower bed: swap petals to make lines",
@@ -44,6 +45,7 @@
   },
   "ko": {
     "lead": "화단을 하나 끝낼 때마다 진짜 꽃이 자라는 편안한 3매치 퍼즐이에요. 꽃잎을 바꿔 같은 꽃잎을 3개 이상 맞추고, 잡초를 치우고 서리를 녹이면, 꽃 한 송이가 화단 세 곳에 걸쳐 작은 꽃에서 활짝 핀 꽃으로 자라요.",
+    "story": {"title": "이 게임을 만든 이유", "paras": ["제 어머니와 장모님은 꽃을 참 좋아하세요. 두 분을 보면서, 그분들이 즐겁게 하실 수 있는 게임이 하나 있으면 좋겠다고 생각했어요.", "판 사이사이 광고에 방해받지 않고 재미있게 퍼즐을 풀면서, 꽃을 하나씩 키워 가는 즐거움도 느끼실 수 있도록요."]},
     "shotsAlt": [
       "첫 화면과 코티지 정원",
       "화단: 꽃잎을 바꿔 한 줄을 맞춰요",
