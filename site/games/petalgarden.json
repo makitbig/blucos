@@ -1,0 +1,86 @@
+{
+  "_comment": "Name, intro line, icon, colours and store links come from games.json; this file has the page's own words. Text from the game's store listing (petal-garden/docs/store/play); screenshots are the store screenshots with the test ad strip cut off.",
+  "shots": 4,
+  "en": {
+    "lead": "A gentle match-three puzzle where every flower bed you finish helps a real flower grow. Swap petals to make lines of three or more, clear the weeds and melt the frost, and watch each flower grow over three beds, from a small plant to full bloom.",
+    "shotsAlt": [
+      "The home screen and the cottage garden",
+      "A flower bed: swap petals to make lines",
+      "A flower card with its meaning and story",
+      "Today's flower, ready to send as a card"
+    ],
+    "sections": [
+      {
+        "title": "Real flowers from world gardens",
+        "items": [
+          "360 beds in eight gardens: an English cottage garden, Dutch tulip fields, a Japanese garden, a Mediterranean hillside, desert blooms, a tropical garden, an alpine meadow and an East Asian garden",
+          "120 real flowers, painted by hand, each with its Victorian flower meaning and a true story",
+          "Seasons that follow your own hemisphere"
+        ]
+      },
+      {
+        "title": "Send a flower",
+        "items": [
+          "Send any flower you have grown as a card: choose the paper and lettering and write your own message",
+          "Good-morning cards, and birthday cards with the flower of each birth month",
+          "Water your garden once a day and watch it shimmer"
+        ]
+      },
+      {
+        "title": "At your own pace",
+        "items": [
+          "No timers, no lives, no pressure",
+          "Plays offline, in 10 languages"
+        ]
+      },
+      {
+        "title": "Petal Garden Pro (one-time purchase)",
+        "items": [
+          "No banner ads, double coins and a daily gift of each helper",
+          "All four Pro gardens; they can also be opened one by one with coins earned by playing"
+        ]
+      }
+    ]
+  },
+  "ko": {
+    "lead": "화단을 하나 끝낼 때마다 진짜 꽃이 자라는 편안한 3매치 퍼즐이에요. 꽃잎을 바꿔 같은 꽃잎을 3개 이상 맞추고, 잡초를 치우고 서리를 녹이면, 꽃 한 송이가 화단 세 곳에 걸쳐 작은 꽃에서 활짝 핀 꽃으로 자라요.",
+    "shotsAlt": [
+      "첫 화면과 코티지 정원",
+      "화단: 꽃잎을 바꿔 한 줄을 맞춰요",
+      "꽃말과 이야기가 담긴 꽃 카드",
+      "카드로 보내는 오늘의 꽃"
+    ],
+    "sections": [
+      {
+        "title": "세계 정원의 진짜 꽃",
+        "items": [
+          "여덟 정원, 화단 360곳: 영국 코티지 정원, 네덜란드 튤립 밭, 일본 정원, 지중해 언덕, 사막의 꽃, 열대 정원, 고산 초원, 동아시아 정원",
+          "손으로 그린 진짜 꽃 120송이와 빅토리아 시대 꽃말, 진짜 이야기",
+          "사는 곳의 반구를 따라가는 계절"
+        ]
+      },
+      {
+        "title": "꽃을 보내요",
+        "items": [
+          "피운 꽃은 무엇이든 카드로: 종이와 글씨를 고르고 직접 메시지를 써서 보내요",
+          "좋은 아침 카드, 태어난 달의 꽃으로 만드는 생일 카드",
+          "하루 한 번 정원에 물을 주면 꽃들이 반짝여요"
+        ]
+      },
+      {
+        "title": "내 속도대로",
+        "items": [
+          "시간 제한도, 하트도 없어요",
+          "오프라인 플레이, 10개 언어"
+        ]
+      },
+      {
+        "title": "꽃잎 정원 프로 (한 번 결제)",
+        "items": [
+          "배너 광고 없음, 코인 2배, 날마다 도우미 아이템 선물",
+          "프로 정원 4곳. 놀면서 모은 코인으로 하나씩 열 수도 있어요"
+        ]
+      }
+    ]
+  }
+}

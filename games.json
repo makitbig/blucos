@@ -2,8 +2,30 @@
   "version": 1,
   "games": [
     {
+      "id": "petalgarden",
+      "frame": [
+        "#ff8ab8",
+        "#4a2470"
+      ],
+      "name": {
+        "en": "Petal Garden",
+        "ko": "꽃잎 정원"
+      },
+      "icon": "icons/petalgarden.png",
+      "ios": "",
+      "android": "",
+      "site": "",
+      "tagline": {
+        "en": "Match petals, grow real flowers and send them as cards",
+        "ko": "꽃잎을 맞춰 진짜 꽃을 피우고 카드로 보내요"
+      }
+    },
+    {
       "id": "hatchbingo",
-      "frame": ["#ffd35c", "#f0a91e"],
+      "frame": [
+        "#ffd35c",
+        "#f0a91e"
+      ],
       "name": {
         "en": "Hatch Bingo"
       },
@@ -22,11 +44,15 @@
         "fr": "Fais éclore des œufs, aligne trois rangées de poussins et remplis ton livre d’oiseaux",
         "de": "Brüte Eier aus, bilde drei Reihen Küken und fülle dein Vogelbuch",
         "it": "Fai schiudere le uova, allinea tre file di pulcini e riempi il tuo libro degli uccelli"
-      }
+      },
+      "hidden": true
     },
     {
       "id": "evolution2048",
-      "frame": ["#8fd46a", "#2e8f6a"],
+      "frame": [
+        "#8fd46a",
+        "#2e8f6a"
+      ],
       "name": {
         "en": "Evolution 2048: Merge Puzzle"
       },
@@ -49,7 +75,10 @@
     },
     {
       "id": "fossildig",
-      "frame": ["#d9b26a", "#6b4a24"],
+      "frame": [
+        "#d9b26a",
+        "#6b4a24"
+      ],
       "name": {
         "en": "Fossil Dig: Dino Museum",
         "ko": "화석 발굴: 공룡 박물관"
@@ -76,7 +105,10 @@
     },
     {
       "id": "starfall",
-      "frame": ["#8a6cf0", "#2a1c78"],
+      "frame": [
+        "#8a6cf0",
+        "#2a1c78"
+      ],
       "name": {
         "en": "Starfall: Star Match Puzzle",
         "ko": "별빛 낙하: 별자리 퍼즐"
@@ -96,23 +128,6 @@
         "fr": "Assemble les étoiles filantes et allume de vraies constellations",
         "de": "Kombiniere fallende Sterne und lass echte Sternbilder leuchten",
         "it": "Abbina le stelle cadenti e accendi costellazioni vere"
-      }
-    },
-    {
-      "id": "petalgarden",
-      "hidden": true,
-      "frame": ["#ff8ab8", "#4a2470"],
-      "name": {
-        "en": "Petal Garden",
-        "ko": "꽃잎 정원"
-      },
-      "icon": "icons/petalgarden.png",
-      "ios": "",
-      "android": "",
-      "site": "",
-      "tagline": {
-        "en": "Match petals, grow real flowers and send them as cards",
-        "ko": "꽃잎을 맞춰 진짜 꽃을 피우고 카드로 보내요"
       }
     }
   ]

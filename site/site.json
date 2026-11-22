@@ -95,6 +95,12 @@
         "help": "ko.html",
         "privacy": "privacy-ko.html"
       }
+    },
+    "petalgarden": {
+      "ko": {
+        "help": "ko.html",
+        "privacy": "privacy-ko.html"
+      }
     }
   },
   "art": {
@@ -114,6 +120,10 @@
     "starfall": {
       "banner": "banner-starfall.webp",
       "peek": "star.webp"
+    },
+    "petalgarden": {
+      "banner": "banner-petalgarden.webp",
+      "peek": "pg-foxglove.webp"
     }
   },
   "shorts_seen": [
