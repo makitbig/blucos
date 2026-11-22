@@ -3,6 +3,7 @@
   "shots": 4,
   "en": {
     "lead": "Tap a tile to grow it and the tiles above, below, left and right by one stage: egg, cracking egg, chick, and egg again. Fill three lines (rows, columns or diagonals) with chicks and the big egg hatches into a real bird.",
+    "story": {"title": "Why we made it", "paras": ["Hatch Bingo started when our kid suggested we make a game together. They came up with the idea, worked out how it plays, and drew the tile pictures on the board themselves. Almost every part of it came through their hands and head.", "Our other games take a game that already existed and remake it the Blucos way. Hatch Bingo is the one that is truly our own, from the very start. We wanted it to give the fun of solving a puzzle and the joy of collecting, both at once.", "It is also the game that got Blucos Games started."]},
     "shotsAlt": [
       "A board: fill three lines with chicks",
       "A bird card from the Bird Book",
@@ -53,6 +54,7 @@
   },
   "ko": {
     "lead": "타일을 누르면 그 칸과 상하좌우 칸이 한 단계씩 자라요. 달걀, 금 간 달걀, 병아리, 다시 달걀 순서예요. 가로·세로·대각선 3줄을 병아리로 채우면 큰 알이 진짜 새로 부화해요.",
+    "story": {"title": "이 게임을 만든 이유", "paras": ["Hatch Bingo는 아이가 아빠와 같이 게임을 만들어 보자며 아이디어를 내면서 시작됐어요. 게임을 기획하고, 게임판에 들어갈 타일 그림도 직접 그렸어요. 거의 모든 부분이 아이의 손과 머리를 거쳐 나왔어요.", "다른 게임들이 원래 있던 게임을 Blucos만의 방식으로 다시 만든 거라면, Hatch Bingo는 처음부터 우리가 만든 진짜 Blucos의 오리지널 게임이에요. 퍼즐을 푸는 재미와 모으는 즐거움을 한 번에 주고 싶었어요.", "그리고 Blucos Games를 시작하게 해 준 게임이기도 해요."]},
     "shotsAlt": [
       "판: 3줄을 병아리로 채워요",
       "새 도감의 새 카드",
