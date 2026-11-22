@@ -13,6 +13,15 @@
   ],
   "shorts": [
     {
+      "id": "hhZRyAk5xTQ",
+      "lang": "ko",
+      "title": {
+        "ko": "공룡 22마리, 나만의 박물관"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/hhZRyAk5xTQ.jpg"
+    },
+    {
       "id": "LpfXF9sQklU",
       "lang": "en",
       "title": {
@@ -115,6 +124,7 @@
     "3gz1kXeVjm0",
     "qtr6v7kqW7o",
     "AHp4JLHZoV4",
-    "3fmtqGzj3oI"
+    "3fmtqGzj3oI",
+    "hhZRyAk5xTQ"
   ]
 }
