@@ -4,7 +4,7 @@
 // Blucos mark on the right) in the same place. Each game only paints the content box.
 //
 //   BlucosShare.render({ format, theme, game, tier, draw }) -> Promise<dataURL (PNG)>
-//     format: 'story' (1080x1920, 9:16) | 'square' (1080x1080) | 'card' (1080x1440, 3:4, a greeting card)
+//     format: 'story' (1080x1920, 9:16) | 'square' (1080x1080) | 'card' (1080x1620, 2:3, a greeting card)
 //     theme:  { frame: [c1, c2], paper, ink, muted, font }   the game's own colours and font stack
 //     game:   { name, icon }                                  icon: a square image path
 //     tier:   optional { frame: [c1, c2], shine: true }       a rarer card: other frame colours, a sheen
@@ -25,7 +25,7 @@
 // copies it and the logo (www/assets/share/blucos-logo.png) into every game; edit it there, not in a game.
 'use strict';
 window.BlucosShare = (() => {
-  const SIZES = { story: [1080, 1920], square: [1080, 1080], card: [1080, 1440] };
+  const SIZES = { story: [1080, 1920], square: [1080, 1080], card: [1080, 1620] };
   const FRAME = 36, RADIUS = 40;
   const FOOT = { story: 200, square: 150, card: 150 };
 

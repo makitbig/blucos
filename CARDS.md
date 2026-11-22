@@ -21,7 +21,7 @@ Every Blucos game draws its share pictures in one shared frame, so the three gam
 |---|---|---|
 | Story 9:16 | 1080 x 1920 | 200 |
 | Square 1:1 | 1080 x 1080 | 150 |
-| Card 3:4 | 1080 x 1440 | 150 |
+| Card 2:3 | 1080 x 1620 | 150 |
 
 - Outer frame: a two-colour diagonal gradient, full bleed (`theme.frame`, or `tier.frame` for a rarer
   card, with `tier.shine` for a sheen). Frame width 36.
