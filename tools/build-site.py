@@ -290,6 +290,8 @@ def go_pages():
         Image = None
     t_en, t_ko = STR['en'], STR['ko']
     for g in GAMES:
+        if g.get('hidden'):   # unreleased: no share page until the game is shown
+            continue
         d = ROOT / 'go' / g['id']
         d.mkdir(parents=True, exist_ok=True)
         a = art(g)
@@ -360,7 +362,7 @@ def go_pages():
 </body>
 </html>
 ''')
-    print(f'go/: {", ".join(g["id"] for g in GAMES)}')
+    print(f'go/: {", ".join(g["id"] for g in GAMES if not g.get("hidden"))}')
 
 
 def doc_pages():
@@ -384,6 +386,8 @@ def doc_pages():
             head = re.search(r'<header>(.*?)</header>', s, re.S).group(1)
             main = re.search(r'<main>(.*?)</main>', s, re.S).group(1)
             back = f'../{g["id"]}.html' if ui == 'en' else f'../../{ui}/games/{g["id"]}.html'
+            if g.get('hidden'):   # unreleased game: no game page yet, so "back" goes to its own help page
+                back = 'index.html' if ui == 'en' else f'{ui}.html'
             body = f"""
     <section class="doc docpage">
       <a class="docback" href="{e(back)}">‹ {e(pick(g['name'], ui))}</a>

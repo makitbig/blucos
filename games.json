@@ -97,6 +97,23 @@
         "de": "Kombiniere fallende Sterne und lass echte Sternbilder leuchten",
         "it": "Abbina le stelle cadenti e accendi costellazioni vere"
       }
+    },
+    {
+      "id": "petalgarden",
+      "hidden": true,
+      "frame": ["#ff8ab8", "#4a2470"],
+      "name": {
+        "en": "Petal Garden",
+        "ko": "꽃잎 정원"
+      },
+      "icon": "icons/petalgarden.png",
+      "ios": "",
+      "android": "",
+      "site": "",
+      "tagline": {
+        "en": "Match petals, grow real flowers and send them as cards",
+        "ko": "꽃잎을 맞춰 진짜 꽃을 피우고 카드로 보내요"
+      }
     }
   ]
 }
