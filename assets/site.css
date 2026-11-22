@@ -113,6 +113,10 @@ h2 { font-size: 30px; margin: 0 0 6px; }
 .tag { margin: 0 0 4px; color: var(--soft); }
 .gpeek { position: absolute; right: 6%; top: 124px; width: 104px; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.6)); animation: bob 5s ease-in-out infinite; }
 .lead { margin: 26px 0 0; font-size: 17px; color: var(--ink); }
+.gstory { margin: 22px 0 0; padding: 18px 22px; border-radius: 22px; background: var(--card); box-shadow: inset 4px 0 0 var(--gold), inset 0 0 0 1px rgba(185, 195, 239, 0.14); }
+.gstory h2 { margin: 0 0 8px; font-size: 18px; color: var(--gold); }
+.gstory p { margin: 0; color: var(--soft); }
+.gstory p + p { margin-top: 10px; }
 .shots-title { margin-top: 36px; font-size: 24px; }
 .phones { display: flex; gap: 16px; margin: 6px -16px 0; padding: 14px 16px 22px; overflow-x: auto; scroll-snap-type: x mandatory; }
 .phone { flex: 0 0 auto; width: 60%; max-width: 250px; margin: 0; padding: 6px; border-radius: 30px; background: #0d1336; box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12), 0 16px 34px rgba(0, 0, 0, 0.55); transform: rotate(var(--r)); scroll-snap-align: center; transition: transform 0.3s; }

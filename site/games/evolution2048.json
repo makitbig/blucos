@@ -3,6 +3,7 @@
   "shots": 4,
   "en": {
     "lead": "The 2048 you love, where every tile is alive. Swipe to slide the board. When two of the same tiles meet, they merge and evolve: bacteria become jellyfish, fish crawl onto land, dinosaurs rule, and finally a human appears on the 2048 tile. Every new stage comes with a quick fun fact.",
+    "story": {"title": "Why we made it", "paras": ["There was a time when I was on a plane for work almost every day. Without internet, about the only thing I could do up there was play 2048.", "I kept thinking that a game you play offline like that could be more fun, and leave you knowing something new. So the numbers became living things, and every merge is a step in the story of evolution."]},
     "shotsAlt": [
       "Merge tiles and watch life evolve",
       "A fun fact at every stage",
@@ -55,6 +56,7 @@
   },
   "ko": {
     "lead": "익숙한 2048, 이제 모든 타일이 살아 움직여요. 화면을 밀어 타일을 움직이세요. 같은 타일 두 개가 만나면 합쳐지며 진화해요. 박테리아는 해파리가 되고, 물고기는 땅으로 올라오고, 공룡이 지구를 지배하다가, 마침내 2048 타일에서 인간이 등장해요. 새로운 단계마다 짧고 재미있는 과학 이야기를 만나요.",
+    "story": {"title": "이 게임을 만든 이유", "paras": ["한때 거의 매일 비행기를 타고 출장을 다녔어요. 인터넷이 안 되는 비행기 안에서 할 수 있는 소일거리는 2048 게임이 거의 유일했어요.", "그렇게 인터넷 없이 하는 게임을 조금 더 즐겁고, 하고 나면 뭔가 하나 알게 되는 게임으로 만들어 보면 좋겠다고 생각했어요. 그래서 숫자 대신 생명이 타일 위에서 한 단계씩 진화하게 됐어요."]},
     "shotsAlt": [
       "타일을 합치면 생명이 진화해요",
       "단계마다 재미있는 과학 이야기",

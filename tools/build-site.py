@@ -197,6 +197,8 @@ def game_detail(g, lang, t):
     parts = ''.join(
         f'<section class="part"><h2>{e(sec["title"])}</h2><ul>{"".join(f"<li>{e(i)}</li>" for i in sec["items"])}</ul></section>'
         for sec in w.get('sections', []))
+    st = w.get('story')  # why we made it: a short personal note from the family, in its own card under the intro
+    story = (f'\n    <section class="gstory"><h2>{e(st["title"])}</h2>' + ''.join(f'<p>{e(x)}</p>' for x in st['paras']) + '</section>') if st else ''
     body = f'''
     <section class="ghero" style="--c1:{c1};--c2:{c2}">
       <a class="back" href="../#games">‹ {e(t['gamepage.back'])}</a>
@@ -209,7 +211,7 @@ def game_detail(g, lang, t):
       </div>
       {peek}
     </section>
-    <p class="lead">{e(w['lead'])}</p>
+    <p class="lead">{e(w['lead'])}</p>{story}
     <h2 class="shots-title">{e(t['gamepage.shots'])}</h2>
     <div class="phones">{phones}</div>
     <div class="parts">{parts}</div>
