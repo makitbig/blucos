@@ -32,7 +32,7 @@
       "icon": "icons/hatchbingo.png",
       "ios": "",
       "android": "",
-      "site": "https://makitbig.github.io/hatchbingo/",
+      "site": "https://blucos.studio/games/hatchbingo/",
       "tagline": {
         "en": "Hatch chicks in three lines and fill your bird book",
         "ko": "알을 부화시켜 병아리 빙고 세 줄! 새 도감을 채워요",
@@ -59,7 +59,7 @@
       "icon": "icons/evolution2048.png",
       "ios": "",
       "android": "",
-      "site": "https://makitbig.github.io/evolution2048/",
+      "site": "https://blucos.studio/games/evolution2048/",
       "tagline": {
         "en": "Merge matching tiles and follow the story of evolution",
         "ko": "같은 것끼리 합쳐 생명의 진화를 따라가요",
@@ -86,7 +86,7 @@
       "icon": "icons/fossildig.png",
       "ios": "https://apps.apple.com/app/id6832145836",
       "android": "",
-      "site": "https://makitbig.github.io/fossildig/",
+      "site": "https://blucos.studio/games/fossildig/",
       "tagline": {
         "en": "Dig up fossils and fill your own dinosaur museum",
         "ko": "화석을 캐서 나만의 공룡 박물관을 채워요",
@@ -116,7 +116,7 @@
       "icon": "icons/starfall.png",
       "ios": "",
       "android": "",
-      "site": "https://makitbig.github.io/starfall/",
+      "site": "https://blucos.studio/games/starfall/",
       "tagline": {
         "en": "Match falling stars and light up real constellations",
         "ko": "떨어지는 별을 맞춰 진짜 별자리를 밝혀요",
