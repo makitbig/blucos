@@ -18,6 +18,7 @@ games.json and icons/ from there, and AdMob looks for app-ads.txt at the root of
 """
 import html
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -131,6 +132,8 @@ def page(lang, name, title, body, t, desc=None, image=None, doc=None):
         f'<b>{e(STR[l]["label"])}</b>' if l == lang else f'<a href="{up}{"" if l == "en" else l + "/"}{here or "./"}" hreflang="{l}">{e(STR[l]["label"])}</a>'
         for l in LANGS)
     home = up + ('' if lang == 'en' else lang + '/')
+    if len(LANGS) < 2:  # one language (English only since 2026-11-22): no language links
+        alt, switch = '', ''
     if doc:
         up, alt, switch = doc['up'], '', ''
         home = up + ('' if lang == 'en' else lang + '/')
@@ -312,7 +315,7 @@ def go_pages():
         about_en = f"../../games/{g['id']}.html" if has_page(g) else game_page(g, 'en', 'help', '../../')
         about_ko = f"../../ko/games/{g['id']}.html" if has_page(g) else game_page(g, 'ko', 'help', '../../')
         links = json.dumps({'ios': g.get('ios') or '', 'android': g.get('android') or ''})
-        (d / 'index.html').write_text(f'''<!doctype html>
+        html_go = f'''<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -363,7 +366,11 @@ def go_pages():
   </script>
 </body>
 </html>
-''')
+'''
+        if 'ko' not in LANGS:  # English only: drop the Korean words and the script that swaps them in
+            html_go = re.sub(r'\n  <script>.*?</script>', '', html_go, flags=re.S)
+            html_go = re.sub(r' data-(?:ko|ko-html|ko-href|en)="[^"]*"', '', html_go)
+        (d / 'index.html').write_text(html_go)
     print(f'go/: {", ".join(g["id"] for g in GAMES if not g.get("hidden"))}')
 
 
@@ -523,5 +530,15 @@ def build(lang):
 if __name__ == '__main__':
     for l in LANGS:
         build(l)
+    # a language folder no longer built (Korean, 2026-11-22: the site is English only for now): every old
+    # page becomes a redirect to the English one, so shared and bookmarked links still work
+    for l in STR:
+        if l == 'en' or l in LANGS or not (ROOT / l).is_dir():
+            continue
+        for f in (ROOT / l).rglob('*.html'):
+            rel = f.relative_to(ROOT / l).as_posix()
+            to = '../' * (rel.count('/') + 1) + ('' if rel == 'index.html' else rel)
+            to = to or './'
+            f.write_text(f'<!doctype html>\n<meta charset="utf-8">\n<title>Blucos Games</title>\n<link rel="canonical" href="https://blucos.studio/{"" if rel == "index.html" else rel}">\n<meta name="robots" content="noindex">\n<meta http-equiv="refresh" content="0; url={to}">\n<a href="{to}">Blucos Games</a>\n')
     go_pages()
     doc_pages()

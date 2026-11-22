@@ -14,15 +14,6 @@
   <meta name="theme-color" content="#0b1240">
   <link rel="icon" href="../../assets/favicon.png">
   <link rel="stylesheet" href="../../assets/site.css">
-  <script>
-    (function () {
-      // Straight to this phone's store when the game is there; iPadOS reports itself as a Mac with touch.
-      var l = {"ios": "", "android": ""}, ua = navigator.userAgent;
-      var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-      var to = ios ? l.ios : /Android/.test(ua) ? l.android : '';
-      if (to) location.replace(to);
-    })();
-  </script>
 </head>
 <body>
   <main class="go">
@@ -31,21 +22,12 @@
       <img class="gbanner" src="../../assets/art/banner-petalgarden.webp" alt="" width="640" height="320">
       <div class="ginfo">
         <img class="gicon" src="../../icons/petalgarden.png" alt="" width="112" height="112">
-        <h1 data-ko="꽃잎 정원">Petal Garden</h1>
-        <p class="tag" data-ko="꽃잎을 맞춰 진짜 꽃을 피우고 카드로 보내요">Match petals, grow real flowers and send them as cards</p>
-        <div class="actions" data-en="&lt;span class=&quot;soon&quot;&gt;Coming soon&lt;/span&gt;" data-ko-html="&lt;span class=&quot;soon&quot;&gt;곧 출시&lt;/span&gt;"><span class="soon">Coming soon</span></div>
-        <p><a class="more-link" href="../../games/petalgarden.html" data-ko-href="../../ko/games/petalgarden.html" data-ko="게임 소개">About the game ›</a></p>
+        <h1>Petal Garden</h1>
+        <p class="tag">Match petals, grow real flowers and send them as cards</p>
+        <div class="actions"><span class="soon">Coming soon</span></div>
+        <p><a class="more-link" href="../../games/petalgarden.html">About the game ›</a></p>
       </div>
     </section>
   </main>
-  <script>
-    if (/^ko/i.test(navigator.language || '')) {
-      document.documentElement.lang = 'ko';
-      document.querySelectorAll('[data-ko]').forEach(function (el) { el.textContent = el.dataset.ko + (el.classList.contains('more-link') ? ' ›' : ''); });
-      document.querySelectorAll('[data-ko-html]').forEach(function (el) { el.innerHTML = el.dataset.koHtml; });
-      document.querySelectorAll('[data-ko-href]').forEach(function (el) { el.href = el.dataset.koHref; });
-      document.title = document.querySelector('h1').textContent + ' · Blucos Games';
-    }
-  </script>
 </body>
 </html>
