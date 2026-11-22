@@ -21,11 +21,12 @@ Every Blucos game draws its share pictures in one shared frame, so the three gam
 |---|---|---|
 | Story 9:16 | 1080 x 1920 | 200 |
 | Square 1:1 | 1080 x 1080 | 150 |
+| Card 3:4 | 1080 x 1440 | 150 |
 
 - Outer frame: a two-colour diagonal gradient, full bleed (`theme.frame`, or `tier.frame` for a rarer
   card, with `tier.shine` for a sheen). Frame width 36.
 - Inner panel: `theme.paper`, radius 40. The content box is the panel inset by 36, above the footer.
-- Footer, inside the panel: a hairline, then the game icon (104 story / 84 square, radius 22%), the game
+- Footer, inside the panel: a hairline, then the game icon (104 story / 84 square and card, radius 22%), the game
   name and `App Store · Google Play` on the left; the Blucos logo on the right (52 / 44 high).
 - On stories, keep the top 100 px of the content box free of important text (Instagram's own bar).
 

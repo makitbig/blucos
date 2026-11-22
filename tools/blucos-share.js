@@ -4,7 +4,7 @@
 // Blucos mark on the right) in the same place. Each game only paints the content box.
 //
 //   BlucosShare.render({ format, theme, game, tier, draw }) -> Promise<dataURL (PNG)>
-//     format: 'story' (1080x1920, 9:16) | 'square' (1080x1080)
+//     format: 'story' (1080x1920, 9:16) | 'square' (1080x1080) | 'card' (1080x1440, 3:4, a greeting card)
 //     theme:  { frame: [c1, c2], paper, ink, muted, font }   the game's own colours and font stack
 //     game:   { name, icon }                                  icon: a square image path
 //     tier:   optional { frame: [c1, c2], shine: true }       a rarer card: other frame colours, a sheen
@@ -25,9 +25,9 @@
 // copies it and the logo (www/assets/share/blucos-logo.png) into every game; edit it there, not in a game.
 'use strict';
 window.BlucosShare = (() => {
-  const SIZES = { story: [1080, 1920], square: [1080, 1080] };
+  const SIZES = { story: [1080, 1920], square: [1080, 1080], card: [1080, 1440] };
   const FRAME = 36, RADIUS = 40;
-  const FOOT = { story: 200, square: 150 };
+  const FOOT = { story: 200, square: 150, card: 150 };
 
   const rr = (ctx, x, y, w, h, r) => { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); };
   const image = src => new Promise(ok => {
@@ -110,19 +110,20 @@ window.BlucosShare = (() => {
     // Footer: a hairline, the game on the left, Blucos on the right
     const fy = py + ph - foot;
     ctx.fillStyle = theme.muted; ctx.globalAlpha = 0.35; ctx.fillRect(px + 36, fy, pw - 72, 2); ctx.globalAlpha = 1;
-    const icon = await image(game.icon), is = format === 'square' ? 84 : 104, ix = px + 36, iy = fy + (foot - is) / 2;
+    const small = format !== 'story';   // square and card share the smaller footer
+    const icon = await image(game.icon), is = small ? 84 : 104, ix = px + 36, iy = fy + (foot - is) / 2;
     if (icon) { ctx.save(); rr(ctx, ix, iy, is, is, is * 0.22); ctx.clip(); ctx.drawImage(icon, ix, iy, is, is); ctx.restore(); }
     const tx = ix + is + 24, mid = fy + foot / 2;
     ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
-    ctx.fillStyle = theme.ink; fit(ctx, game.name, pw - 72 - is - 24 - 300, format === 'square' ? 40 : 46, 700, theme.font);
+    ctx.fillStyle = theme.ink; fit(ctx, game.name, pw - 72 - is - 24 - 300, small ? 40 : 46, 700, theme.font);
     ctx.fillText(game.name, tx, mid - 4);
-    ctx.fillStyle = theme.muted; ctx.font = `500 ${format === 'square' ? 28 : 32}px "Avenir Next", "Helvetica Neue", Arial, sans-serif`;
-    ctx.fillText('App Store · Google Play', tx, mid + (format === 'square' ? 36 : 42));
+    ctx.fillStyle = theme.muted; ctx.font = `500 ${small ? 28 : 32}px "Avenir Next", "Helvetica Neue", Arial, sans-serif`;
+    ctx.fillText('App Store · Google Play', tx, mid + (small ? 36 : 42));
     const lg = await image(logo);
     if (lg) {   // the real logo, right-aligned and centred on the footer
-      const lh = format === 'square' ? 44 : 52, lw = lg.width * lh / lg.height;
+      const lh = small ? 44 : 52, lw = lg.width * lh / lg.height;
       ctx.drawImage(lg, px + pw - 36 - lw, mid - lh / 2, lw, lh);
-    } else mark(ctx, px + pw - 36, mid + 14, format === 'square' ? 38 : 44, theme.ink);
+    } else mark(ctx, px + pw - 36, mid + 14, small ? 38 : 44, theme.ink);
     return cv.toDataURL('image/png');
   }
 
