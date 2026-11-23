@@ -12,6 +12,15 @@
   ],
   "shorts": [
     {
+      "id": "7fuaO6_qeyU",
+      "lang": "en",
+      "title": {
+        "en": "22 dinosaurs, one museum"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/7fuaO6_qeyU.jpg"
+    },
+    {
       "id": "hhZRyAk5xTQ",
       "lang": "ko",
       "title": {
@@ -139,6 +148,7 @@
     "qtr6v7kqW7o",
     "AHp4JLHZoV4",
     "3fmtqGzj3oI",
-    "hhZRyAk5xTQ"
+    "hhZRyAk5xTQ",
+    "7fuaO6_qeyU"
   ]
 }
