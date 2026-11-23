@@ -157,7 +157,7 @@ def page(lang, name, title, body, t, desc=None, image=None, doc=None):
 </head>
 <body>
   <header class="top">
-    <a class="logo" href="{home}"><img src="{up}assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
+    <a class="logo" href="{home}"><img src="{up}assets/art/logo-white.png" alt="Blucos Studio" width="180" height="30"></a>
     <nav><a href="{home}#games">{e(t['nav.games'])}</a><a href="{home}story.html">{e(t['nav.story'])}</a><a href="{home}contact.html">{e(t['nav.contact'])}</a></nav>
   </header>
   <main>{body}
@@ -320,7 +320,7 @@ def go_pages():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{e(name_en)} · Blucos Games</title>
+  <title>{e(name_en)} · Blucos Studio</title>
   <meta name="description" content="{e(tag_en)}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{BASE_URL}go/{g['id']}/">
@@ -343,7 +343,7 @@ def go_pages():
 </head>
 <body>
   <main class="go">
-    <a class="logo go-logo" href="../../"><img src="../../assets/art/logo-white.png" alt="Blucos Games" width="180" height="30"></a>
+    <a class="logo go-logo" href="../../"><img src="../../assets/art/logo-white.png" alt="Blucos Studio" width="180" height="30"></a>
     <section class="ghero" style="--c1:{c1};--c2:{c2}">
       {banner}
       <div class="ginfo">
@@ -361,7 +361,7 @@ def go_pages():
       document.querySelectorAll('[data-ko]').forEach(function (el) {{ el.textContent = el.dataset.ko + (el.classList.contains('more-link') ? ' ›' : ''); }});
       document.querySelectorAll('[data-ko-html]').forEach(function (el) {{ el.innerHTML = el.dataset.koHtml; }});
       document.querySelectorAll('[data-ko-href]').forEach(function (el) {{ el.href = el.dataset.koHref; }});
-      document.title = document.querySelector('h1').textContent + ' · Blucos Games';
+      document.title = document.querySelector('h1').textContent + ' · Blucos Studio';
     }}
   </script>
 </body>
@@ -539,6 +539,6 @@ if __name__ == '__main__':
             rel = f.relative_to(ROOT / l).as_posix()
             to = '../' * (rel.count('/') + 1) + ('' if rel == 'index.html' else rel)
             to = to or './'
-            f.write_text(f'<!doctype html>\n<meta charset="utf-8">\n<title>Blucos Games</title>\n<link rel="canonical" href="https://blucos.studio/{"" if rel == "index.html" else rel}">\n<meta name="robots" content="noindex">\n<meta http-equiv="refresh" content="0; url={to}">\n<a href="{to}">Blucos Games</a>\n')
+            f.write_text(f'<!doctype html>\n<meta charset="utf-8">\n<title>Blucos Studio</title>\n<link rel="canonical" href="https://blucos.studio/{"" if rel == "index.html" else rel}">\n<meta name="robots" content="noindex">\n<meta http-equiv="refresh" content="0; url={to}">\n<a href="{to}">Blucos Games</a>\n')
     go_pages()
     doc_pages()

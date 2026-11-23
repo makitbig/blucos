@@ -1,7 +1,7 @@
 {
   "en": {
     "label": "English",
-    "title": "Blucos Games",
+    "title": "Blucos Studio",
     "description": "Blucos makes small puzzle games about real things: birds, stars, fossils and evolution. A small family studio on Jeju Island.",
     "nav.games": "Games",
     "nav.contact": "Contact",
@@ -56,7 +56,7 @@
   },
   "ko": {
     "label": "한국어",
-    "title": "Blucos Games",
+    "title": "Blucos Studio",
     "description": "Blucos는 새, 별, 화석, 진화처럼 진짜 세상을 담은 작은 퍼즐 게임을 만들어요. 제주의 작은 가족 스튜디오예요.",
     "nav.games": "게임",
     "nav.contact": "문의",
