@@ -40,6 +40,7 @@ def main():
             continue
         (www / 'blucos-games.js').write_text(js)
         shutil.copyfile(ROOT / 'tools' / 'blucos-share.js', www / 'blucos-share.js')  # share-card frame (CARDS.md)
+        shutil.copyfile(ROOT / 'tools' / 'blucos-sounds.js', www / 'blucos-sounds.js')  # end-of-round sounds
         share = www / 'assets' / 'share'
         share.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / 'brand' / 'blucos-logo.png', share / 'blucos-logo.png')
@@ -48,7 +49,7 @@ def main():
         for other in data['games']:
             if other['id'] != gid:
                 shutil.copyfile(ROOT / other['icon'], more / f"{other['id']}.png")
-        print(f'{gid}: www/blucos-games.js + blucos-share.js + logo + {len(ids) - 1} icons')
+        print(f'{gid}: www/blucos-games.js + blucos-share.js + blucos-sounds.js + logo + {len(ids) - 1} icons')
 
 
 if __name__ == '__main__':
