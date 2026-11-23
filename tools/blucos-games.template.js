@@ -19,6 +19,14 @@
 //                                     dismiss() hides the notice until the next version. Show it as a small, quiet
 //                                     notice on the title or menu screen only: never a pop-up, never during play.
 //                                     Nothing extra is sent: it uses the same games.json fetch.
+//   BlucosGames.houseBanner(selfId, lang, opts) -> an element for the banner-ad slot, or null: our other games, one at
+//                                     a time, for when the ad doesn't come (offline, airplane mode, no fill). Put it in
+//                                     the slot when the ad fails to load and take it out when an ad shows. Never for
+//                                     Pro players (no slot at all), never anywhere but the banner slot (user, 2026-11-23).
+//                                     Works offline: names and icons are bundled. A tap opens the store, or the game's
+//                                     blucos.studio/go/ page before it is in this phone's store.
+//                                     opts: { height: 50, rotate: 30 (seconds per game, 0 = no rotation), open(url) }.
+//                                     Colours follow CSS variables if the game sets them: --hb-bg, --hb-fg, --hb-sub, --hb-btn, --hb-btn-fg.
 'use strict';
 window.BlucosGames = (() => {
   const BASE = 'https://blucos.studio/';
@@ -109,5 +117,63 @@ window.BlucosGames = (() => {
       dismiss() { try { localStorage.setItem(UPDATE_KEY, latest); } catch (e) { /* shows again next launch */ } } };
   }
 
-  return { list, refresh, shareLink, checkUpdate };
+  // house banner: our other games in the banner-ad slot when no ad comes
+  const HOUSE_TEXT = {
+    en: ['Get', 'Coming soon'], ko: ['받기', '곧 출시'], ja: ['入手', '近日公開'], 'zh-Hans': ['获取', '即将推出'], 'zh-Hant': ['取得', '即將推出'],
+    es: ['Obtener', 'Próximamente'], pt: ['Obter', 'Em breve'], fr: ['Obtenir', 'Bientôt'], de: ['Laden', 'Demnächst'], it: ['Ottieni', 'Prossimamente'],
+  };
+  const HOUSE_KEY = 'blucos.house.next';
+  function houseBanner(selfId, lang, opts) {
+    const o = Object.assign({ height: 50, rotate: 30, open: (url) => window.open(url, '_blank') }, opts || {});
+    // only games whose icon ships with the app, so it looks right offline; games in this store first
+    const games = list(selfId, lang).filter((g) => LOCAL_ICONS.has(g.id)).sort((a, b) => (b.link ? 1 : 0) - (a.link ? 1 : 0));
+    if (!games.length || !document.createElement) return null;
+    const [get, soon] = pick(HOUSE_TEXT, lang) || HOUSE_TEXT.en;
+    let i = 0;
+    try { i = (parseInt(localStorage.getItem(HOUSE_KEY), 10) || 0) % games.length; } catch (e) { /* start at the first */ }
+    const h = o.height;
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'blucos-house';
+    el.style.cssText = `display:flex;align-items:center;gap:${Math.round(h * 0.2)}px;box-sizing:border-box;width:100%;max-width:468px;height:${h}px;`
+      + `margin:0 auto;padding:0 ${Math.round(h * 0.2)}px;border:0;border-radius:${Math.round(h * 0.24)}px;`
+      + 'background:var(--hb-bg,rgba(10,16,48,.92));color:var(--hb-fg,#fff);font:inherit;text-align:left;cursor:pointer;';
+    const icon = document.createElement('img');
+    icon.alt = '';
+    icon.style.cssText = `flex:none;width:${h - 12}px;height:${h - 12}px;border-radius:${Math.round(h * 0.2)}px;`;
+    const words = document.createElement('span');
+    words.style.cssText = 'flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.2;';
+    const name = document.createElement('b');
+    const tag = document.createElement('span');
+    for (const t of [name, tag]) t.style.cssText = 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+    name.style.fontSize = `${Math.round(h * 0.29)}px`;
+    tag.style.cssText += `font-size:${Math.round(h * 0.24)}px;color:var(--hb-sub,rgba(255,255,255,.72));`;
+    const btn = document.createElement('span');
+    btn.style.cssText = `flex:none;padding:${Math.round(h * 0.1)}px ${Math.round(h * 0.26)}px;border-radius:999px;font-weight:700;`
+      + `font-size:${Math.round(h * 0.26)}px;background:var(--hb-btn,#ffd35c);color:var(--hb-btn-fg,#1b1b3a);white-space:nowrap;`;
+    words.append(name, tag);
+    el.append(icon, words, btn);
+    let g = null;
+    const show = () => {
+      g = games[i % games.length];
+      icon.src = g.icon;
+      name.textContent = g.name;
+      tag.textContent = g.tagline;
+      btn.textContent = g.link ? get : soon;
+      el.setAttribute('aria-label', `${g.name}. ${g.tagline}`);
+      try { localStorage.setItem(HOUSE_KEY, String((i + 1) % games.length)); } catch (e) { /* fine */ }
+    };
+    show();
+    el.addEventListener('click', () => o.open(g.link || `${BASE}go/${g.id}/`));
+    if (o.rotate > 0 && games.length > 1) {
+      const timer = setInterval(() => {
+        if (!el.isConnected) { if (el.dataset.shown) clearInterval(timer); return; }
+        el.dataset.shown = '1';
+        i += 1; show();
+      }, o.rotate * 1000);
+    }
+    return el;
+  }
+
+  return { list, refresh, shareLink, checkUpdate, houseBanner };
 })();

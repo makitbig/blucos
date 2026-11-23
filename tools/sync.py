@@ -19,6 +19,7 @@ GAMES = {  # id in games.json -> game repo folder next to this repo
     'evolution2048': 'evolution-2048',
     'fossildig': 'fossil-dig',
     'starfall': 'starfall',
+    'petalgarden': 'petal-garden',
 }
 
 
