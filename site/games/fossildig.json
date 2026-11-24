@@ -2,7 +2,7 @@
   "_comment": "Game page for the website. Name, intro line, icon, colours and store links come from games.json; this file has the page's own words. Screenshots: assets/games/<id>/<lang>-<n>.jpg (540px wide, from the game's store screenshots).",
   "shots": 4,
   "en": {
-    "lead": "Grab your pickaxe and become a paleontologist. Every dig site hides fossil bones under the soil. The numbers on dug squares tell you how many rocks are nearby, so you can work out where it is safe to dig. Hit a rock and your pickaxe takes a knock; three knocks and the dig is over.",
+    "lead": "Grab your pickaxe and become a paleontologist. Every dig site hides fossil bones under the soil. The numbers on dug squares tell you how many rocks are nearby, so you can work out where it is safe to dig. Hit a rock and your pickaxe takes a knock; two knocks and the dig is over.",
     "story": {"title": "Why we made it", "paras": ["Back in university, I used to stay up all night playing Minesweeper. I had a feeling I wasn't the only dad who missed it: a few numbers on the screen, and you work out where the next safe square is.", "So I wanted to make it into a game we could play right beside our kids. The mines became rocks, and under the ground there are real dinosaur fossils to dig up."]},
     "shotsAlt": ["Your museum with a T. rex on display", "A dig: numbers show how many rocks are nearby", "Four parts make a whole Stegosaurus", "The museum floor plan and its visitors"],
     "sections": [
@@ -24,7 +24,7 @@
       ] },
       { "title": "Fair and friendly", "items": [
         "Every board can be solved by logic, no guessing needed",
-        "No ads between digs, ever: only a small banner on the dig screen in the free version, and videos only when you choose them",
+        "No ads between digs, ever: only a small banner at the bottom of the screen in the free version, and videos only when you choose them",
         "Coins are earned in the game and never sold; nothing you buy depends on luck",
         "Plays completely offline"
       ] },
@@ -35,7 +35,7 @@
     ]
   },
   "ko": {
-    "lead": "곡괭이를 들고 고생물학자가 되어 보세요. 발굴지 흙 속에는 화석 뼈가 숨어 있어요. 파낸 칸의 숫자는 주변에 바위가 몇 개 있는지 알려 줘요. 숫자를 보고 어디를 파도 안전한지 추리해 보세요. 바위를 찍으면 곡괭이가 상하고, 세 번 찍으면 발굴이 끝나요.",
+    "lead": "곡괭이를 들고 고생물학자가 되어 보세요. 발굴지 흙 속에는 화석 뼈가 숨어 있어요. 파낸 칸의 숫자는 주변에 바위가 몇 개 있는지 알려 줘요. 숫자를 보고 어디를 파도 안전한지 추리해 보세요. 바위를 찍으면 곡괭이가 상하고, 두 번 찍으면 발굴이 끝나요.",
     "story": {"title": "이 게임을 만든 이유", "paras": ["대학 시절, 밤을 새워 가며 지뢰 찾기를 하던 때가 있었어요. 화면의 숫자 몇 개를 보고 다음에 열 칸을 추리해 내던 그 재미를, 저처럼 그리워하는 아빠들이 꽤 있을 것 같았어요.", "그 게임을 이번에는 아이와 나란히 앉아 함께 즐길 수 있는 모습으로 만들어 보고 싶었어요. 그래서 지뢰는 바위가 되고, 흙 속에는 진짜 공룡 화석이 숨게 됐어요."]},
     "shotsAlt": ["티라노사우루스가 전시된 나만의 박물관", "발굴 화면: 숫자는 주변 바위 수를 알려 줘요", "네 부위를 모아 완성한 스테고사우루스", "박물관 안내도와 관람객"],
     "sections": [
@@ -57,7 +57,7 @@
       ] },
       { "title": "공정하고 친절하게", "items": [
         "모든 판은 추리만으로 풀 수 있어요. 찍기는 필요 없어요",
-        "발굴 사이에 광고가 나오지 않아요. 무료 버전은 발굴 화면에 작은 배너만 있고, 동영상은 원할 때만 봐요",
+        "발굴 사이에 광고가 나오지 않아요. 무료 버전은 화면 아래에 작은 배너만 있고, 동영상은 원할 때만 봐요",
         "관람료(동전)는 게임으로만 벌고 돈으로 팔지 않아요. 확률에 돈을 쓰는 상품은 없어요",
         "인터넷 없이도 끝까지 즐길 수 있어요"
       ] },
