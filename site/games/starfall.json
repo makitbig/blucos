@@ -5,8 +5,8 @@
     "lead": "Starfall is a calm, colorful puzzle where every stage is a real star. Drop groups of three stars, line up three or more of the same color, and set off chains. Win a stage and that star lights up in its constellation, in its true color, with its real distance from Earth.",
     "story": {"title": "Why we made it", "paras": ["I made this one because I wanted to play Hexa again, a game I loved as a kid. So, honestly, there's a lot of me in it.", "I also hoped it could give people who love the night sky the simple joy of collecting constellations, one by one. I'd love for that feeling to come through when you play."]},
     "shotsAlt": [
+      "The home screen: a starry night and a telescope",
       "Match falling stars",
-      "A star lit in its real color",
       "The story of Orion",
       "Tonight's Sky from your city"
     ],
