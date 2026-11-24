@@ -12,6 +12,15 @@
   ],
   "shorts": [
     {
+      "id": "YNoInoGaJ78",
+      "lang": "en",
+      "title": {
+        "en": "Whose bones are these?"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/YNoInoGaJ78.jpg"
+    },
+    {
       "id": "7fuaO6_qeyU",
       "lang": "en",
       "title": {
@@ -149,6 +158,7 @@
     "AHp4JLHZoV4",
     "3fmtqGzj3oI",
     "hhZRyAk5xTQ",
-    "7fuaO6_qeyU"
+    "7fuaO6_qeyU",
+    "YNoInoGaJ78"
   ]
 }
