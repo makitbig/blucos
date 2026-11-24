@@ -157,8 +157,8 @@ def page(lang, name, title, body, t, desc=None, image=None, doc=None):
 </head>
 <body>
   <header class="top">
-    <a class="logo" href="{home}"><img src="{up}assets/art/logo-white.png" alt="Blucos Studio" width="180" height="30"></a>
-    <nav><a href="{home}#games">{e(t['nav.games'])}</a><a href="{home}story.html">{e(t['nav.story'])}</a><a href="{home}contact.html">{e(t['nav.contact'])}</a></nav>
+    <a class="logo" href="{home or './'}"><img src="{up}assets/art/logo-white.png" alt="Blucos Studio" width="180" height="30"></a>
+    <nav><a href="{home or './'}#games">{e(t['nav.games'])}</a><a href="{home}story.html">{e(t['nav.story'])}</a><a href="{home}contact.html">{e(t['nav.contact'])}</a></nav>
   </header>
   <main>{body}
   </main>
