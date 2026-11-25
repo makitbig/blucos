@@ -7,7 +7,7 @@
     "shotsAlt": ["Your museum with a T. rex on display", "A dig: numbers show how many rocks are nearby", "Four parts make a whole Stegosaurus", "The museum floor plan and its visitors"],
     "sections": [
       { "title": "What you collect", "items": [
-        "17 real prehistoric animals: Tyrannosaurus, Triceratops, Stegosaurus, Velociraptor, Pteranodon, the woolly mammoth and more",
+        "23 real prehistoric animals: Tyrannosaurus, Triceratops, Stegosaurus, Velociraptor, Pteranodon, the woolly mammoth and more",
         "Each dig uncovers one part: skull, body, legs or tail. Find all four and the skeleton comes together, with a painting and a fun fact",
         "Medals for completing animals again in harder seasons, and golden fossils"
       ] },
@@ -40,7 +40,7 @@
     "shotsAlt": ["티라노사우루스가 전시된 나만의 박물관", "발굴 화면: 숫자는 주변 바위 수를 알려 줘요", "네 부위를 모아 완성한 스테고사우루스", "박물관 안내도와 관람객"],
     "sections": [
       { "title": "모으는 것", "items": [
-        "진짜 고생물 17종: 티라노사우루스, 트리케라톱스, 스테고사우루스, 벨로키랍토르, 프테라노돈, 털매머드 등",
+        "진짜 고생물 23종: 티라노사우루스, 트리케라톱스, 스테고사우루스, 벨로키랍토르, 프테라노돈, 털매머드 등",
         "발굴할 때마다 머리, 몸통, 다리, 꼬리 중 한 부위가 나와요. 네 부위를 모두 찾으면 골격이 완성되고, 복원 그림과 재미있는 이야기가 나와요",
         "더 어려운 시즌에 다시 완성하면 받는 메달과 황금 화석"
       ] },
