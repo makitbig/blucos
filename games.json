@@ -58,7 +58,7 @@
       },
       "icon": "icons/evolution2048.png",
       "ios": "",
-      "android": "",
+      "android": "https://play.google.com/store/apps/details?id=com.blucos.evolution2048",
       "site": "https://blucos.studio/games/evolution2048/",
       "tagline": {
         "en": "Merge matching tiles and follow the story of evolution",
