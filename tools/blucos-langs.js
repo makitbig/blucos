@@ -1,4 +1,4 @@
-// Language picker, the same in every Blucos game (user, 2026-11-27: "1번으로").
+// Language picker, the same in every Blucos game (user, 2026-11-27: "1번으로"; Asian languages in CJK order the same day).
 // COPIED into each game's www/ by blucos/tools/sync.py. Do not edit in a game repo: edit it in the blucos repo.
 //
 // The standard:
@@ -6,8 +6,9 @@
 //   2. First row "Automatic (<device language>)": the default, follows the phone's language, can be picked
 //      again at any time. Stored as the game already does ('auto' or null). An unsupported device language
 //      falls back to English.
-//   3. Then the languages in one fixed order: alphabetical by their own names, Latin scripts first, then Asian:
-//      Deutsch, English, Español, Français, Italiano, Português, 日本語, 한국어, 简体中文, 繁體中文.
+//   3. Then the languages in one fixed order: Latin-script languages alphabetical by their own names, then the
+//      Asian ones in CJK order (alphabetical by English name: Chinese, Japanese, Korean):
+//      Deutsch, English, Español, Français, Italiano, Português, 简体中文, 繁體中文, 日本語, 한국어.
 //      A language the game doesn't have is left out (Market Trip: English, 한국어).
 //
 //   BlucosLangs.list(supported)            -> the game's codes in the standard order
@@ -21,7 +22,7 @@
 // calls Simplified Chinese 'zh' (Hatch Bingo) can pass 'zh': it sorts and matches like 'zh-Hans'.
 'use strict';
 window.BlucosLangs = (() => {
-  const ORDER = ['de', 'en', 'es', 'fr', 'it', 'pt', 'ja', 'ko', 'zh-Hans', 'zh-Hant'];
+  const ORDER = ['de', 'en', 'es', 'fr', 'it', 'pt', 'zh-Hans', 'zh-Hant', 'ja', 'ko'];
   const NAMES = {
     de: 'Deutsch', en: 'English', es: 'Español', fr: 'Français', it: 'Italiano', pt: 'Português',
     ja: '日本語', ko: '한국어', 'zh-Hans': '简体中文', 'zh-Hant': '繁體中文',
