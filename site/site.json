@@ -12,6 +12,15 @@
   ],
   "shorts": [
     {
+      "id": "ue8C0kZVfc4",
+      "lang": "en",
+      "title": {
+        "en": "Digging up a whole Triceratops"
+      },
+      "game": "fossildig",
+      "poster": "assets/shorts/ue8C0kZVfc4.jpg"
+    },
+    {
       "id": "6zc3DUoemEQ",
       "lang": "en",
       "title": {
@@ -160,6 +169,7 @@
     "hhZRyAk5xTQ",
     "7fuaO6_qeyU",
     "YNoInoGaJ78",
-    "6zc3DUoemEQ"
+    "6zc3DUoemEQ",
+    "ue8C0kZVfc4"
   ]
 }
