@@ -13,7 +13,7 @@
 // A new game is added here. round: a round started longer ago than this is over (a phone that slept never says done).
 const GAMES = {
   petalgarden: { maxScore: 5000, round: 3 * 60 * 1000 },        // a two-minute race
-  starfall: { maxScore: 99999999, round: 15 * 60 * 1000 },      // a two-minute race, or endless until the board fills (it speeds up, so it ends well within)
+  starfall: { maxScore: 99999999, round: 30 * 60 * 1000 },      // a two-minute race, or endless (it speeds up without limit; about 6-13 minutes)
 };
 const MAX_PLAYERS = 8;
 const NAME_MAX = 8;
