@@ -24,7 +24,7 @@
       {
         "title": "Personal information kept to a minimum",
         "paras": [
-          "No accounts, no sign-in, no servers of our own. We don't ask for a name or an age, and progress is saved only on the device. Photos used in a custom theme stay on the device.",
+          "No accounts and no sign-in. We don't ask for an age, and progress is saved only on the device. Photos used in a custom theme stay on the device. Only when you play side by side do your score and the name you choose (it can be left empty) pass briefly through our server, so the players can see each other's scores. They are deleted within 10 minutes after the match, and nothing that identifies the device is sent.",
           "Some games use Google Firebase to receive anonymous usage statistics and crash reports, so we can see which parts are played and fix problems. They never include names or anything typed.",
           "Ads are served by Google AdMob, which may use device information to show them. Each game's privacy policy, linked below, has the details."
         ]
@@ -75,7 +75,7 @@
       {
         "title": "개인정보는 최소한으로",
         "paras": [
-          "계정, 로그인, 자체 서버가 없어요. 이름이나 나이를 묻지 않고, 진행 기록은 기기에만 저장돼요. 나만의 테마에 넣은 사진도 기기 밖으로 나가지 않아요.",
+          "계정과 로그인이 없어요. 나이는 묻지 않고, 진행 기록은 기기에만 저장돼요. 나만의 테마에 넣은 사진도 기기 밖으로 나가지 않아요. 옆 사람과 함께 하기를 할 때만, 서로의 점수를 보여 주려고 점수와 직접 정한 이름(비워 둬도 돼요)이 저희 서버를 잠깐 거쳐 가요. 경기가 끝나면 10분 안에 지워지고, 누구의 기기인지 알 수 있는 정보는 받지 않아요.",
           "일부 게임은 어떤 기능이 쓰이는지와 오류를 알기 위해 Google Firebase로 익명 사용 통계와 오류 보고를 받아요. 이름이나 입력한 내용은 들어가지 않아요.",
           "광고는 Google AdMob이 보여 주며, 광고를 위해 기기 정보를 쓸 수 있어요. 자세한 내용은 아래 게임별 개인정보 처리방침에 있어요."
         ]
