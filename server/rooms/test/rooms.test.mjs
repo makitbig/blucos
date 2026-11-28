@@ -45,7 +45,7 @@ ok('start sets startAt = now + 4 s once');
 r = await post('score', { p: a, s: 300 });
 r = await post('score', { p: a, s: 200 });
 assert.equal(r.body.players[0].s, 300);
-r = await post('score', { p: b, s: { starfall: 100000000, evolution2048: 200001 }[game] ?? 5001 });
+r = await post('score', { p: b, s: { starfall: 100000000, evolution2048: 200001, fossildig: 5001 }[game] ?? 5001 });
 assert.equal(r.status, 400);
 r = await post('score', { p: b, s: 12.5 });
 assert.equal(r.status, 400);

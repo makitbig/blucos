@@ -57,6 +57,25 @@
           "/go/starfall/c",
           "/go/starfall/c/*"
         ]
+      },
+      {
+        "appIDs": [
+          "DQGK6VANKP.com.blucos.fossildig"
+        ],
+        "components": [
+          {
+            "/": "/go/fossildig/c",
+            "comment": "Fossil Dig challenge link"
+          },
+          {
+            "/": "/go/fossildig/c/*"
+          }
+        ],
+        "appID": "DQGK6VANKP.com.blucos.fossildig",
+        "paths": [
+          "/go/fossildig/c",
+          "/go/fossildig/c/*"
+        ]
       }
     ]
   }

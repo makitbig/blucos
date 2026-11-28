@@ -21,6 +21,7 @@
     .vs-num { margin: 2px 0 10px; font-size: 44px; font-weight: 800; letter-spacing: 0.12em; }
     .vs-how { margin: 0 0 16px; font-size: 15px; line-height: 1.5; }
     .vs-open { position: relative; z-index: 4; display: inline-block; margin: 0 0 12px; padding: 11px 22px; border-radius: 999px; font-weight: 800; text-decoration: none; color: #20160a; background: var(--gold); }
+    .vs-open[hidden] { display: none; }
   </style>
 </head>
 <body>
@@ -98,6 +99,23 @@
         set('score', pts(s));
         if (/^\d{1,8}$/.test(s2 || '')) set('other', fill(S.reply, { name: n2 || S.friend, score: pts(s2) }));
         set('how', S.beat + ' ' + fill(S.how, { join: S.join }));
+        shown = true;
+      }
+      if (D.kind === 'fossil' && /^\d{4}$/.test(m || '') && /^\d{1,4}$/.test(s || '')) {
+        // Fossil Dig: three digs in a row. s = 1000 + (3999 - seconds) when all three were dug,
+        // 100 + bones when the pickaxe broke, else bones found
+        var dig = function (v) {
+          v = Number(v);
+          if (v >= 1000) { var sec = Math.max(0, 3999 - (v - 1000)); return fill(S.rDone, { time: Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0') }); }
+          if (v >= 100) return fill(S.rBroke, { n: num(v - 100) });
+          return fill(S.rBones, { n: num(v) });
+        };
+        var rep = /^\d{1,4}$/.test(s2 || '');
+        set('head', n ? fill(rep ? S.headReply : S.head, { name: n }) : (rep ? S.headReplyAnon : S.headAnon));
+        set('mode', gameName + ' · ' + S.mode);
+        set('score', dig(s));
+        if (rep) set('other', fill(S.reply, { name: n2 || S.friend, score: dig(s2) }));
+        set('how', S.beat + ' ' + fill(S.how, { title: S.title, join: S.join }));
         shown = true;
       }
       if (shown) {

@@ -15,12 +15,13 @@ const GAMES = {
   petalgarden: { maxScore: 5000, round: 3 * 60 * 1000 },        // a two-minute race
   starfall: { maxScore: 99999999, round: 30 * 60 * 1000 },      // a two-minute race, or endless (it speeds up without limit; about 6-13 minutes)
   evolution2048: { maxScore: 200000, round: 3 * 60 * 1000 },    // a two-minute race; merges add up fast, so the cap is roomy
+  fossildig: { maxScore: 5000, round: 20 * 60 * 1000 },        // three boards in a row (2-6 minutes): bones 0-27, pickaxe broke 100 + bones, done 1000 + (3999 - seconds)
 };
 const MAX_PLAYERS = 8;
 const NAME_MAX = 8;
 const START_DELAY = 4000;          // every phone counts 3-2-1 toward the same startAt
 const ROOM_TTL = 10 * 60 * 1000;   // a room is deleted 10 minutes after its last write
-const ORIGINS = ['capacitor://localhost', 'https://localhost', 'http://localhost', 'http://localhost:5188', 'http://localhost:5184', 'http://localhost:5180'];
+const ORIGINS = ['capacitor://localhost', 'https://localhost', 'http://localhost', 'http://localhost:5188', 'http://localhost:5184', 'http://localhost:5180', 'http://localhost:5182', 'http://127.0.0.1:5182'];
 
 const cors = (origin) => (ORIGINS.includes(origin) ? {
   'Access-Control-Allow-Origin': origin,
