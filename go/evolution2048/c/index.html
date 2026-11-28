@@ -57,13 +57,9 @@
       var fill = function (str, o) { return str.replace(/\{(\w+)\}/g, function (_, k) { return o[k] != null ? o[k] : ''; }); };
       var set = function (id, text) { var el = document.getElementById(id); el.textContent = text; el.hidden = !text; return el; };
       var clean = function (v) { return Array.from(String(v || '').replace(/[\u0000-\u001f\u007f<>]/g, '').trim()).slice(0, 8).join(''); };
-      var okScore = function (v) { return /^(\d{1,6}|[cf]\d{1,3})$/.test(v || ''); };
+      var okScore = function (v) { return /^\d{1,6}$/.test(v || ''); };
       var num = function (n) { return Number(n).toLocaleString(lang); };
-      var score = function (v) {
-        if (v[0] === 'c') return fill(S.rClear, { n: num(v.slice(1)) });
-        if (v[0] === 'f') return fill(S.rFail, { n: num(v.slice(1)) });
-        return fill(S.rTime, { n: num(v) });
-      };
+      var score = function (v) { return fill(S.rTime, { n: num(v) }); };
       document.documentElement.lang = lang;
       if (lang === 'ko') document.getElementById('stores').innerHTML = D.stores.ko;
       var gameName = D.names[lang] || D.names.en;
@@ -72,10 +68,9 @@
       var m = q.get('m'), s = q.get('s'), s2 = q.get('s2'), n = clean(q.get('n')), n2 = clean(q.get('n2'));
       var shown = false;
       if (D.kind === 'petal' && /^\d{4}$/.test(m || '') && okScore(s)) {
-        // Petal Garden: m odd = two-minute race (s = petals), m even = same bed (s = cN cleared / fN not)
+        // Petal Garden: one mode, the two-minute race; s = petals
         set('head', n ? fill(S.head, { name: n }) : S.headAnon);
-        var clearMode = /^[cf]/.test(s) || Number(m) % 2 === 0;
-        set('mode', gameName + ' · ' + (clearMode ? S.clear : S.time));
+        set('mode', gameName + ' · ' + S.time);
         set('score', score(s));
         if (okScore(s2)) set('other', fill(S.reply, { name: n2 || S.friend, score: score(s2) }));
         set('how', S.beat + ' ' + fill(S.how, { title: S.title, join: S.join }));

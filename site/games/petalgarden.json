@@ -87,7 +87,7 @@
   },
   "challenge": {
     "kind": "petal",
-    "_comment": "go/petalgarden/c/: the page a challenge link opens when the app is not installed. title..rTime are the app's own words (petal-garden www/i18n.js vs.*). m odd = time race (s = petals), m even = same bed (s = cN cleared with N moves left, fN not cleared with N left).",
+    "_comment": "go/petalgarden/c/: the page a challenge link opens when the app is not installed. title..rTime are the app's own words (petal-garden www/i18n.js vs.*). One mode, the two-minute race: s and s2 are petal counts.",
     "scheme": "petalgarden://c",
     "strings": {
       "en": {
@@ -101,11 +101,8 @@
         "how": "After installing, open {title} → {join} and enter this number.",
         "title": "Play together",
         "join": "Join with a number",
-        "clear": "Same bed",
         "time": "Two-minute race",
         "code": "Match number",
-        "rClear": "{n} moves left",
-        "rFail": "{n} still to go",
         "rTime": "{n} petals"
       },
       "ko": {
@@ -119,11 +116,8 @@
         "how": "앱을 설치한 뒤 {title} → {join}에서 이 번호를 넣으세요.",
         "title": "친구와 겨루기",
         "join": "번호로 참여하기",
-        "clear": "같은 화단 깨기",
         "time": "2분 꽃잎 모으기",
         "code": "대결 번호",
-        "rClear": "남은 횟수 {n}",
-        "rFail": "{n}개 남았어요",
         "rTime": "꽃잎 {n}개"
       },
       "ja": {
@@ -137,11 +131,8 @@
         "how": "インストールしたら「{title}」→「{join}」でこの番号を入れてください。",
         "title": "みんなで対戦",
         "join": "番号で参加する",
-        "clear": "同じ花壇をクリア",
         "time": "2分で花びら集め",
         "code": "対戦番号",
-        "rClear": "残り {n} 手",
-        "rFail": "あと {n} 個",
         "rTime": "花びら {n} 個"
       },
       "zh-Hans": {
@@ -155,11 +146,8 @@
         "how": "安装后，打开“{title}”→“{join}”，输入这个号码。",
         "title": "和朋友比赛",
         "join": "输入号码加入",
-        "clear": "同一花坛",
         "time": "2分钟收集花瓣",
         "code": "比赛号码",
-        "rClear": "剩余 {n} 步",
-        "rFail": "还差 {n} 个",
         "rTime": "花瓣 {n} 个"
       },
       "zh-Hant": {
@@ -173,11 +161,8 @@
         "how": "安裝後，打開「{title}」→「{join}」，輸入這個號碼。",
         "title": "和朋友比賽",
         "join": "輸入號碼加入",
-        "clear": "同一花壇",
         "time": "2分鐘收集花瓣",
         "code": "比賽號碼",
-        "rClear": "剩餘 {n} 步",
-        "rFail": "還差 {n} 個",
         "rTime": "花瓣 {n} 個"
       },
       "es": {
@@ -191,11 +176,8 @@
         "how": "Después de instalarla, abre {title} → {join} y escribe este número.",
         "title": "Jugar juntos",
         "join": "Unirse con un número",
-        "clear": "Mismo parterre",
         "time": "Carrera de dos minutos",
         "code": "Número de partida",
-        "rClear": "{n} jugadas de sobra",
-        "rFail": "Faltan {n}",
         "rTime": "{n} pétalos"
       },
       "pt": {
@@ -209,11 +191,8 @@
         "how": "Depois de instalar, abra {title} → {join} e digite este número.",
         "title": "Jogar juntos",
         "join": "Entrar com um número",
-        "clear": "Mesmo canteiro",
         "time": "Corrida de dois minutos",
         "code": "Número da partida",
-        "rClear": "Sobraram {n} jogadas",
-        "rFail": "Faltam {n}",
         "rTime": "{n} pétalas"
       },
       "fr": {
@@ -227,11 +206,8 @@
         "how": "Après l’installation, ouvrez {title} → {join} et saisissez ce numéro.",
         "title": "Jouer ensemble",
         "join": "Rejoindre avec un numéro",
-        "clear": "Même parterre",
         "time": "Course de deux minutes",
         "code": "Numéro de partie",
-        "rClear": "{n} coups restants",
-        "rFail": "Encore {n}",
         "rTime": "{n} pétales"
       },
       "de": {
@@ -245,11 +221,8 @@
         "how": "Nach der Installation {title} → {join} öffnen und diese Nummer eingeben.",
         "title": "Gemeinsam spielen",
         "join": "Mit Nummer beitreten",
-        "clear": "Gleiches Beet",
         "time": "Zwei-Minuten-Rennen",
         "code": "Spielnummer",
-        "rClear": "{n} Züge übrig",
-        "rFail": "Noch {n}",
         "rTime": "{n} Blütenblätter"
       },
       "it": {
@@ -263,11 +236,8 @@
         "how": "Dopo l’installazione, apri {title} → {join} e inserisci questo numero.",
         "title": "Gioca insieme",
         "join": "Entra con un numero",
-        "clear": "Stessa aiuola",
         "time": "Gara di due minuti",
         "code": "Numero di partita",
-        "rClear": "{n} mosse avanzate",
-        "rFail": "Ne mancano {n}",
         "rTime": "{n} petali"
       }
     }
