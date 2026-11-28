@@ -34,5 +34,17 @@
         "50:15:2C:68:C8:3A:EB:59:B9:74:1D:E2:1B:4D:49:09:88:D6:59:64:8A:DC:D1:58:C1:15:F1:6F:9C:4E:F9:24"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.blucos.fossildig",
+      "sha256_cert_fingerprints": [
+        "CF:39:42:67:47:A7:A4:06:AC:CE:7A:4E:E5:01:D2:1A:90:63:0E:9F:3A:34:27:71:3A:42:31:CE:C7:0A:A2:E5"
+      ]
+    }
   }
 ]

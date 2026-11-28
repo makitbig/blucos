@@ -69,7 +69,7 @@
   },
   "challenge": {
     "kind": "fossil",
-    "_comment": "go/fossildig/c/: the page a challenge link opens when the app is not installed. One match is three digs in a row. s (and s2): 1000 + (3999 - seconds) when all three were dug, 100 + bones when the pickaxe broke, else bones found (0-27). title, join and code match Petal Garden's words; the app should use the same.",
+    "_comment": "go/fossildig/c/: the page a challenge link opens when the app is not installed. One match is three digs in a row. s (and s2): 1000 + (3999 - seconds) when all three were dug, 100 + bones when the pickaxe broke, else bones found (0-27). title, join and code are the app's own labels (fossil-dig, 2026-11-29).",
     "scheme": "fossildig://c",
     "strings": {
       "en": {
@@ -89,7 +89,7 @@
         "reply": "{name}: {score}",
         "get": "Get the app",
         "open": "Open in the app",
-        "how": "After installing, open {title} → {join} and enter this number."
+        "how": "After installing, open this link again to race your friend's time. To type the number instead: {title} → {join}."
       },
       "ko": {
         "head": "{name}님의 도전",
@@ -102,13 +102,13 @@
         "rDone": "세 판 모두 {time}",
         "rBroke": "곡괭이 부러짐 · 뼈 {n}개",
         "rBones": "뼈 {n}개",
-        "title": "친구와 겨루기",
+        "title": "같이 하기",
         "join": "번호로 참여하기",
         "code": "대결 번호",
         "reply": "{name}: {score}",
         "get": "앱 받기",
         "open": "앱으로 열기",
-        "how": "앱을 설치한 뒤 {title} → {join}에서 이 번호를 넣으세요."
+        "how": "앱을 설치한 뒤 이 링크를 다시 열면 친구의 기록과 겨룰 수 있어요. 번호만 넣으려면 {title} → {join}."
       },
       "ja": {
         "head": "{name}さんからの挑戦",
@@ -121,13 +121,13 @@
         "rDone": "3回とも {time}",
         "rBroke": "つるはしが折れた · 骨 {n}個",
         "rBones": "骨 {n}個",
-        "title": "友だちと対戦",
+        "title": "いっしょに遊ぶ",
         "join": "番号で参加",
         "code": "対戦番号",
         "reply": "{name}: {score}",
         "get": "アプリを入手",
         "open": "アプリで開く",
-        "how": "インストール後、{title} → {join} でこの番号を入力してください。"
+        "how": "インストール後にこのリンクをもう一度開くと、友だちの記録と競えます。番号だけ入れるなら {title} → {join}。"
       },
       "zh-Hans": {
         "head": "{name}的挑战",
@@ -140,13 +140,13 @@
         "rDone": "三场共用时 {time}",
         "rBroke": "镐子断了 · 骨头 {n} 块",
         "rBones": "骨头 {n} 块",
-        "title": "和朋友比赛",
+        "title": "一起玩",
         "join": "输入号码加入",
-        "code": "比赛号码",
+        "code": "对战号码",
         "reply": "{name}：{score}",
         "get": "获取应用",
         "open": "在应用中打开",
-        "how": "安装后，打开 {title} → {join}，输入这个号码。"
+        "how": "安装后再打开一次这个链接，就能和朋友的记录比。只输入号码：{title} → {join}。"
       },
       "zh-Hant": {
         "head": "{name}的挑戰",
@@ -159,13 +159,13 @@
         "rDone": "三場共用時 {time}",
         "rBroke": "十字鎬斷了 · 骨頭 {n} 塊",
         "rBones": "骨頭 {n} 塊",
-        "title": "和朋友比賽",
+        "title": "一起玩",
         "join": "輸入號碼加入",
-        "code": "比賽號碼",
+        "code": "對戰號碼",
         "reply": "{name}：{score}",
         "get": "取得 App",
         "open": "在 App 中開啟",
-        "how": "安裝後，打開 {title} → {join}，輸入這個號碼。"
+        "how": "安裝後再打開一次這個連結，就能和朋友的紀錄比。只輸入號碼：{title} → {join}。"
       },
       "es": {
         "head": "Un reto de {name}",
@@ -180,11 +180,11 @@
         "rBones": "{n} huesos",
         "title": "Jugar juntos",
         "join": "Unirse con un número",
-        "code": "Número de partida",
+        "code": "Número del duelo",
         "reply": "{name}: {score}",
         "get": "Descargar la app",
         "open": "Abrir en la app",
-        "how": "Tras instalarla, abre {title} → {join} y escribe este número."
+        "how": "Tras instalarla, abre este enlace otra vez para competir con el tiempo de tu amigo. Para escribir solo el número: {title} → {join}."
       },
       "pt": {
         "head": "Um desafio de {name}",
@@ -199,11 +199,11 @@
         "rBones": "{n} ossos",
         "title": "Jogar juntos",
         "join": "Entrar com um número",
-        "code": "Número da partida",
+        "code": "Número do duelo",
         "reply": "{name}: {score}",
         "get": "Baixar o app",
         "open": "Abrir no app",
-        "how": "Depois de instalar, abra {title} → {join} e digite este número."
+        "how": "Depois de instalar, abra este link de novo para competir com o tempo do seu amigo. Para digitar só o número: {title} → {join}."
       },
       "fr": {
         "head": "Un défi de {name}",
@@ -218,11 +218,11 @@
         "rBones": "{n} os",
         "title": "Jouer ensemble",
         "join": "Rejoindre avec un numéro",
-        "code": "Numéro du match",
+        "code": "Numéro du duel",
         "reply": "{name} : {score}",
         "get": "Télécharger l’app",
         "open": "Ouvrir dans l’app",
-        "how": "Après l’installation, ouvre {title} → {join} et saisis ce numéro."
+        "how": "Après l’installation, rouvre ce lien pour te mesurer au temps de ton ami. Pour saisir seulement le numéro : {title} → {join}."
       },
       "de": {
         "head": "Eine Herausforderung von {name}",
@@ -237,11 +237,11 @@
         "rBones": "{n} Knochen",
         "title": "Zusammen spielen",
         "join": "Mit Nummer beitreten",
-        "code": "Matchnummer",
+        "code": "Duellnummer",
         "reply": "{name}: {score}",
         "get": "App holen",
         "open": "In der App öffnen",
-        "how": "Nach der Installation {title} → {join} öffnen und diese Nummer eingeben."
+        "how": "Nach der Installation diesen Link noch einmal öffnen, um gegen die Zeit deines Freundes zu spielen. Nur die Nummer eingeben: {title} → {join}."
       },
       "it": {
         "head": "Una sfida da {name}",
@@ -254,13 +254,13 @@
         "rDone": "Tutti e tre in {time}",
         "rBroke": "Piccone rotto · {n} ossa",
         "rBones": "{n} ossa",
-        "title": "Gioca insieme",
+        "title": "Giocare insieme",
         "join": "Entra con un numero",
         "code": "Numero della sfida",
         "reply": "{name}: {score}",
         "get": "Scarica l’app",
         "open": "Apri nell’app",
-        "how": "Dopo l’installazione, apri {title} → {join} e inserisci questo numero."
+        "how": "Dopo l’installazione, riapri questo link per sfidare il tempo del tuo amico. Per inserire solo il numero: {title} → {join}."
       }
     }
   }
