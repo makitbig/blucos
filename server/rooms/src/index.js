@@ -10,13 +10,16 @@
 // p is a random 16-character key the app makes for each match: not a device ID. Each room lives in its own
 // Durable Object and deletes itself 10 minutes after its last write. Nothing is logged.
 
-const GAMES = { petalgarden: { maxScore: 5000 } };   // a new game is added here
+// A new game is added here. round: a round started longer ago than this is over (a phone that slept never says done).
+const GAMES = {
+  petalgarden: { maxScore: 5000, round: 3 * 60 * 1000 },        // a two-minute race
+  starfall: { maxScore: 99999999, round: 30 * 60 * 1000 },      // a two-minute race, or endless until the board fills
+};
 const MAX_PLAYERS = 8;
 const NAME_MAX = 8;
 const START_DELAY = 4000;          // every phone counts 3-2-1 toward the same startAt
-const STALE_ROUND = 3 * 60 * 1000; // a round started more than 3 minutes ago is over
 const ROOM_TTL = 10 * 60 * 1000;   // a room is deleted 10 minutes after its last write
-const ORIGINS = ['capacitor://localhost', 'https://localhost', 'http://localhost', 'http://localhost:5188'];
+const ORIGINS = ['capacitor://localhost', 'https://localhost', 'http://localhost', 'http://localhost:5188', 'http://localhost:5184'];
 
 const cors = (origin) => (ORIGINS.includes(origin) ? {
   'Access-Control-Allow-Origin': origin,
@@ -99,10 +102,10 @@ export class Room {
     };
   }
 
-  over(now) {
+  over(now, game) {
     const r = this.room;
     if (r.startAt == null) return false;
-    return now - r.startAt > STALE_ROUND || (r.players.length > 0 && r.players.every((x) => x.done));
+    return now - r.startAt > GAMES[game].round || (r.players.length > 0 && r.players.every((x) => x.done));
   }
 
   async fetch(req) {
@@ -115,7 +118,7 @@ export class Room {
     if (!okKey(p)) return reply(400, { error: 'bad_key' });
 
     if (action === 'join') {
-      if (this.over(now)) { r.startAt = null; r.players = []; }
+      if (this.over(now, game)) { r.startAt = null; r.players = []; }
       const me = r.players.find((x) => x.p === p);
       if (me) me.n = cleanName(body.n);
       else if (r.players.length >= MAX_PLAYERS) return reply(409, { error: 'full' });
@@ -128,7 +131,7 @@ export class Room {
     if (!me) return reply(404, { error: 'not_in_room' });
 
     if (action === 'start') {
-      if (r.startAt == null || this.over(now)) {
+      if (r.startAt == null || this.over(now, game)) {
         r.startAt = now + START_DELAY;
         for (const x of r.players) { x.s = 0; x.done = false; }
         await this.save();

@@ -1,9 +1,10 @@
-// Runs against a local server: npx wrangler@4 dev --local --port 8799, then node test/rooms.test.mjs [base]
+// Runs against a local server: npx wrangler@4 dev --local --port 8799, then node test/rooms.test.mjs [base] [game]
 import assert from 'node:assert/strict';
 
 const BASE = process.argv[2] || 'http://127.0.0.1:8799';
 const code = String(1000 + Math.floor(Math.random() * 9000));
-const room = `${BASE}/v1/rooms/petalgarden/${code}`;
+const game = process.argv[3] || "petalgarden";
+const room = `${BASE}/v1/rooms/${game}/${code}`;
 const key = () => Array.from({ length: 16 }, () => 'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)]).join('');
 const post = async (action, body, origin = 'capacitor://localhost') => {
   const r = await fetch(`${room}/${action}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: origin }, body: JSON.stringify(body) });
@@ -44,7 +45,7 @@ ok('start sets startAt = now + 4 s once');
 r = await post('score', { p: a, s: 300 });
 r = await post('score', { p: a, s: 200 });
 assert.equal(r.body.players[0].s, 300);
-r = await post('score', { p: b, s: 5001 });
+r = await post('score', { p: b, s: game === 'starfall' ? 100000000 : 5001 });
 assert.equal(r.status, 400);
 r = await post('score', { p: b, s: 12.5 });
 assert.equal(r.status, 400);
