@@ -1,0 +1,26 @@
+# Blucos rooms (src/index.js) on api.blucos.studio. Deploy: cd server/rooms && npx wrangler@4 deploy
+name = "blucos-rooms"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+routes = [{ pattern = "api.blucos.studio", custom_domain = true }]
+
+# One Durable Object per room (SQLite storage, available on the free plan)
+[[durable_objects.bindings]]
+name = "ROOMS"
+class_name = "Room"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Room"]
+
+# Per IP: 80 calls per 10 seconds. Several phones on one home Wi-Fi share an IP (8 players polling every 1.5 s is
+# about 55 per 10 s), so this is looser than one phone needs and still stops a runaway client.
+[[ratelimits]]
+name = "RL"
+namespace_id = "1001"
+simple = { limit = 80, period = 10 }
+
+# No request logs
+[observability]
+enabled = false
