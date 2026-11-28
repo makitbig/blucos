@@ -2,13 +2,42 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["DQGK6VANKP.com.blucos.petalgarden"],
+        "appIDs": [
+          "DQGK6VANKP.com.blucos.petalgarden"
+        ],
         "components": [
-          { "/": "/go/petalgarden/c", "comment": "Petal Garden challenge link" },
-          { "/": "/go/petalgarden/c/*" }
+          {
+            "/": "/go/petalgarden/c",
+            "comment": "Petal Garden challenge link"
+          },
+          {
+            "/": "/go/petalgarden/c/*"
+          }
         ],
         "appID": "DQGK6VANKP.com.blucos.petalgarden",
-        "paths": ["/go/petalgarden/c", "/go/petalgarden/c/*"]
+        "paths": [
+          "/go/petalgarden/c",
+          "/go/petalgarden/c/*"
+        ]
+      },
+      {
+        "appIDs": [
+          "DQGK6VANKP.com.blucos.evolution2048"
+        ],
+        "components": [
+          {
+            "/": "/go/evolution2048/c",
+            "comment": "Evolution 2048 challenge link"
+          },
+          {
+            "/": "/go/evolution2048/c/*"
+          }
+        ],
+        "appID": "DQGK6VANKP.com.blucos.evolution2048",
+        "paths": [
+          "/go/evolution2048/c",
+          "/go/evolution2048/c/*"
+        ]
       }
     ]
   }

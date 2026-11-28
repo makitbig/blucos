@@ -397,7 +397,8 @@ def challenge_pages():
         banner = f'<img class="gbanner" src="../../../assets/art/{e(a["banner"])}" alt="" width="640" height="320">' if a.get('banner') else '<div class="gbanner"></div>'
         names = {l: (g['name'].get(l) if isinstance(g['name'], dict) else None) or name_en for l in c['strings']}
         shops = {'en': stores(g, t_en), 'ko': stores(g, STR['ko'])}   # built here, so trusted HTML
-        data = json.dumps({'s': c['strings'], 'names': names, 'scheme': c['scheme'], 'stores': shops}, ensure_ascii=False).replace('</', '<\\/')
+        data = json.dumps({'kind': c['kind'], 's': c['strings'], 'names': names, 'scheme': c.get('scheme', ''), 'stores': shops,
+                           'themes': c.get('themes', {})}, ensure_ascii=False).replace('</', '<\\/')
         html = rf'''<!doctype html>
 <html lang="en">
 <head>
@@ -437,7 +438,7 @@ def challenge_pages():
         <p class="vs-code" id="codeLabel" hidden></p>
         <p class="vs-num" id="num" hidden></p>
         <p class="vs-how" id="how" hidden></p>
-        <div><a class="vs-open" id="open" href="{e(c['scheme'])}" hidden></a></div>
+        <div><a class="vs-open" id="open" href="#" hidden></a></div>
         <div class="actions" id="stores">{stores(g, t_en)}</div>
       </div>
     </section>
@@ -470,20 +471,34 @@ def challenge_pages():
       document.title = gameName + ' · Blucos Studio';
       var q = new URLSearchParams((location.hash || '').replace(/^#/, '') || location.search.replace(/^\?/, ''));
       var m = q.get('m'), s = q.get('s'), s2 = q.get('s2'), n = clean(q.get('n')), n2 = clean(q.get('n2'));
-      if (/^\d{{4}}$/.test(m || '') && okScore(s)) {{
-        set('head', fill(S.head, {{ name: n || S.friend }}));
+      var shown = false;
+      if (D.kind === 'petal' && /^\d{{4}}$/.test(m || '') && okScore(s)) {{
+        // Petal Garden: m odd = two-minute race (s = petals), m even = same bed (s = cN cleared / fN not)
+        set('head', n ? fill(S.head, {{ name: n }}) : S.headAnon);
         var clearMode = /^[cf]/.test(s) || Number(m) % 2 === 0;
         set('mode', gameName + ' · ' + (clearMode ? S.clear : S.time));
         set('score', score(s));
         if (okScore(s2)) set('other', fill(S.reply, {{ name: n2 || S.friend, score: score(s2) }}));
+        set('how', S.beat + ' ' + fill(S.how, {{ title: S.title, join: S.join }}));
+        shown = true;
+      }}
+      if (D.kind === 'evo' && /^\d{{4}}$/.test(m || '') && /^\d{{1,7}}$/.test(s || '')) {{
+        // Evolution 2048: s score, g top stage 1-14, t theme id (Evolution when left out or unknown)
+        var th = D.themes[lang][D.themes[lang][q.get('t')] ? q.get('t') : 'evolution'];
+        var stage = function (g) {{ g = Math.min(14, Math.max(1, parseInt(g, 10) || 0)); return th.stages[g - 1] || ''; }};
+        var pts = function (v) {{ return fill(S.points, {{ score: num(v) }}); }};
+        set('head', n ? fill(S.head, {{ name: n }}) : S.headAnon);
+        set('mode', gameName + ' · ' + th.name);
+        set('score', pts(s));
+        set('other', [q.get('g') ? fill(S.reached, {{ stage: stage(q.get('g')) }}) : '',
+          /^\d{{1,7}}$/.test(s2 || '') ? fill(S.reply, {{ name: n2 || S.friend, score: pts(s2) }}) : ''].filter(Boolean).join(' · '));
+        set('how', S.beat + ' ' + fill(S.how, {{ title: S.title }}) + ' ' + S.rules);
+        shown = true;
+      }}
+      if (shown) {{
         set('codeLabel', S.code);
         set('num', m);
-        set('how', S.beat + ' ' + fill(S.how, {{ title: S.title, join: S.join }}));
-        var k = q.get('k') || '';
-        var frag = 'm=' + m + '&s=' + s + (n ? '&n=' + encodeURIComponent(n) : '') +
-          (okScore(s2) ? '&s2=' + s2 + (n2 ? '&n2=' + encodeURIComponent(n2) : '') : '') +
-          (/^[0-9a-z]{{1,4}}$/i.test(k) ? '&k=' + k : '');
-        set('open', S.open).href = D.scheme + '#' + frag;
+        if (D.scheme) set('open', S.open).href = D.scheme + location.hash.replace(/[^\w#&=%.~-]/g, '');
       }} else {{
         set('head', gameName);
         set('mode', S.title);
