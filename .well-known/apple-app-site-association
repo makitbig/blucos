@@ -38,6 +38,25 @@
           "/go/evolution2048/c",
           "/go/evolution2048/c/*"
         ]
+      },
+      {
+        "appIDs": [
+          "DQGK6VANKP.com.blucos.starfall"
+        ],
+        "components": [
+          {
+            "/": "/go/starfall/c",
+            "comment": "Starfall challenge link"
+          },
+          {
+            "/": "/go/starfall/c/*"
+          }
+        ],
+        "appID": "DQGK6VANKP.com.blucos.starfall",
+        "paths": [
+          "/go/starfall/c",
+          "/go/starfall/c/*"
+        ]
       }
     ]
   }

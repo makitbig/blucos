@@ -22,5 +22,17 @@
         "59:78:DE:F6:58:84:B7:BC:A2:56:A7:1D:B5:05:D3:7A:6E:92:B3:0C:7D:C0:BA:2E:E7:1A:4D:A0:26:53:DE:BD"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.blucos.starfall",
+      "sha256_cert_fingerprints": [
+        "50:15:2C:68:C8:3A:EB:59:B9:74:1D:E2:1B:4D:49:09:88:D6:59:64:8A:DC:D1:58:C1:15:F1:6F:9C:4E:F9:24"
+      ]
+    }
   }
 ]

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Starfall: Star Match Puzzle · Blucos Studio</title>
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blucos.studio/go/starfall/c">
+  <meta property="og:title" content="Starfall: Star Match Puzzle">
+  <meta property="og:description" content="Can you beat it?">
+  <meta property="og:image" content="https://blucos.studio/assets/og/starfall.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1240">
+  <link rel="icon" href="../../../assets/favicon.png">
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <style>
+    .vs-score { margin: 6px 0 2px; font-size: 30px; font-weight: 800; color: var(--gold); }
+    .vs-other { margin: 0 0 4px; opacity: 0.85; }
+    .vs-code { margin: 18px 0 0; font-size: 13px; letter-spacing: 0.04em; opacity: 0.8; }
+    .vs-num { margin: 2px 0 10px; font-size: 44px; font-weight: 800; letter-spacing: 0.12em; }
+    .vs-how { margin: 0 0 16px; font-size: 15px; line-height: 1.5; }
+    .vs-open { position: relative; z-index: 4; display: inline-block; margin: 0 0 12px; padding: 11px 22px; border-radius: 999px; font-weight: 800; text-decoration: none; color: #20160a; background: var(--gold); }
+  </style>
+</head>
+<body>
+  <main class="go">
+    <a class="logo go-logo" href="../../../"><img src="../../../assets/art/logo-white.png" alt="Blucos Studio" width="180" height="30"></a>
+    <section class="ghero" style="--c1:#8a6cf0;--c2:#2a1c78">
+      <img class="gbanner" src="../../../assets/art/banner-starfall.webp" alt="" width="640" height="320">
+      <div class="ginfo">
+        <img class="gicon" src="../../../icons/starfall.png" alt="" width="112" height="112">
+        <h1 id="head">Starfall: Star Match Puzzle</h1>
+        <p class="tag" id="mode"></p>
+        <p class="vs-score" id="score" hidden></p>
+        <p class="vs-other" id="other" hidden></p>
+        <p class="vs-code" id="codeLabel" hidden></p>
+        <p class="vs-num" id="num" hidden></p>
+        <p class="vs-how" id="how" hidden></p>
+        <div><a class="vs-open" id="open" href="#" hidden></a></div>
+        <div class="actions" id="stores"><span class="soon">Coming soon</span></div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var D = {"kind": "score", "s": {"en": {"head": "{name} challenges you", "headAnon": "A friend challenges you", "open": "Open in the app", "friend": "A friend", "title": "Play together", "join": "Enter a match number", "code": "Match number", "endless": "Endless match", "race": "Two-minute race", "points": "{score} points", "beat": "Can you beat it?", "how": "After installing, tap Play together › {join} and type this number. You get the very same pieces.", "reply": "{name}: {score}"}, "ko": {"head": "{name}님의 도전장", "headAnon": "친구의 도전장", "open": "앱으로 열기", "friend": "친구", "title": "같이 하기", "join": "매치 번호 넣기", "code": "매치 번호", "endless": "무한 대결", "race": "2분 레이스", "points": "{score}점", "beat": "이겨 보세요!", "how": "앱을 설치한 뒤 같이 하기 › {join}에서 이 번호를 넣으세요. 똑같은 조각이 나와요.", "reply": "{name}: {score}"}, "ja": {"head": "{name}さんからの挑戦状", "headAnon": "友だちからの挑戦状", "open": "アプリで開く", "friend": "友だち", "title": "いっしょにあそぶ", "join": "マッチ番号を入れる", "code": "マッチ番号", "endless": "エンドレス対決", "race": "2分レース", "points": "{score}点", "beat": "勝てるかな？", "how": "インストールしたら「いっしょにあそぶ」›「{join}」でこの番号を入れてください。同じピースが出ます。", "reply": "{name}：{score}"}, "zh-Hans": {"head": "{name}向你发起挑战", "headAnon": "朋友向你发起挑战", "open": "在应用中打开", "friend": "朋友", "title": "一起玩", "join": "输入对战号码", "code": "对战号码", "endless": "无尽对决", "race": "2分钟竞速", "points": "{score} 分", "beat": "你能赢吗？", "how": "安装后，点“一起玩”›“{join}”，输入这个号码。会出现完全一样的方块。", "reply": "{name}：{score}"}, "zh-Hant": {"head": "{name}向你發起挑戰", "headAnon": "朋友向你發起挑戰", "open": "在應用程式中開啟", "friend": "朋友", "title": "一起玩", "join": "輸入對戰號碼", "code": "對戰號碼", "endless": "無盡對決", "race": "2分鐘競速", "points": "{score} 分", "beat": "你能贏嗎？", "how": "安裝後，點「一起玩」›「{join}」，輸入這個號碼。會出現完全一樣的方塊。", "reply": "{name}：{score}"}, "de": {"head": "{name} fordert dich heraus", "headAnon": "Ein Freund fordert dich heraus", "open": "In der App öffnen", "friend": "Ein Freund", "title": "Zusammen spielen", "join": "Spielnummer eingeben", "code": "Spielnummer", "endless": "Endlos-Duell", "race": "Zwei-Minuten-Rennen", "points": "{score} Punkte", "beat": "Schaffst du mehr?", "how": "Nach der Installation: Zusammen spielen › {join} und diese Nummer eintippen. Du bekommst genau dieselben Steine.", "reply": "{name}: {score}"}, "es": {"head": "{name} te reta", "headAnon": "Un amigo te reta", "open": "Abrir en la app", "friend": "Un amigo", "title": "Jugar juntos", "join": "Poner un número de partida", "code": "Número de partida", "endless": "Duelo infinito", "race": "Carrera de 2 minutos", "points": "{score} puntos", "beat": "¿Puedes superarlo?", "how": "Después de instalarla, toca Jugar juntos › {join} y escribe este número. Tendrás las mismas piezas.", "reply": "{name}: {score}"}, "fr": {"head": "{name} te défie", "headAnon": "Un ami te défie", "open": "Ouvrir dans l’app", "friend": "Un ami", "title": "Jouer ensemble", "join": "Entrer un numéro de partie", "code": "Numéro de partie", "endless": "Duel sans fin", "race": "Course de 2 minutes", "points": "{score} points", "beat": "Tu peux faire mieux ?", "how": "Après l’installation, touche Jouer ensemble › {join} et tape ce numéro. Tu auras exactement les mêmes étoiles.", "reply": "{name} : {score}"}, "it": {"head": "{name} ti sfida", "headAnon": "Un amico ti sfida", "open": "Apri nell’app", "friend": "Un amico", "title": "Gioca insieme", "join": "Inserisci un numero di partita", "code": "Numero di partita", "endless": "Sfida infinita", "race": "Gara di 2 minuti", "points": "{score} punti", "beat": "Riesci a batterlo?", "how": "Dopo l’installazione, tocca Gioca insieme › {join} e scrivi questo numero. Avrai gli stessi pezzi.", "reply": "{name}: {score}"}, "pt": {"head": "{name} desafia você", "headAnon": "Um amigo desafia você", "open": "Abrir no app", "friend": "Um amigo", "title": "Jogar juntos", "join": "Colocar um número de partida", "code": "Número da partida", "endless": "Duelo sem fim", "race": "Corrida de 2 minutos", "points": "{score} pontos", "beat": "Consegue superar?", "how": "Depois de instalar, toque em Jogar juntos › {join} e digite este número. Você recebe as mesmas peças.", "reply": "{name}: {score}"}}, "names": {"en": "Starfall: Star Match Puzzle", "ko": "별빛 낙하: 별자리 퍼즐", "ja": "Starfall: Star Match Puzzle", "zh-Hans": "Starfall: Star Match Puzzle", "zh-Hant": "Starfall: Star Match Puzzle", "de": "Starfall: Star Match Puzzle", "es": "Starfall: Star Match Puzzle", "fr": "Starfall: Star Match Puzzle", "it": "Starfall: Star Match Puzzle", "pt": "Starfall: Star Match Puzzle"}, "scheme": "starfall://c", "stores": {"en": "<span class=\"soon\">Coming soon<\/span>", "ko": "<span class=\"soon\">곧 출시<\/span>"}, "themes": {}};
+      var LANGS = Object.keys(D.s), lang = 'en';
+      var tags = navigator.languages || [navigator.language || 'en'];
+      for (var i = 0; i < tags.length; i++) {
+        var t = String(tags[i] || '').toLowerCase(), base = t.split(/[-_]/)[0], hit = null;
+        if (base === 'zh') hit = /hant|-tw|-hk|-mo/.test(t) ? 'zh-Hant' : 'zh-Hans';
+        else if (LANGS.indexOf(base) >= 0) hit = base;
+        if (hit) { lang = hit; break; }
+      }
+      var S = D.s[lang];
+      var fill = function (str, o) { return str.replace(/\{(\w+)\}/g, function (_, k) { return o[k] != null ? o[k] : ''; }); };
+      var set = function (id, text) { var el = document.getElementById(id); el.textContent = text; el.hidden = !text; return el; };
+      var clean = function (v) { return Array.from(String(v || '').replace(/[\u0000-\u001f\u007f<>]/g, '').trim()).slice(0, 8).join(''); };
+      var okScore = function (v) { return /^(\d{1,6}|[cf]\d{1,3})$/.test(v || ''); };
+      var num = function (n) { return Number(n).toLocaleString(lang); };
+      var score = function (v) {
+        if (v[0] === 'c') return fill(S.rClear, { n: num(v.slice(1)) });
+        if (v[0] === 'f') return fill(S.rFail, { n: num(v.slice(1)) });
+        return fill(S.rTime, { n: num(v) });
+      };
+      document.documentElement.lang = lang;
+      if (lang === 'ko') document.getElementById('stores').innerHTML = D.stores.ko;
+      var gameName = D.names[lang] || D.names.en;
+      document.title = gameName + ' · Blucos Studio';
+      var q = new URLSearchParams((location.hash || '').replace(/^#/, '') || location.search.replace(/^\?/, ''));
+      var m = q.get('m'), s = q.get('s'), s2 = q.get('s2'), n = clean(q.get('n')), n2 = clean(q.get('n2'));
+      var shown = false;
+      if (D.kind === 'petal' && /^\d{4}$/.test(m || '') && okScore(s)) {
+        // Petal Garden: m odd = two-minute race (s = petals), m even = same bed (s = cN cleared / fN not)
+        set('head', n ? fill(S.head, { name: n }) : S.headAnon);
+        var clearMode = /^[cf]/.test(s) || Number(m) % 2 === 0;
+        set('mode', gameName + ' · ' + (clearMode ? S.clear : S.time));
+        set('score', score(s));
+        if (okScore(s2)) set('other', fill(S.reply, { name: n2 || S.friend, score: score(s2) }));
+        set('how', S.beat + ' ' + fill(S.how, { title: S.title, join: S.join }));
+        shown = true;
+      }
+      if (D.kind === 'evo' && /^\d{4}$/.test(m || '') && /^\d{1,7}$/.test(s || '')) {
+        // Evolution 2048: s score, g top stage 1-14, t theme id (Evolution when left out or unknown)
+        var th = D.themes[lang][D.themes[lang][q.get('t')] ? q.get('t') : 'evolution'];
+        var stage = function (g) { g = Math.min(14, Math.max(1, parseInt(g, 10) || 0)); return th.stages[g - 1] || ''; };
+        var pts = function (v) { return fill(S.points, { score: num(v) }); };
+        set('head', n ? fill(S.head, { name: n }) : S.headAnon);
+        set('mode', gameName + ' · ' + th.name);
+        set('score', pts(s));
+        set('other', [q.get('g') ? fill(S.reached, { stage: stage(q.get('g')) }) : '',
+          /^\d{1,7}$/.test(s2 || '') ? fill(S.reply, { name: n2 || S.friend, score: pts(s2) }) : ''].filter(Boolean).join(' · '));
+        set('how', S.beat + ' ' + fill(S.how, { title: S.title }) + ' ' + S.rules);
+        shown = true;
+      }
+      if (D.kind === 'score' && /^\d{4}$/.test(m || '') && /^\d{1,8}$/.test(s || '')) {
+        // Starfall: m odd = two-minute race, m even = endless match; s is the score in both
+        var pts = function (v) { return fill(S.points, { score: num(v) }); };
+        set('head', n ? fill(S.head, { name: n }) : S.headAnon);
+        set('mode', gameName + ' · ' + (Number(m) % 2 ? S.race : S.endless));
+        set('score', pts(s));
+        if (/^\d{1,8}$/.test(s2 || '')) set('other', fill(S.reply, { name: n2 || S.friend, score: pts(s2) }));
+        set('how', S.beat + ' ' + fill(S.how, { join: S.join }));
+        shown = true;
+      }
+      if (shown) {
+        set('codeLabel', S.code);
+        set('num', m);
+        if (D.scheme) set('open', S.open).href = D.scheme + location.hash.replace(/[^\w#&=%.~-]/g, '');
+      } else {
+        set('head', gameName);
+        set('mode', S.title);
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -495,6 +495,16 @@ def challenge_pages():
         set('how', S.beat + ' ' + fill(S.how, {{ title: S.title }}) + ' ' + S.rules);
         shown = true;
       }}
+      if (D.kind === 'score' && /^\d{{4}}$/.test(m || '') && /^\d{{1,8}}$/.test(s || '')) {{
+        // Starfall: m odd = two-minute race, m even = endless match; s is the score in both
+        var pts = function (v) {{ return fill(S.points, {{ score: num(v) }}); }};
+        set('head', n ? fill(S.head, {{ name: n }}) : S.headAnon);
+        set('mode', gameName + ' · ' + (Number(m) % 2 ? S.race : S.endless));
+        set('score', pts(s));
+        if (/^\d{{1,8}}$/.test(s2 || '')) set('other', fill(S.reply, {{ name: n2 || S.friend, score: pts(s2) }}));
+        set('how', S.beat + ' ' + fill(S.how, {{ join: S.join }}));
+        shown = true;
+      }}
       if (shown) {{
         set('codeLabel', S.code);
         set('num', m);
