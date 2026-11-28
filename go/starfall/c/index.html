@@ -68,8 +68,9 @@
       var m = q.get('m'), s = q.get('s'), s2 = q.get('s2'), n = clean(q.get('n')), n2 = clean(q.get('n2'));
       var shown = false;
       if (D.kind === 'petal' && /^\d{4}$/.test(m || '') && okScore(s)) {
-        // Petal Garden: one mode, the two-minute race; s = petals
-        set('head', n ? fill(S.head, { name: n }) : S.headAnon);
+        // Petal Garden: one mode, the two-minute race; s = petals. A reply (s2) is "<n> sent back".
+        var rep = okScore(s2);
+        set('head', n ? fill(rep ? S.headReply : S.head, { name: n }) : (rep ? S.headReplyAnon : S.headAnon));
         set('mode', gameName + ' · ' + S.time);
         set('score', score(s));
         if (okScore(s2)) set('other', fill(S.reply, { name: n2 || S.friend, score: score(s2) }));
