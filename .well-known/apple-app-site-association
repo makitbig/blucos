@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["DQGK6VANKP.com.blucos.petalgarden"],
+        "components": [
+          { "/": "/go/petalgarden/c", "comment": "Petal Garden challenge link" },
+          { "/": "/go/petalgarden/c/*" }
+        ],
+        "appID": "DQGK6VANKP.com.blucos.petalgarden",
+        "paths": ["/go/petalgarden/c", "/go/petalgarden/c/*"]
+      }
+    ]
+  }
+}

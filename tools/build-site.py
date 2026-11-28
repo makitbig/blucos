@@ -374,6 +374,129 @@ def go_pages():
     print(f'go/: {", ".join(g["id"] for g in GAMES if not g.get("hidden"))}')
 
 
+def challenge_pages():
+    """go/<id>/c/: the page a challenge link opens on a phone without the game (with the game, the link opens the
+    app). The link is go/<id>/c#m=<match>&s=<score>&n=<name>[&s2=..&n2=..]&k=<check>: everything is in the
+    fragment, which the browser never sends to the server. Words come from site/games/<id>.json "challenge"
+    in the 10 game languages; the page picks the phone's language. Text is set with textContent only, since
+    the name is typed by a player. No redirect to the store here, unlike go/<id>/."""
+    t_en = STR['en']
+    for g in GAMES:
+        f = ROOT / 'site' / 'games' / f"{g['id']}.json"
+        if g.get('hidden') or not f.is_file():
+            continue
+        c = json.loads(f.read_text()).get('challenge')
+        if not c:
+            continue
+        d = ROOT / 'go' / g['id'] / 'c'
+        d.mkdir(parents=True, exist_ok=True)
+        a = art(g)
+        og = f"assets/og/{g['id']}.png" if (ROOT / 'assets' / 'og' / f"{g['id']}.png").is_file() else g['icon']
+        c1, c2 = g.get('frame', ['#5ec8ff', '#124ed2'])
+        name_en = pick(g['name'], 'en')
+        banner = f'<img class="gbanner" src="../../../assets/art/{e(a["banner"])}" alt="" width="640" height="320">' if a.get('banner') else '<div class="gbanner"></div>'
+        names = {l: (g['name'].get(l) if isinstance(g['name'], dict) else None) or name_en for l in c['strings']}
+        shops = {'en': stores(g, t_en), 'ko': stores(g, STR['ko'])}   # built here, so trusted HTML
+        data = json.dumps({'s': c['strings'], 'names': names, 'scheme': c['scheme'], 'stores': shops}, ensure_ascii=False).replace('</', '<\\/')
+        html = rf'''<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{e(name_en)} · Blucos Studio</title>
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{BASE_URL}go/{g['id']}/c">
+  <meta property="og:title" content="{e(name_en)}">
+  <meta property="og:description" content="{e(c['strings']['en']['beat'])}">
+  <meta property="og:image" content="{BASE_URL}{og}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1240">
+  <link rel="icon" href="../../../assets/favicon.png">
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <style>
+    .vs-score {{ margin: 6px 0 2px; font-size: 30px; font-weight: 800; color: var(--gold); }}
+    .vs-other {{ margin: 0 0 4px; opacity: 0.85; }}
+    .vs-code {{ margin: 18px 0 0; font-size: 13px; letter-spacing: 0.04em; opacity: 0.8; }}
+    .vs-num {{ margin: 2px 0 10px; font-size: 44px; font-weight: 800; letter-spacing: 0.12em; }}
+    .vs-how {{ margin: 0 0 16px; font-size: 15px; line-height: 1.5; }}
+    .vs-open {{ position: relative; z-index: 4; display: inline-block; margin: 0 0 12px; padding: 11px 22px; border-radius: 999px; font-weight: 800; text-decoration: none; color: #20160a; background: var(--gold); }}
+  </style>
+</head>
+<body>
+  <main class="go">
+    <a class="logo go-logo" href="../../../"><img src="../../../assets/art/logo-white.png" alt="Blucos Studio" width="180" height="30"></a>
+    <section class="ghero" style="--c1:{c1};--c2:{c2}">
+      {banner}
+      <div class="ginfo">
+        <img class="gicon" src="../../../{e(g['icon'])}" alt="" width="112" height="112">
+        <h1 id="head">{e(name_en)}</h1>
+        <p class="tag" id="mode"></p>
+        <p class="vs-score" id="score" hidden></p>
+        <p class="vs-other" id="other" hidden></p>
+        <p class="vs-code" id="codeLabel" hidden></p>
+        <p class="vs-num" id="num" hidden></p>
+        <p class="vs-how" id="how" hidden></p>
+        <div><a class="vs-open" id="open" href="{e(c['scheme'])}" hidden></a></div>
+        <div class="actions" id="stores">{stores(g, t_en)}</div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {{
+      var D = {data};
+      var LANGS = Object.keys(D.s), lang = 'en';
+      var tags = navigator.languages || [navigator.language || 'en'];
+      for (var i = 0; i < tags.length; i++) {{
+        var t = String(tags[i] || '').toLowerCase(), base = t.split(/[-_]/)[0], hit = null;
+        if (base === 'zh') hit = /hant|-tw|-hk|-mo/.test(t) ? 'zh-Hant' : 'zh-Hans';
+        else if (LANGS.indexOf(base) >= 0) hit = base;
+        if (hit) {{ lang = hit; break; }}
+      }}
+      var S = D.s[lang];
+      var fill = function (str, o) {{ return str.replace(/\{{(\w+)\}}/g, function (_, k) {{ return o[k] != null ? o[k] : ''; }}); }};
+      var set = function (id, text) {{ var el = document.getElementById(id); el.textContent = text; el.hidden = !text; return el; }};
+      var clean = function (v) {{ return Array.from(String(v || '').replace(/[\u0000-\u001f\u007f<>]/g, '').trim()).slice(0, 8).join(''); }};
+      var okScore = function (v) {{ return /^(\d{{1,6}}|[cf]\d{{1,3}})$/.test(v || ''); }};
+      var num = function (n) {{ return Number(n).toLocaleString(lang); }};
+      var score = function (v) {{
+        if (v[0] === 'c') return fill(S.rClear, {{ n: num(v.slice(1)) }});
+        if (v[0] === 'f') return fill(S.rFail, {{ n: num(v.slice(1)) }});
+        return fill(S.rTime, {{ n: num(v) }});
+      }};
+      document.documentElement.lang = lang;
+      if (lang === 'ko') document.getElementById('stores').innerHTML = D.stores.ko;
+      var gameName = D.names[lang] || D.names.en;
+      document.title = gameName + ' · Blucos Studio';
+      var q = new URLSearchParams((location.hash || '').replace(/^#/, '') || location.search.replace(/^\?/, ''));
+      var m = q.get('m'), s = q.get('s'), s2 = q.get('s2'), n = clean(q.get('n')), n2 = clean(q.get('n2'));
+      if (/^\d{{4}}$/.test(m || '') && okScore(s)) {{
+        set('head', fill(S.head, {{ name: n || S.friend }}));
+        var clearMode = /^[cf]/.test(s) || Number(m) % 2 === 0;
+        set('mode', gameName + ' · ' + (clearMode ? S.clear : S.time));
+        set('score', score(s));
+        if (okScore(s2)) set('other', fill(S.reply, {{ name: n2 || S.friend, score: score(s2) }}));
+        set('codeLabel', S.code);
+        set('num', m);
+        set('how', S.beat + ' ' + fill(S.how, {{ title: S.title, join: S.join }}));
+        var k = q.get('k') || '';
+        var frag = 'm=' + m + '&s=' + s + (n ? '&n=' + encodeURIComponent(n) : '') +
+          (okScore(s2) ? '&s2=' + s2 + (n2 ? '&n2=' + encodeURIComponent(n2) : '') : '') +
+          (/^[0-9a-z]{{1,4}}$/i.test(k) ? '&k=' + k : '');
+        set('open', S.open).href = D.scheme + '#' + frag;
+      }} else {{
+        set('head', gameName);
+        set('mode', S.title);
+      }}
+    }})();
+  </script>
+</body>
+</html>
+'''
+        (d / 'index.html').write_text(html)
+        print(f'go/{g["id"]}/c/')
+
+
 def doc_pages():
     """games/<id>/<file>.html from site/docs/<id>/<file>.html: each game's help (index, ko, ja, ...) and privacy
     (privacy, privacy-ko, ...) pages in the site's look, at the same file names the games' old sites used, so
@@ -541,4 +664,5 @@ if __name__ == '__main__':
             to = to or './'
             f.write_text(f'<!doctype html>\n<meta charset="utf-8">\n<title>Blucos Studio</title>\n<link rel="canonical" href="https://blucos.studio/{"" if rel == "index.html" else rel}">\n<meta name="robots" content="noindex">\n<meta http-equiv="refresh" content="0; url={to}">\n<a href="{to}">Blucos Games</a>\n')
     go_pages()
+    challenge_pages()
     doc_pages()

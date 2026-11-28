@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Petal Garden · Blucos Studio</title>
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://blucos.studio/go/petalgarden/c">
+  <meta property="og:title" content="Petal Garden">
+  <meta property="og:description" content="Can you beat it?">
+  <meta property="og:image" content="https://blucos.studio/assets/og/petalgarden.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1240">
+  <link rel="icon" href="../../../assets/favicon.png">
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <style>
+    .vs-score { margin: 6px 0 2px; font-size: 30px; font-weight: 800; color: var(--gold); }
+    .vs-other { margin: 0 0 4px; opacity: 0.85; }
+    .vs-code { margin: 18px 0 0; font-size: 13px; letter-spacing: 0.04em; opacity: 0.8; }
+    .vs-num { margin: 2px 0 10px; font-size: 44px; font-weight: 800; letter-spacing: 0.12em; }
+    .vs-how { margin: 0 0 16px; font-size: 15px; line-height: 1.5; }
+    .vs-open { position: relative; z-index: 4; display: inline-block; margin: 0 0 12px; padding: 11px 22px; border-radius: 999px; font-weight: 800; text-decoration: none; color: #20160a; background: var(--gold); }
+  </style>
+</head>
+<body>
+  <main class="go">
+    <a class="logo go-logo" href="../../../"><img src="../../../assets/art/logo-white.png" alt="Blucos Studio" width="180" height="30"></a>
+    <section class="ghero" style="--c1:#ff8ab8;--c2:#4a2470">
+      <img class="gbanner" src="../../../assets/art/banner-petalgarden.webp" alt="" width="640" height="320">
+      <div class="ginfo">
+        <img class="gicon" src="../../../icons/petalgarden.png" alt="" width="112" height="112">
+        <h1 id="head">Petal Garden</h1>
+        <p class="tag" id="mode"></p>
+        <p class="vs-score" id="score" hidden></p>
+        <p class="vs-other" id="other" hidden></p>
+        <p class="vs-code" id="codeLabel" hidden></p>
+        <p class="vs-num" id="num" hidden></p>
+        <p class="vs-how" id="how" hidden></p>
+        <div><a class="vs-open" id="open" href="petalgarden://c" hidden></a></div>
+        <div class="actions" id="stores"><span class="soon">Coming soon</span></div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var D = {"s": {"en": {"head": "{name}'s challenge", "friend": "A friend", "beat": "Can you beat it?", "reply": "{name}: {score}", "get": "Get the app", "open": "Open in the app", "how": "After installing, open {title} → {join} and enter this number.", "title": "Play together", "join": "Join with a number", "clear": "Same bed", "time": "Two-minute race", "code": "Match number", "rClear": "{n} moves left", "rFail": "{n} still to go", "rTime": "{n} petals"}, "ko": {"head": "{name}님의 도전", "friend": "친구", "beat": "이겨 보세요!", "reply": "{name}: {score}", "get": "앱 받기", "open": "앱으로 열기", "how": "앱을 설치한 뒤 {title} → {join}에서 이 번호를 넣으세요.", "title": "친구와 겨루기", "join": "번호로 참여하기", "clear": "같은 화단 깨기", "time": "2분 꽃잎 모으기", "code": "대결 번호", "rClear": "남은 횟수 {n}", "rFail": "{n}개 남았어요", "rTime": "꽃잎 {n}개"}, "ja": {"head": "{name}さんからの挑戦", "friend": "友だち", "beat": "勝てるかな？", "reply": "{name}：{score}", "get": "アプリを入手", "open": "アプリで開く", "how": "インストールしたら「{title}」→「{join}」でこの番号を入れてください。", "title": "みんなで対戦", "join": "番号で参加する", "clear": "同じ花壇をクリア", "time": "2分で花びら集め", "code": "対戦番号", "rClear": "残り {n} 手", "rFail": "あと {n} 個", "rTime": "花びら {n} 個"}, "zh-Hans": {"head": "{name}的挑战", "friend": "朋友", "beat": "来挑战吧！", "reply": "{name}：{score}", "get": "获取应用", "open": "在应用中打开", "how": "安装后，打开“{title}”→“{join}”，输入这个号码。", "title": "和朋友比赛", "join": "输入号码加入", "clear": "同一花坛", "time": "2分钟收集花瓣", "code": "比赛号码", "rClear": "剩余 {n} 步", "rFail": "还差 {n} 个", "rTime": "花瓣 {n} 个"}, "zh-Hant": {"head": "{name}的挑戰", "friend": "朋友", "beat": "來挑戰吧！", "reply": "{name}：{score}", "get": "取得應用程式", "open": "在應用程式中開啟", "how": "安裝後，打開「{title}」→「{join}」，輸入這個號碼。", "title": "和朋友比賽", "join": "輸入號碼加入", "clear": "同一花壇", "time": "2分鐘收集花瓣", "code": "比賽號碼", "rClear": "剩餘 {n} 步", "rFail": "還差 {n} 個", "rTime": "花瓣 {n} 個"}, "es": {"head": "El reto de {name}", "friend": "Un amigo", "beat": "¿Puedes superarlo?", "reply": "{name}: {score}", "get": "Descargar la app", "open": "Abrir en la app", "how": "Después de instalarla, abre {title} → {join} y escribe este número.", "title": "Jugar juntos", "join": "Unirse con un número", "clear": "Mismo parterre", "time": "Carrera de dos minutos", "code": "Número de partida", "rClear": "{n} jugadas de sobra", "rFail": "Faltan {n}", "rTime": "{n} pétalos"}, "pt": {"head": "O desafio de {name}", "friend": "Um amigo", "beat": "Consegue superar?", "reply": "{name}: {score}", "get": "Baixar o app", "open": "Abrir no app", "how": "Depois de instalar, abra {title} → {join} e digite este número.", "title": "Jogar juntos", "join": "Entrar com um número", "clear": "Mesmo canteiro", "time": "Corrida de dois minutos", "code": "Número da partida", "rClear": "Sobraram {n} jogadas", "rFail": "Faltam {n}", "rTime": "{n} pétalas"}, "fr": {"head": "Le défi de {name}", "friend": "Un ami", "beat": "Saurez-vous faire mieux ?", "reply": "{name} : {score}", "get": "Obtenir l’app", "open": "Ouvrir dans l’app", "how": "Après l’installation, ouvrez {title} → {join} et saisissez ce numéro.", "title": "Jouer ensemble", "join": "Rejoindre avec un numéro", "clear": "Même parterre", "time": "Course de deux minutes", "code": "Numéro de partie", "rClear": "{n} coups restants", "rFail": "Encore {n}", "rTime": "{n} pétales"}, "de": {"head": "Die Herausforderung von {name}", "friend": "Ein Freund", "beat": "Schaffst du mehr?", "reply": "{name}: {score}", "get": "App holen", "open": "In der App öffnen", "how": "Nach der Installation {title} → {join} öffnen und diese Nummer eingeben.", "title": "Gemeinsam spielen", "join": "Mit Nummer beitreten", "clear": "Gleiches Beet", "time": "Zwei-Minuten-Rennen", "code": "Spielnummer", "rClear": "{n} Züge übrig", "rFail": "Noch {n}", "rTime": "{n} Blütenblätter"}, "it": {"head": "La sfida di {name}", "friend": "Un amico", "beat": "Riesci a batterla?", "reply": "{name}: {score}", "get": "Scarica l’app", "open": "Apri nell’app", "how": "Dopo l’installazione, apri {title} → {join} e inserisci questo numero.", "title": "Gioca insieme", "join": "Entra con un numero", "clear": "Stessa aiuola", "time": "Gara di due minuti", "code": "Numero di partita", "rClear": "{n} mosse avanzate", "rFail": "Ne mancano {n}", "rTime": "{n} petali"}}, "names": {"en": "Petal Garden", "ko": "꽃잎 정원", "ja": "Petal Garden", "zh-Hans": "Petal Garden", "zh-Hant": "Petal Garden", "es": "Petal Garden", "pt": "Petal Garden", "fr": "Petal Garden", "de": "Petal Garden", "it": "Petal Garden"}, "scheme": "petalgarden://c", "stores": {"en": "<span class=\"soon\">Coming soon<\/span>", "ko": "<span class=\"soon\">곧 출시<\/span>"}};
+      var LANGS = Object.keys(D.s), lang = 'en';
+      var tags = navigator.languages || [navigator.language || 'en'];
+      for (var i = 0; i < tags.length; i++) {
+        var t = String(tags[i] || '').toLowerCase(), base = t.split(/[-_]/)[0], hit = null;
+        if (base === 'zh') hit = /hant|-tw|-hk|-mo/.test(t) ? 'zh-Hant' : 'zh-Hans';
+        else if (LANGS.indexOf(base) >= 0) hit = base;
+        if (hit) { lang = hit; break; }
+      }
+      var S = D.s[lang];
+      var fill = function (str, o) { return str.replace(/\{(\w+)\}/g, function (_, k) { return o[k] != null ? o[k] : ''; }); };
+      var set = function (id, text) { var el = document.getElementById(id); el.textContent = text; el.hidden = !text; return el; };
+      var clean = function (v) { return Array.from(String(v || '').replace(/[\u0000-\u001f\u007f<>]/g, '').trim()).slice(0, 8).join(''); };
+      var okScore = function (v) { return /^(\d{1,6}|[cf]\d{1,3})$/.test(v || ''); };
+      var num = function (n) { return Number(n).toLocaleString(lang); };
+      var score = function (v) {
+        if (v[0] === 'c') return fill(S.rClear, { n: num(v.slice(1)) });
+        if (v[0] === 'f') return fill(S.rFail, { n: num(v.slice(1)) });
+        return fill(S.rTime, { n: num(v) });
+      };
+      document.documentElement.lang = lang;
+      if (lang === 'ko') document.getElementById('stores').innerHTML = D.stores.ko;
+      var gameName = D.names[lang] || D.names.en;
+      document.title = gameName + ' · Blucos Studio';
+      var q = new URLSearchParams((location.hash || '').replace(/^#/, '') || location.search.replace(/^\?/, ''));
+      var m = q.get('m'), s = q.get('s'), s2 = q.get('s2'), n = clean(q.get('n')), n2 = clean(q.get('n2'));
+      if (/^\d{4}$/.test(m || '') && okScore(s)) {
+        set('head', fill(S.head, { name: n || S.friend }));
+        var clearMode = /^[cf]/.test(s) || Number(m) % 2 === 0;
+        set('mode', gameName + ' · ' + (clearMode ? S.clear : S.time));
+        set('score', score(s));
+        if (okScore(s2)) set('other', fill(S.reply, { name: n2 || S.friend, score: score(s2) }));
+        set('codeLabel', S.code);
+        set('num', m);
+        set('how', S.beat + ' ' + fill(S.how, { title: S.title, join: S.join }));
+        var k = q.get('k') || '';
+        var frag = 'm=' + m + '&s=' + s + (n ? '&n=' + encodeURIComponent(n) : '') +
+          (okScore(s2) ? '&s2=' + s2 + (n2 ? '&n2=' + encodeURIComponent(n2) : '') : '') +
+          (/^[0-9a-z]{1,4}$/i.test(k) ? '&k=' + k : '');
+        set('open', S.open).href = D.scheme + '#' + frag;
+      } else {
+        set('head', gameName);
+        set('mode', S.title);
+      }
+    })();
+  </script>
+</body>
+</html>
