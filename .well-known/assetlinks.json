@@ -1,10 +1,26 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.blucos.petalgarden",
-      "sha256_cert_fingerprints": ["90:C7:DF:E6:F4:0B:24:2B:97:E9:F0:C8:02:8B:0B:23:B6:80:C1:59:4C:B1:A2:50:92:D4:E4:83:8F:22:5D:BC"]
+      "sha256_cert_fingerprints": [
+        "90:C7:DF:E6:F4:0B:24:2B:97:E9:F0:C8:02:8B:0B:23:B6:80:C1:59:4C:B1:A2:50:92:D4:E4:83:8F:22:5D:BC"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.blucos.evolution2048",
+      "sha256_cert_fingerprints": [
+        "59:78:DE:F6:58:84:B7:BC:A2:56:A7:1D:B5:05:D3:7A:6E:92:B3:0C:7D:C0:BA:2E:E7:1A:4D:A0:26:53:DE:BD"
+      ]
     }
   }
 ]

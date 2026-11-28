@@ -110,9 +110,11 @@
   "challenge": {
     "_comment": "go/evolution2048/c/: the page a challenge link opens when the app is not installed. head..points and the theme and stage names are the app's own words (evolution-2048 www/i18n*, themes.js, packs.js; vs.from, vs.friend, vs.title, vs.codePh, vs.rules, vs.yourScore). Link: #m=<4 digits>&s=<score>&g=<top stage 1-14>&n=<name>&t=<theme id>&k=<check>, a reply adds s2/g2/n2.",
     "kind": "evo",
+    "scheme": "evolution2048://c",
     "strings": {
       "en": {
         "head": "{name} challenges you",
+        "open": "Open in the app",
         "headAnon": "A friend challenges you",
         "friend": "A friend",
         "title": "Challenge a friend",
@@ -126,6 +128,7 @@
       },
       "ko": {
         "head": "{name}님의 도전장",
+        "open": "앱으로 열기",
         "headAnon": "친구의 도전장",
         "friend": "친구",
         "title": "친구에게 도전",
@@ -139,6 +142,7 @@
       },
       "ja": {
         "head": "{name}さんからの挑戦状",
+        "open": "アプリで開く",
         "headAnon": "友だちからの挑戦状",
         "friend": "友だち",
         "title": "友だちに挑戦",
@@ -152,6 +156,7 @@
       },
       "zh-Hans": {
         "head": "{name}向你发起挑战",
+        "open": "在应用中打开",
         "headAnon": "朋友向你发起挑战",
         "friend": "朋友",
         "title": "挑战好友",
@@ -165,6 +170,7 @@
       },
       "zh-Hant": {
         "head": "{name}向你發起挑戰",
+        "open": "在應用程式中開啟",
         "headAnon": "朋友向你發起挑戰",
         "friend": "朋友",
         "title": "挑戰好友",
@@ -178,6 +184,7 @@
       },
       "es": {
         "head": "{name} te reta",
+        "open": "Abrir en la app",
         "headAnon": "Un amigo te reta",
         "friend": "Un amigo",
         "title": "Reta a un amigo",
@@ -191,6 +198,7 @@
       },
       "pt": {
         "head": "{name} desafia você",
+        "open": "Abrir no app",
         "headAnon": "Um amigo desafia você",
         "friend": "Um amigo",
         "title": "Desafie um amigo",
@@ -204,6 +212,7 @@
       },
       "fr": {
         "head": "{name} te défie",
+        "open": "Ouvrir dans l’app",
         "headAnon": "Un ami te défie",
         "friend": "Un ami",
         "title": "Défier un ami",
@@ -217,6 +226,7 @@
       },
       "de": {
         "head": "{name} fordert dich heraus",
+        "open": "In der App öffnen",
         "headAnon": "Jemand fordert dich heraus",
         "friend": "Jemand",
         "title": "Freunde herausfordern",
@@ -230,6 +240,7 @@
       },
       "it": {
         "head": "{name} ti sfida",
+        "open": "Apri nell’app",
         "headAnon": "Un amico ti sfida",
         "friend": "Un amico",
         "title": "Sfida un amico",
